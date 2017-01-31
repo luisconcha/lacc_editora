@@ -23,8 +23,10 @@ class BookRequest extends FormRequest
      */
     public function rules()
     {
+        $idBoock = ($this->route('book')) ? $this->route('book') : null;
+
         return [
-            'title' => 'required|max:200|unique:books,id,:id',
+            'title' => "required|max:200|unique:books,title,$idBoock",
             'subtitle' => 'required|max:250',
             'price' => 'required|regex:/^\d*(\.\d{2})?$/'
         ];

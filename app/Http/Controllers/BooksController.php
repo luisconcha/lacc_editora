@@ -74,13 +74,11 @@ class BooksController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param BookRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
         if( !( $book = Book::find( $id ) ) ){
             throw new ModelNotFoundException( 'Book not found' );
