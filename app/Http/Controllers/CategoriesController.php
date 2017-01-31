@@ -4,6 +4,7 @@ namespace LACC\Http\Controllers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use LACC\Category;
+use LACC\Http\Requests\CategoryRequest;
 
 class CategoriesController extends Controller
 {
@@ -29,14 +30,11 @@ class CategoriesController extends Controller
 				return view( 'categories.create' );
 		}
 
-		/**
-		 * Store a newly created resource in storage.
-		 *
-		 * @param  \Illuminate\Http\Request $request
-		 *
-		 * @return \Illuminate\Http\Response
-		 */
-		public function store( Request $request )
+        /**
+         * @param CategoryRequest $request
+         * @return \Illuminate\Http\RedirectResponse
+         */
+		public function store( CategoryRequest $request )
 		{
 				$data = $request->all();
 				Category::create( $data );
@@ -72,15 +70,12 @@ class CategoriesController extends Controller
 				return view( 'categories.edit', compact( 'category' ) );
 		}
 
-		/**
-		 * Update the specified resource in storage.
-		 *
-		 * @param  \Illuminate\Http\Request $request
-		 * @param  int                      $id
-		 *
-		 * @return \Illuminate\Http\Response
-		 */
-		public function update( Request $request, $id )
+        /**
+         * @param CategoryRequest $request
+         * @param $id
+         * @return \Illuminate\Http\RedirectResponse
+         */
+		public function update( CategoryRequest $request, $id )
 		{
 				if ( !( $category = Category::find( $id ) ) ) {
 						throw new ModelNotFoundException( 'Category not found.' );

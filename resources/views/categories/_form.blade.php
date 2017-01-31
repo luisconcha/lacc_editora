@@ -1,4 +1,4 @@
-<div class="form-group">
-    {!! Form::label('Name','Name:') !!}
-    {!! Form::text('name', null, ['placeholder'=>'Enter category name:','class'=>'form-control', 'id'=>'name']) !!}
+<div class="form-group {{ $errors->first('name')? ' has-error':'' }}">
+   {!! Form::label('name','Name', ['class' => 'control-label']) !!}
+   {!! Form::text('name', null, ['placeholder'=>'Enter category name','class'=>'form-control', 'id'=>'name']) !!}
 </div>

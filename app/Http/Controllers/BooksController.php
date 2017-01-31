@@ -5,6 +5,7 @@ namespace LACC\Http\Controllers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use LACC\Book;
+use LACC\Http\Requests\BookRequest;
 
 class BooksController extends Controller
 {
@@ -31,12 +32,10 @@ class BooksController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param BookRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
         $data = $request->all();
         Book::create($data);
