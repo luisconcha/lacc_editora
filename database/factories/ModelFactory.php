@@ -20,9 +20,18 @@ $factory->define( LACC\User::class, function ( Faker\Generator $faker ) {
 			'remember_token' => str_random( 10 ),
 		];
 } );
+//
 $factory->define( LACC\Category::class, function ( Faker\Generator $faker ) {
 		return [
 			'name' => ucfirst( $faker->unique()->word ),
 		];
+} );
+//
+$factory->define( LACC\Book::class, function ( Faker\Generator $faker ) {
+    return [
+        'title'    => ucfirst( $faker->unique()->word ),
+        'subtitle' => $faker->text,
+        'price'    => $faker->randomNumber(4)
+    ];
 } );
 

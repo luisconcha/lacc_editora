@@ -9,6 +9,11 @@
 
                 <div class="panel-body">
                     You are logged in!
+
+                    <ul>
+                        <li><a href="{{ route('categories.index') }}">Categories</a></li>
+                        <li><a href="{{ route('books.index') }}">Books</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
