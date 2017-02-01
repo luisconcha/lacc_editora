@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Edit Book
+@endsection
+
 @section('content')
     <div class="container">
         <h1>Edit book: <strong><b>{{ $book->title }}</b></strong></h1>

@@ -6,9 +6,19 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use LACC\Book;
 use LACC\Http\Requests\BookRequest;
+use LACC\User;
 
 class BooksController extends Controller
 {
+    private $with = [ 'author' ];
+
+    protected $user;
+
+    public function __construct(  User $user )
+    {
+        $this->user  = $user;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +26,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Book::query()->paginate(10);
+        $books = Book::query()->with( $this->with )->paginate(10);
 
         return view( 'books.index', compact( 'books' ) );
     }
@@ -28,7 +38,10 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view( 'books.create' );
+        $users = [ '' => '--Select an author--' ];
+        $users += $this->user->orderBy( 'name', 'ASC' )->pluck( 'name','id' )->all();
+
+        return view( 'books.create', compact( 'users' ) );
     }
 
     /**
@@ -70,7 +83,10 @@ class BooksController extends Controller
             throw new ModelNotFoundException( 'Book not found' );
         }
 
-        return view( 'books.edit',compact( 'book' ) );
+        $users = [ '' => '--Select an author--' ];
+        $users += $this->user->orderBy( 'name', 'ASC' )->pluck( 'name','id' )->all();
+
+        return view( 'books.edit',compact( 'book', 'users' ) );
     }
 
     /**
@@ -101,6 +117,7 @@ class BooksController extends Controller
         if ( !( $book = Book::find( $id ) ) ) {
             throw new ModelNotFoundException( 'Book not found.' );
         }
+
         $book->find( $id )->delete();
 
         return redirect()->route( 'books.index' );

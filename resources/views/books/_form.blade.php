@@ -8,6 +8,12 @@
     {!! Form::text('subtitle', null, ['placeholder'=>'Enter the subtitle','class'=>'form-control', 'id'=>'Subtitle']) !!}
 </div>
 
+<div class="form-group {{ $errors->first('author_id')? ' has-error':'' }}">
+    {!! Form::label('Author','Author', ['class' => 'control-label']) !!}
+    {!! Form::select('author_id', $users,null, ['class'=>'form-control']) !!}
+</div>
+
+
 <div class="form-group {{ $errors->first('price')? ' has-error':'' }}">
     {!! Form::label('Price','Price', ['class' => 'control-label']) !!}
     {!! Form::text('price', null, ['placeholder'=>'Enter the price','class'=>'form-control', 'id'=>'price']) !!}

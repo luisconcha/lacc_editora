@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Detail of book
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -10,6 +14,9 @@
 
             <span><b>Subtitle</b></span>
             <p>{{ $book->subtitle }}</p>
+
+            <span><b>Author</b></span>
+            <p>{{ $book->author->name }}</p>
 
             <span><b>Price:</b></span>
             <p> R$ {{ $book->price }}</p>

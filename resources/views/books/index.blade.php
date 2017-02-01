@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    List of Books
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -14,6 +18,7 @@
                     <th>ID</th>
                     <th>Title</th>
                     <th>Price</th>
+                    <th>Author</th>
                     <td>Actions</td>
                 </tr>
                 </thead>
@@ -23,6 +28,7 @@
                         <td>{{ $book->id }}</td>
                         <td>{{ $book->title }}</td>
                         <td>{{ $book->price }}</td>
+                        <td>{{ $book->author->name }}</td>
                         <td>
                             <a href="{{route('books.edit',['id'=>$book->id])}}"
                                class="btn btn-warning btn-outline btn-xs">

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Edit Category
+@endsection
+
 @section('content')
     <div class="container">
         <h1>Edit Category: <strong>{{$category->name}}</strong></h1>

@@ -3,6 +3,7 @@
 namespace LACC\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use LACC\Book;
 
 class BookRequest extends FormRequest
 {
@@ -13,7 +14,16 @@ class BookRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $idUser   = \Auth::user()->id;
+        $idBook   = $this->route('book');
+        $isAuthor = Book::where('id', $idBook)->where('author_id',$idUser)->exists();
+
+        //count($idBook) == 0 NOVO REGISTRO
+        if( $isAuthor || count($idBook) == 0)
+            return true;
+
+        return false;
+
     }
 
     /**
@@ -23,12 +33,12 @@ class BookRequest extends FormRequest
      */
     public function rules()
     {
-        $idBoock = ($this->route('book')) ? $this->route('book') : null;
+        $idBook = ($this->route('book')) ? $this->route('book') : null;
 
         return [
-            'title' => "required|max:200|unique:books,title,$idBoock",
+            'title'    => "required|max:200|unique:books,title,$idBook",
             'subtitle' => 'required|max:250',
-            'price' => 'required|regex:/^\d*(\.\d{2})?$/'
+            'price'    => 'required|regex:/^\d*(\.\d{2})?$/'
         ];
     }
 }
