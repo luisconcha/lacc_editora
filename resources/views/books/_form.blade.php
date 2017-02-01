@@ -13,6 +13,11 @@
     {!! Form::select('author_id', $users,null, ['class'=>'form-control']) !!}
 </div>
 
+<div class="form-group {{ $errors->first('category_id')? ' has-error':'' }}">
+    {!! Form::label('Category','Category', ['class' => 'control-label']) !!}
+    {!! Form::select('category_id', $categories,null, ['class'=>'form-control']) !!}
+</div>
+
 
 <div class="form-group {{ $errors->first('price')? ' has-error':'' }}">
     {!! Form::label('Price','Price', ['class' => 'control-label']) !!}

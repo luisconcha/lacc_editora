@@ -29,10 +29,11 @@ $factory->define( LACC\Category::class, function ( Faker\Generator $faker ) {
 //
 $factory->define( LACC\Book::class, function ( Faker\Generator $faker ) {
     return [
-        'author_id' => $faker->numberBetween( 1,10 ),
-        'title'     => ucfirst( $faker->unique()->word ),
-        'subtitle'  => $faker->text,
-        'price'     => $faker->randomNumber(4)
+        'author_id'   => $faker->numberBetween( 1,10 ),
+        'category_id' => $faker->numberBetween( 1,10 ),
+        'title'       => ucfirst( $faker->unique()->word ),
+        'subtitle'    => $faker->text,
+        'price'       => $faker->randomNumber(4)
     ];
 } );
 

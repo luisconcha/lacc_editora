@@ -5,18 +5,28 @@ namespace LACC\Http\Controllers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use LACC\Book;
+use LACC\Category;
 use LACC\Http\Requests\BookRequest;
 use LACC\User;
 
 class BooksController extends Controller
 {
-    private $with = [ 'author' ];
+    private $with = [ 'author', 'category' ];
 
+    /**
+     * @var User
+     */
     protected $user;
 
-    public function __construct(  User $user )
+    /**
+     * @var Category
+     */
+    protected $category;
+
+    public function __construct(  User $user, Category $category )
     {
-        $this->user  = $user;
+        $this->user     = $user;
+        $this->category = $category;
     }
 
     /**
@@ -38,10 +48,10 @@ class BooksController extends Controller
      */
     public function create()
     {
-        $users = [ '' => '--Select an author--' ];
-        $users += $this->user->orderBy( 'name', 'ASC' )->pluck( 'name','id' )->all();
+        $users      = $this->getListUsers();
+        $categories = $this->getListCategories();
 
-        return view( 'books.create', compact( 'users' ) );
+        return view( 'books.create', compact( 'users', 'categories' ) );
     }
 
     /**
@@ -83,10 +93,10 @@ class BooksController extends Controller
             throw new ModelNotFoundException( 'Book not found' );
         }
 
-        $users = [ '' => '--Select an author--' ];
-        $users += $this->user->orderBy( 'name', 'ASC' )->pluck( 'name','id' )->all();
+        $users      = $this->getListUsers();
+        $categories = $this->getListCategories();
 
-        return view( 'books.edit',compact( 'book', 'users' ) );
+        return view( 'books.edit',compact( 'book', 'users','categories' ) );
     }
 
     /**
@@ -121,5 +131,20 @@ class BooksController extends Controller
         $book->find( $id )->delete();
 
         return redirect()->route( 'books.index' );
+    }
+
+    private function getListCategories()
+    {
+        $categories = [ '' => '--Select an category--' ];
+        $categories += $this->category->orderBy( 'name', 'ASC' )->pluck( 'name','id' )->all();
+
+        return $categories;
+    }
+    private function getListUsers()
+    {
+        $users = [ '' => '--Select an author--' ];
+        $users += $this->user->orderBy( 'name', 'ASC' )->pluck( 'name','id' )->all();
+
+        return $users;
     }
 }

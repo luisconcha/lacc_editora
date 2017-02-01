@@ -16,6 +16,8 @@ class AlterBooksTable extends Migration
         Schema::table('books', function (Blueprint $table) {
             $table->integer( 'author_id' )->unsigned();
             $table->foreign( 'author_id' )->references( 'id' )->on( 'users' );
+            $table->integer( 'category_id' )->unsigned();
+            $table->foreign( 'category_id' )->references( 'id' )->on( 'categories' );
         });
     }
 

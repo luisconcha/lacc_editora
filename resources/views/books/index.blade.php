@@ -19,6 +19,7 @@
                     <th>Title</th>
                     <th>Price</th>
                     <th>Author</th>
+                    <th>Category</th>
                     <td>Actions</td>
                 </tr>
                 </thead>
@@ -29,6 +30,7 @@
                         <td>{{ $book->title }}</td>
                         <td>{{ $book->price }}</td>
                         <td>{{ $book->author->name }}</td>
+                        <td>{{ $book->category->name }}</td>
                         <td>
                             <a href="{{route('books.edit',['id'=>$book->id])}}"
                                class="btn btn-warning btn-outline btn-xs">
