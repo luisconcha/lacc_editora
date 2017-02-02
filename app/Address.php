@@ -12,4 +12,9 @@ class Address extends Model
         'city_id', 'user_id', 'address' ,'district','cep','type_address'
     ];
 
+    public function user()
+    {
+        return $this->hasOne( User::class );
+    }
+
 }

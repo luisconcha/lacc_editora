@@ -60,11 +60,11 @@ $factory->define( LACC\Address::class, function ( Faker\Generator $faker ) {
 
     return [
         'city_id'      => $faker->numberBetween( 1,10 ),
-        'user_id'      => $faker->numberBetween( 1,10 ),
+        'user_id'      => $faker->unique()->numberBetween( 1,10 ),
         'address'      => $faker->address,
         'district'     => $faker->citySuffix,
         'cep'          => str_random( 8 ),
-        'type_address' => $faker->randomElement(array('casa','apartamento','sobrado','chacara')),
+        'type_address' => $faker->numberBetween( 1,5 ),
     ];
 } );
 //

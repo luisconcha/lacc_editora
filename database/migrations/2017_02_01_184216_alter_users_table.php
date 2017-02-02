@@ -16,8 +16,8 @@ class AlterUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('num_cpf');
             $table->string('num_rg');
-            $table->string('avatar');
-            $table->integer('civil_status');
+            $table->string('avatar')->nullable();
+            $table->integer('civil_status')->nullable();
         });
     }
 

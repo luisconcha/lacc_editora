@@ -16,5 +16,10 @@ Route::group( [ 'middleware' => 'auth' ], function () {
         Route::resource( '/books', 'BooksController', [ 'except' => [ 'show' ] ]  );
         Route::get( 'books/{id}', [ 'as' => 'books.destroy', 'uses' => 'BooksController@destroy' ] );
         Route::get( 'books-detail/{id}', [ 'as' => 'books.detail', 'uses' => 'BooksController@detail' ] );
+
+        //Users
+        Route::resource( '/users', 'UsersController', [ 'except' => [ 'show' ] ]  );
+        Route::get( 'users/{id}', [ 'as' => 'users.destroy', 'uses' => 'UsersController@destroy' ] );
+        Route::get( 'users-detail/{id}', [ 'as' => 'users.detail', 'uses' => 'UsersController@detail' ] );
 } );
 
