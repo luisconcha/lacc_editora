@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 				}
 
 				if ( $this->app->singleton( FakerGenerator::class, function (){
-				      return FakerFactory::create( 'pt-BR' );
+				      return FakerFactory::create( 'pt_BR' );
                 } ) );
 		}
 }

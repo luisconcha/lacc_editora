@@ -13,12 +13,11 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define( LACC\User::class, function ( Faker\Generator $faker ) {
 		static $password;
-
 		return [
 			'name'           => $faker->name,
 			'email'          => $faker->unique()->safeEmail,
-            'num_cpf'        => '12345678909',
-            'num_rg'         => $faker->randomNumber( 6 ),
+            'num_cpf'        => $faker->cpf,
+            'num_rg'         => $faker->rg,
             'avatar'         => 'image.jpg',
             'civil_status'   => $faker->numberBetween( 1,5 ),
             'password'       => $password ? : $password = bcrypt( '123456' ),
@@ -58,13 +57,14 @@ $factory->define( LACC\Book::class, function ( Faker\Generator $faker ) {
 
 //
 $factory->define( LACC\Address::class, function ( Faker\Generator $faker ) {
+
     return [
         'city_id'      => $faker->numberBetween( 1,10 ),
         'user_id'      => $faker->numberBetween( 1,10 ),
         'address'      => $faker->address,
         'district'     => $faker->citySuffix,
         'cep'          => str_random( 8 ),
-        'type_address' => 'casa',
+        'type_address' => $faker->randomElement(array('casa','apartamento','sobrado','chacara')),
     ];
 } );
 //
