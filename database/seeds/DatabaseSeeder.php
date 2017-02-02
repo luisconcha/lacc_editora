@@ -12,10 +12,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        //Model::unguard();
+        $this->call(StateTableSeeder::class);
+        $this->call(CityTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(AddressTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
+        $this->call(TelephoneUserTableSeeder::class);
         $this->call(BooksTableSeeder::class);
-        Model::reguard();
+        //Model::reguard();
     }
 }
