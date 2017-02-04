@@ -5,27 +5,42 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use LACC\Models\Category;
 use LACC\Http\Requests\CategoryRequest;
+use LACC\Repositories\CategoryRepository;
+use LACC\Services\CategoryService;
 
 class CategoriesController extends Controller
 {
+    /**
+     * @var CategoryRepository
+     */
+    protected $categoryRepository;
 
     /**
-		 * Display a listing of the resource.
-		 *
-		 * @return \Illuminate\Http\Response
-		 */
+     * @var CategoryService
+     */
+    protected $categoryService;
+
+    protected $urlDefault = 'categories.index';
+
+    public function __construct(CategoryRepository $categoryRepository, CategoryService $categoryService)
+    {
+        $this->categoryRepository = $categoryRepository;
+        $this->categoryService    = $categoryService;
+    }
+
+        /**
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         */
 		public function index()
 		{
-				$categories = Category::query()->paginate( 10 );
+            $categories = $this->categoryRepository->paginate( 15 );
 
-				return view( 'categories.index', compact( 'categories' ) );
+			return view( 'categories.index', compact( 'categories' ) );
 		}
 
-		/**
-		 * Show the form for creating a new resource.
-		 *
-		 * @return \Illuminate\Http\Response
-		 */
+        /**
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         */
 		public function create()
 		{
 				return view( 'categories.create' );
@@ -38,25 +53,20 @@ class CategoriesController extends Controller
 		public function store( CategoryRequest $request )
 		{
 				$data = $request->all();
-				Category::create( $data );
+                $this->categoryRepository->create( $data );
 
                 $request->session()->flash('message', ['type' => 'success','msg'=> "Category '{$data['name']}' successfully registered!"]);
 
                 return redirect()->route( 'categories.index' );
 		}
 
-		/**
-		 * Show the form for editing the specified resource.
-		 *
-		 * @param  int $id
-		 *
-		 * @return \Illuminate\Http\Response
-		 */
+        /**
+         * @param $id
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         */
 		public function edit( $id )
 		{
-				if ( !( $category = Category::find( $id ) ) ) {
-						throw new ModelNotFoundException( 'Category not found.' );
-				}
+                $category = $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id);
 
 				return view( 'categories.edit', compact( 'category' ) );
 		}
@@ -68,15 +78,11 @@ class CategoriesController extends Controller
          */
 		public function update( CategoryRequest $request, $id )
 		{
-				if ( !( $category = Category::find( $id ) ) ) {
-						throw new ModelNotFoundException( 'Category not found.' );
-				}
-				$data = $request->all();
+                $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id);
+				$data     = $request->all();
+                $this->categoryRepository->update( $data, $id );
 
-				$category->fill( $data );
-				$category->save();
-
-                $urlTo = $this->checksTheCurrentUrl( $data['redirect_to'] );
+                $urlTo = $this->categoryService->checksTheCurrentUrl( $data['redirect_to'], $this->urlDefault );
                 $request->session()->flash('message', ['type' => 'success','msg'=> "Category '{$data['name']}' successfully updated!"]);
 
 				return redirect()->to( $urlTo );
@@ -89,25 +95,11 @@ class CategoriesController extends Controller
          */
 		public function destroy( $id, Request $request )
 		{
-				if ( !( $category = Category::find( $id ) ) ) {
-						throw new ModelNotFoundException( 'Category not found.' );
-				}
-
-				$category->find( $id )->delete();
+                $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id);
+				$this->categoryRepository->delete( $id );
 
                 $request->session()->flash('message', ['type' => 'success','msg'=> 'Category deleted successfully!']);
 
                 return redirect()->route( 'categories.index' );
 		}
-
-        /**
-         * @param $currentUrl
-         * @return string
-         */
-		public function checksTheCurrentUrl( $currentUrl )
-        {
-            $urlTo = ( $currentUrl ) ? $currentUrl : route('categories.index');
-
-            return $urlTo;
-        }
 }
