@@ -2,11 +2,9 @@
 
 namespace LACC\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use LACC\Repositories\CityRepository;
 use LACC\Models\City;
-use LACC\Validators\CityValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class CityRepositoryEloquent

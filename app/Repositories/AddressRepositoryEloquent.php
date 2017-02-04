@@ -2,11 +2,9 @@
 
 namespace LACC\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use LACC\Repositories\AddressRepository;
 use LACC\Models\Address;
-use LACC\Validators\AddressValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class AddressRepositoryEloquent

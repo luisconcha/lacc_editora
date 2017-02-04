@@ -2,11 +2,9 @@
 
 namespace LACC\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use LACC\Repositories\CategoryRepository;
 use LACC\Models\Category;
-use LACC\Validators\CategoryValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class CategoryRepositoryEloquent

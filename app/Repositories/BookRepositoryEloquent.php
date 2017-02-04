@@ -2,11 +2,9 @@
 
 namespace LACC\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use LACC\Repositories\BookRepository;
 use LACC\Models\Book;
-use LACC\Validators\BookValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class BookRepositoryEloquent
