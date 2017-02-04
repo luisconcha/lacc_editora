@@ -22,65 +22,54 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+        <?php
+        $navbar = Navbar::withBrand(config('app.name'), url('/home'))->inverse();
+        if( Auth::check() ){
+            $links = Navigation::links( [
+                    [
+                            'link' => route( 'users.index' ),
+                            'title' => 'User'
+                    ],
+                    [
+                            'link' => route( 'categories.index' ),
+                            'title' => 'Category'
+                    ],
+                    [
+                            'link' => route( 'books.index' ),
+                            'title' => 'Book'
+                    ]
+            ] );
+            $logout = Navigation::links([
+                    [
+                            Auth::user()->name,
+                            [
+                                    [
+                                            'link' => url('/logout'),
+                                            'title' => 'Logout',
+                                            'linkAttributes' => [
+                                                    'onClick' => "event.preventDefault();document.getElementById(\"logout-form\").submit();"
+                                            ]
+                                    ],
+                                    [
+                                        'link' => route('users.edit', ['id'=>Auth::user()->id]),
+                                        'title' => 'Edit profile'
+                                    ]
+                            ],
+                    ]
+            ])->right();
+            $navbar->withContent( $links )->withContent($logout);
+        }
+        ?>
+        {!! $navbar !!}
+        {!! Form::open(['url' => url('/logout'), 'id' => 'logout-form', 'style' => 'display:none']) !!}
+        {!! Form::close() !!}
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+        @if( Session::has('message') )
+                <div class="alert alert-{{ Session::get("message.type") }}">
+                    <p>The publisher reports:</p>
+                    <p><strong>{{Session::get("message.msg")}}</strong></p>
                 </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
-                        @else
-                            <li><a href="{{ url('/home') }}">Home</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="#">Edit profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        @endif
 
         @yield('content')
     </div>

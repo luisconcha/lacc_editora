@@ -9,142 +9,161 @@ use LACC\Category;
 use LACC\Http\Requests\BookRequest;
 use LACC\User;
 
-class BooksController extends Controller
+class bookscontroller extends Controller
 {
     private $with = [ 'author', 'category' ];
 
     /**
-     * @var User
+     * @var user
      */
     protected $user;
 
     /**
-     * @var Category
+     * @var category
      */
     protected $category;
 
-    public function __construct(  User $user, Category $category )
+    public function __construct(  user $user, category $category )
     {
         $this->user     = $user;
         $this->category = $category;
     }
 
     /**
-     * Display a listing of the resource.
+     * display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \illuminate\http\response
      */
     public function index()
     {
-        $books = Book::query()->with( $this->with )->paginate(10);
+        $books = book::query()->with( $this->with )->paginate(10);
 
         return view( 'books.index', compact( 'books' ) );
     }
 
     /**
-     * Show the form for creating a new resource.
+     * show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \illuminate\http\response
      */
     public function create()
     {
-        $users      = $this->getListUsers();
-        $categories = $this->getListCategories();
+        $users      = $this->getlistusers();
+        $categories = $this->getlistcategories();
 
         return view( 'books.create', compact( 'users', 'categories' ) );
     }
 
     /**
-     * @param BookRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param bookrequest $request
+     * @return \illuminate\http\redirectresponse
      */
-    public function store(BookRequest $request)
+    public function store(bookrequest $request)
     {
         $data = $request->all();
-        Book::create($data);
+        book::create($data);
+
+        $request->session()->flash('message', ['type' => 'success','msg'=> "Book '{$data['title']}' successfully registered!"]);
 
         return redirect()->route( 'books.index' );
     }
 
     /**
-     * Display the specified resource.
+     * display the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return \illuminate\http\response
      */
     public function detail($id)
     {
-        if( !( $book = Book::find( $id ) ) ){
-            throw new ModelNotFoundException( 'Book not found' );
+        if( !( $book = book::find( $id ) ) ){
+            throw new modelnotfoundexception( 'book not found' );
         }
 
         return view( 'books.detail',compact( 'book' ) );
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * show the form for editing the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return \illuminate\http\response
      */
     public function edit($id)
     {
-        if( !( $book = Book::find( $id ) ) ){
-            throw new ModelNotFoundException( 'Book not found' );
+        if( !( $book = book::find( $id ) ) ){
+            throw new modelnotfoundexception( 'book not found' );
         }
 
-        $users      = $this->getListUsers();
-        $categories = $this->getListCategories();
+        $users      = $this->getlistusers();
+        $categories = $this->getlistcategories();
 
         return view( 'books.edit',compact( 'book', 'users','categories' ) );
     }
 
     /**
-     * @param BookRequest $request
+     * @param bookrequest $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \illuminate\http\redirectresponse
      */
-    public function update(BookRequest $request, $id)
+    public function update(bookrequest $request, $id)
     {
-        if( !( $book = Book::find( $id ) ) ){
-            throw new ModelNotFoundException( 'Book not found' );
+        if( !( $book = book::find( $id ) ) ){
+            throw new modelnotfoundexception( 'book not found' );
         }
 
         $data = $request->all();
         $book->fill( $data );
         $book->save();
-        return redirect()->route( 'books.index' );
+
+        $urlTo = $this->checksTheCurrentUrl( $data['redirect_to'] );
+        $request->session()->flash('message', ['type' => 'success','msg'=> "Book '{$data['title']}' successfully updated!"]);
+
+        return redirect()->to( $urlTo );
     }
 
     /**
-     * Remove the specified resource from storage.
+     * remove the specified resource from storage.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return \illuminate\http\response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        if ( !( $book = Book::find( $id ) ) ) {
-            throw new ModelNotFoundException( 'Book not found.' );
+        if ( !( $book = book::find( $id ) ) ) {
+            throw new modelnotfoundexception( 'book not found.' );
         }
 
         $book->find( $id )->delete();
 
+        $request->session()->flash('message', ['type' => 'success','msg'=> 'Book deleted successfully!']);
+
         return redirect()->route( 'books.index' );
     }
 
-    private function getListCategories()
+    private function getlistcategories()
     {
-        $categories = [ '' => '--Select an category--' ];
-        $categories += $this->category->orderBy( 'name', 'ASC' )->pluck( 'name','id' )->all();
+        $categories = [ '' => '--select an category--' ];
+        $categories += $this->category->orderby( 'name', 'asc' )->pluck( 'name','id' )->all();
 
         return $categories;
     }
-    private function getListUsers()
+    private function getlistusers()
     {
-        $users = [ '' => '--Select an author--' ];
-        $users += $this->user->orderBy( 'name', 'ASC' )->pluck( 'name','id' )->all();
+        $users = [ '' => '--select an author--' ];
+        $users += $this->user->orderby( 'name', 'asc' )->pluck( 'name','id' )->all();
 
         return $users;
+    }
+
+    /**
+     * @param $currentUrl
+     * @return string
+     */
+    public function checksTheCurrentUrl( $currentUrl )
+    {
+        $urlTo = ( $currentUrl ) ? $currentUrl : route('categories.index');
+
+        return $urlTo;
     }
 }

@@ -1,3 +1,6 @@
+{!! Form::hidden('redirect_to', URL::previous()) !!}
+
+
 <div class="form-group {{ $errors->first('title')? ' has-error':'' }}">
     {!! Form::label('Title','Title:', ['class' => 'control-label']) !!}
     {!! Form::text('title', null, ['placeholder'=>'Enter book title:','class'=>'form-control', 'id'=>'title']) !!}

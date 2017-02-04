@@ -8,7 +8,8 @@ use LACC\Http\Requests\CategoryRequest;
 
 class CategoriesController extends Controller
 {
-		/**
+
+    /**
 		 * Display a listing of the resource.
 		 *
 		 * @return \Illuminate\Http\Response
@@ -39,19 +40,9 @@ class CategoriesController extends Controller
 				$data = $request->all();
 				Category::create( $data );
 
-				return redirect()->route( 'categories.index' );
-		}
+                $request->session()->flash('message', ['type' => 'success','msg'=> "Category '{$data['name']}' successfully registered!"]);
 
-		/**
-		 * Display the specified resource.
-		 *
-		 * @param  int $id
-		 *
-		 * @return \Illuminate\Http\Response
-		 */
-		public function show( $id )
-		{
-
+                return redirect()->route( 'categories.index' );
 		}
 
 		/**
@@ -81,26 +72,42 @@ class CategoriesController extends Controller
 						throw new ModelNotFoundException( 'Category not found.' );
 				}
 				$data = $request->all();
+
 				$category->fill( $data );
 				$category->save();
 
-				return redirect()->route( 'categories.index' );
+                $urlTo = $this->checksTheCurrentUrl( $data['redirect_to'] );
+                $request->session()->flash('message', ['type' => 'success','msg'=> "Category '{$data['name']}' successfully updated!"]);
+
+				return redirect()->to( $urlTo );
 		}
 
-		/**
-		 * Remove the specified resource from storage.
-		 *
-		 * @param  int $id
-		 *
-		 * @return \Illuminate\Http\Response
-		 */
-		public function destroy( $id )
+        /**
+         * @param $id
+         * @param Request $request
+         * @return \Illuminate\Http\RedirectResponse
+         */
+		public function destroy( $id, Request $request )
 		{
 				if ( !( $category = Category::find( $id ) ) ) {
 						throw new ModelNotFoundException( 'Category not found.' );
 				}
+
 				$category->find( $id )->delete();
 
-				return redirect()->route( 'categories.index' );
+                $request->session()->flash('message', ['type' => 'success','msg'=> 'Category deleted successfully!']);
+
+                return redirect()->route( 'categories.index' );
 		}
+
+        /**
+         * @param $currentUrl
+         * @return string
+         */
+		public function checksTheCurrentUrl( $currentUrl )
+        {
+            $urlTo = ( $currentUrl ) ? $currentUrl : route('categories.index');
+
+            return $urlTo;
+        }
 }

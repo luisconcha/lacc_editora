@@ -79,6 +79,8 @@ class UsersController extends Controller
             }
             $this->bd->commit();
 
+            $request->session()->flash('message', ['type' => 'success','msg'=> "User '{$data['name']}' successfully registered!"]);
+
             return redirect()->route( 'users.index' );
         } catch (\Exception $e){
             $this->bd->rollBack();
@@ -159,25 +161,30 @@ class UsersController extends Controller
             }
             $this->bd->commit();
 
-            return redirect()->route( 'users.index' );
+            $urlTo = $this->checksTheCurrentUrl( $data['redirect_to'] );
+            $request->session()->flash('message', ['type' => 'success','msg'=> "User '{$data['name']}' successfully updated!"]);
+
+            return redirect()->to( $urlTo );
+
         } catch (\Exception $e){
             $this->bd->rollBack();
         }
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         if ( !( $user = User::find( $id ) ) ) {
             throw new ModelNotFoundException( 'User not found.' );
         }
 
         $user->delete();
+
+        $request->session()->flash('message', ['type' => 'success','msg'=> 'User deleted successfully!']);
 
         return redirect()->route( 'users.index' );
     }
@@ -227,6 +234,17 @@ class UsersController extends Controller
     private function generateRemenberToken()
     {
         return str_random( 10 );
+    }
+
+    /**
+     * @param $currentUrl
+     * @return string
+     */
+    public function checksTheCurrentUrl( $currentUrl )
+    {
+        $urlTo = ( $currentUrl ) ? $currentUrl : route('users.index');
+
+        return $urlTo;
     }
 
 }
