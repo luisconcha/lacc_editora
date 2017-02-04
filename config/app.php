@@ -142,6 +142,7 @@ return [
 			 * Package Service Providers...
 			 */
 		Collective\Html\HtmlServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Bootstrapper\BootstrapperL5ServiceProvider::class,
 			/*
 			 * Application Service Providers...
@@ -151,6 +152,7 @@ return [
 			// LACC\Providers\BroadcastServiceProvider::class,
 		LACC\Providers\EventServiceProvider::class,
 		LACC\Providers\RouteServiceProvider::class,
+        \LACC\Providers\LACCServiceProvider::class,
 	],
 		/*
 		|--------------------------------------------------------------------------

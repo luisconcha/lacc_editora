@@ -3,7 +3,7 @@ namespace LACC\Http\Controllers;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use LACC\Category;
+use LACC\Models\Category;
 use LACC\Http\Requests\CategoryRequest;
 
 class CategoriesController extends Controller

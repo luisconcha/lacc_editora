@@ -39,7 +39,7 @@ $factory->define( LACC\City::class, function ( Faker\Generator $faker ) {
     ];
 } );
 //
-$factory->define( LACC\Category::class, function ( Faker\Generator $faker ) {
+$factory->define( \LACC\Models\Category::class, function (Faker\Generator $faker ) {
 		return [
 			'name' => ucfirst( $faker->unique()->word ),
 		];

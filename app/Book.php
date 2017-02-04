@@ -3,6 +3,7 @@
 namespace LACC;
 
 use Illuminate\Database\Eloquent\Model;
+use LACC\Models\Category;
 
 class Book extends Model
 {

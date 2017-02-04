@@ -5,7 +5,7 @@ namespace LACC\Http\Controllers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use LACC\Book;
-use LACC\Category;
+use LACC\Models\Category;
 use LACC\Http\Requests\BookRequest;
 use LACC\User;
 
