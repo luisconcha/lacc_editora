@@ -22,6 +22,8 @@ class CategoriesController extends Controller
 
     protected $urlDefault = 'categories.index';
 
+    private $with = [];
+
     public function __construct(CategoryRepository $categoryRepository, CategoryService $categoryService)
     {
         $this->categoryRepository = $categoryRepository;
@@ -66,7 +68,7 @@ class CategoriesController extends Controller
          */
 		public function edit( $id )
 		{
-                $category = $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id);
+                $category = $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id, $this->with);
 
 				return view( 'categories.edit', compact( 'category' ) );
 		}
@@ -78,7 +80,7 @@ class CategoriesController extends Controller
          */
 		public function update( CategoryRequest $request, $id )
 		{
-                $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id);
+                $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id, $this->with);
 				$data     = $request->all();
                 $this->categoryRepository->update( $data, $id );
 
@@ -95,7 +97,7 @@ class CategoriesController extends Controller
          */
 		public function destroy( $id, Request $request )
 		{
-                $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id);
+                $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id, $this->with);
 				$this->categoryRepository->delete( $id );
 
                 $request->session()->flash('message', ['type' => 'success','msg'=> 'Category deleted successfully!']);

@@ -35,4 +35,42 @@ class UserService extends BaseService
 
         return $categories;
     }
+
+    public function getPrepareListCivilStatus()
+    {
+        $arrStatus = [
+            ''  => '--Select a civil status--',
+            '1' => User::CASADO,
+            '2' => User::VIUVO,
+            '3' => User::DIVORCIADO,
+            '4' => User::SOLTEIRO,
+            '5' => User::UNKNOWN,
+        ];
+        return $arrStatus;
+    }
+
+    public function getPrepareListTypeAddress()
+    {
+        $arrTypeAddres = [
+            ''  => '--Select an address type --',
+            '1' => User::CASA,
+            '2' => User::APARTAMENTO,
+            '3' => User::SOBRADO,
+            '4' => User::CHACARA,
+            '5' => User::LOFT,
+
+        ];
+
+        return $arrTypeAddres;
+    }
+
+    public function setEncryptPassword( $password )
+    {
+        return bcrypt( trim( $password ) );
+    }
+
+    public function generateRemenberToken()
+    {
+        return str_random( 10 );
+    }
 }

@@ -88,7 +88,7 @@ class bookscontroller extends Controller
      */
     public function detail($id)
     {
-        $book = $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id );
+        $book = $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
 
         return view( 'books.detail',compact( 'book' ) );
     }
@@ -99,7 +99,7 @@ class bookscontroller extends Controller
      */
     public function edit($id)
     {
-        $book       = $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id );
+        $book       = $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
         $users      = $this->userService->getListUsersInSelect();
         $categories = $this->categoryService->getListCategoriesInSelect();
 
@@ -113,7 +113,7 @@ class bookscontroller extends Controller
      */
     public function update(Bookrequest $request, $id)
     {
-        $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id );
+        $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with);
         $data = $request->all();
 
         $this->bookRepository->update( $data, $id );
@@ -132,7 +132,7 @@ class bookscontroller extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id );
+        $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
         $this->bookRepository->delete( $id );
 
         $request->session()->flash('message', ['type' => 'success','msg'=> 'Book deleted successfully!']);

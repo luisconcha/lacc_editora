@@ -3,18 +3,18 @@
 namespace LACC\Http\Controllers;
 
 use Illuminate\Http\Request;
-use LACC\Models\Address;
 use LACC\Models\City;
 use LACC\Http\Requests\UserRequest;
 use LACC\Models\State;
-use LACC\Models\User;
 use Illuminate\Database\Connection;
+use LACC\Repositories\AddressRepository;
+use LACC\Repositories\UserRepository;
+use LACC\Services\AddressService;
+use LACC\Services\CityService;
+use LACC\Services\UserService;
 
 class UsersController extends Controller
 {
-    private $with = [ 'address' ];
-
-
     /**
      * @var \LACC\Models\State
      */
@@ -26,35 +26,66 @@ class UsersController extends Controller
 
     protected $bd;
 
-    public function __construct( State $state, City $city, Connection $connection )
+    private $with = [ 'address' ];
+
+    /**
+     * @var UserService
+     */
+    protected $userService;
+
+    /**
+     * @var CityService
+     */
+    protected $cityService;
+
+    /**
+     * @var AddressService
+     */
+    protected $addressService;
+
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
+     * @var AddressRepository
+     */
+    protected $addressRepository;
+
+    protected $urlDefault = 'users.index';
+
+    public function __construct( State $state, City $city, Connection $connection,    UserService $userService, UserRepository $userRepository, CityService $cityService, AddressRepository $addressRepository, AddressService $addressService)
     {
          $this->state = $state;
          $this->city  = $city;
          $this->bd    = $connection;
+
+        $this->userService = $userService;
+        $this->userRepository = $userRepository;
+        $this->cityService = $cityService;
+        $this->addressRepository = $addressRepository;
+        $this->addressService = $addressService;
+
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $users = User::query()->paginate( 10 );
-
+        $users = $this->userRepository->paginate( 10 );
         return view( 'users.index', compact( 'users' ) );
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $cities      = $this->getListCities();
-        $civilStatus = $this->getPrepareListCivilStatus();
-        $typeAddress = $this->getPrepareListTypeAddress();
+        $cities      = $this->cityService->getListCitiesInSelect();
+        $civilStatus = $this->userService->getPrepareListCivilStatus();
+        $typeAddress = $this->userService->getPrepareListTypeAddress();
 
         return view( 'users.create', compact( 'cities','civilStatus','typeAddress' ));
     }
@@ -68,14 +99,14 @@ class UsersController extends Controller
         try{
             $this->bd->beginTransaction();
             $data = $request->all();
-            //alterar a funcionalidade para que o password seja opciona!!!
-            $data[ 'password' ] = ( $data['password'] ) ? $data['password'] : $this->setEncryptPassword( '123456' );
+            //alterar a funcionalidade para que o password seja opcional!!!
+            $data[ 'password' ] = ( $data['password'] ) ? $data['password'] : $this->userService->setEncryptPassword( '123456' );
 
-            $user = User::create($data);
+            $user = $this->userRepository->create( $data );
 
             if( $user ){
                 $data['user_id'] = $user->id;
-                Address::create($data);
+                $this->addressRepository->create( $data );
             }
             $this->bd->commit();
 
@@ -84,20 +115,17 @@ class UsersController extends Controller
             return redirect()->route( 'users.index' );
         } catch (\Exception $e){
             $this->bd->rollBack();
+            dd( $e->getMessage() );
         }
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function detail($id)
     {
-        if( !( $user = User::where( 'id', $id )->with( $this->with )->first() ) ){
-            throw new ModelNotFoundException( 'User not found' );
-        }
+        $user = $this->userService->verifyTheExistenceOfObject( $this->userRepository, $id );
 
         return view( 'users.detail',compact( 'user' ) );
     }
@@ -108,66 +136,55 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        if( !( $user = User::find( $id ) ) ){
-            throw new ModelNotFoundException( 'User not found' );
-        }
+        $user        = $this->userService->verifyTheExistenceOfObject( $this->userRepository, $id, $this->with );
+        $addressUser = $this->addressRepository->findByField('user_id',$user->id)->toArray();
 
-        $addressUser = Address::where('user_id',$user->id)->first();
         if( $addressUser ){
-            $user['city_id']      = $addressUser->city_id;
-            $user['address']      = $addressUser->address;
-            $user['district']     = $addressUser->district;
-            $user['cep']          = $addressUser->cep;
-            $user['type_address'] = $addressUser->type_address;
+            $user['city_id']      = $addressUser[0]['city_id'];
+            $user['address']      = $addressUser[0]['address'];
+            $user['district']     = $addressUser[0]['district'];
+            $user['cep']          = $addressUser[0]['cep'];
+            $user['type_address'] = $addressUser[0]['type_address'];
         }
-
-
-        $cities      = $this->getListCities();
-        $civilStatus = $this->getPrepareListCivilStatus();
-        $typeAddress = $this->getPrepareListTypeAddress();
+//        dd($user);
+        $cities      = $this->cityService->getListCitiesInSelect();
+        $civilStatus = $this->userService->getPrepareListCivilStatus();
+        $typeAddress = $this->userService->getPrepareListTypeAddress();
 
         return view( 'users.edit',compact( 'user', 'states','cities','civilStatus','typeAddress' ) );
     }
 
     /**
      * @param UserRequest $request
-     * @param $id
+     * @param $idUser
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request, $idUser)
     {
         try{
-            if( !( $user = User::find( $id ) ) ){
-                throw new ModelNotFoundException( 'User not found' );
-            }
+            $user = $this->userService->verifyTheExistenceOfObject( $this->userRepository, $idUser, $this->with );
 
             $this->bd->beginTransaction();
+
             $data = $request->all();
+
             //alterar a funcionalidade para que o password seja opciona!!!
-            $data[ 'password' ] = ( $data['password'] ) ? $data['password'] : $this->setEncryptPassword( '123456' );
+            $data[ 'password' ] = ( $data['password'] ) ? $data['password'] : $this->userService->setEncryptPassword( '123456' );
 
-            $user = $user->fill($data);
-            $user->save();
-
-            if( $user ){
-
-                if( !( $address = Address::where( 'user_id', $user->id )->first() ) ){
-                    throw new ModelNotFoundException( 'Address not found' );
-                }
-
-                $data['city_id'] = 6;
-                $address =  $address->fill( $data );
-                $address->save();
+            if( $this->userRepository->update( $data, $idUser ) ){
+                $this->addressRepository->update( $data, $user->address->id);
             }
             $this->bd->commit();
 
-            $urlTo = $this->checksTheCurrentUrl( $data['redirect_to'] );
+            $urlTo = $this->userService->checksTheCurrentUrl( $data['redirect_to'], $this->urlDefault );
+
             $request->session()->flash('message', ['type' => 'success','msg'=> "User '{$data['name']}' successfully updated!"]);
 
             return redirect()->to( $urlTo );
 
         } catch (\Exception $e){
             $this->bd->rollBack();
+            dd($e->getMessage());
         }
     }
 
@@ -178,73 +195,11 @@ class UsersController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        if ( !( $user = User::find( $id ) ) ) {
-            throw new ModelNotFoundException( 'User not found.' );
-        }
-
-        $user->delete();
+        $this->userService->verifyTheExistenceOfObject( $this->userRepository, $id, $this->with );
+        $this->userRepository->delete( $id );
 
         $request->session()->flash('message', ['type' => 'success','msg'=> 'User deleted successfully!']);
 
         return redirect()->route( 'users.index' );
     }
-
-    private function getListCities()
-    {
-        $cities = [ '' => '--Select an city--' ];
-        $cities += $this->city->orderBy( 'nom_city', 'ASC' )->pluck( 'nom_city','id' )->all();
-
-        return $cities;
-    }
-
-
-    public function getPrepareListCivilStatus()
-    {
-        $arrStatus = [
-            ''  => '--Select a civil status--',
-            '1' => User::CASADO,
-            '2' => User::VIUVO,
-            '3' => User::DIVORCIADO,
-            '4' => User::SOLTEIRO,
-            '5' => User::UNKNOWN,
-        ];
-        return $arrStatus;
-    }
-
-    public function getPrepareListTypeAddress()
-    {
-        $arrTypeAddres = [
-            ''  => '--Select an address type --',
-            '1' => User::CASA,
-            '2' => User::APARTAMENTO,
-            '3' => User::SOBRADO,
-            '4' => User::CHACARA,
-            '5' => User::LOFT,
-
-        ];
-
-        return $arrTypeAddres;
-    }
-
-    private function setEncryptPassword( $password )
-    {
-        return bcrypt( trim( $password ) );
-    }
-
-    private function generateRemenberToken()
-    {
-        return str_random( 10 );
-    }
-
-    /**
-     * @param $currentUrl
-     * @return string
-     */
-    public function checksTheCurrentUrl( $currentUrl )
-    {
-        $urlTo = ( $currentUrl ) ? $currentUrl : route('users.index');
-
-        return $urlTo;
-    }
-
 }
