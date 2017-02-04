@@ -1,9 +1,11 @@
 <?php
 
-namespace LACC;
+namespace LACC\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use LACC\Models\Address;
+use LACC\Models\Book;
 
 class User extends Authenticatable
 {

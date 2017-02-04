@@ -4,10 +4,10 @@ namespace LACC\Http\Controllers;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use LACC\Book;
+use LACC\Models\Book;
 use LACC\Models\Category;
 use LACC\Http\Requests\BookRequest;
-use LACC\User;
+use LACC\Models\User;
 
 class bookscontroller extends Controller
 {
@@ -106,7 +106,7 @@ class bookscontroller extends Controller
      * @param $id
      * @return \illuminate\http\redirectresponse
      */
-    public function update(bookrequest $request, $id)
+    public function update(Bookrequest $request, $id)
     {
         if( !( $book = book::find( $id ) ) ){
             throw new modelnotfoundexception( 'book not found' );

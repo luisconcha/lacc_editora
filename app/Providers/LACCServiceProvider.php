@@ -27,5 +27,29 @@ class LACCServiceProvider extends ServiceProvider
             \LACC\Repositories\CategoryRepository::class,
             \LACC\Repositories\CategoryRepositoryEloquent::class
         );
+        $this->app->bind(
+            \LACC\Repositories\UserRepository::class,
+            \LACC\Repositories\UserRepositoryEloquent::class
+        );
+        $this->app->bind(
+            \LACC\Repositories\StateRepository::class,
+            \LACC\Repositories\StateRepositoryEloquent::class
+        );
+        $this->app->bind(
+            \LACC\Repositories\BookRepository::class,
+            \LACC\Repositories\BookRepositoryEloquent::class
+        );
+        $this->app->bind(
+            \LACC\Repositories\AddressRepository::class,
+            \LACC\Repositories\AddressRepositoryEloquent::class
+        );
+        $this->app->bind(
+            \LACC\Repositories\CityRepository::class,
+            \LACC\Repositories\CityRepositoryEloquent::class
+        );
+        $this->app->bind(
+            \LACC\Repositories\TelephoneUserRepository::class,
+            \LACC\Repositories\TelephoneUserRepositoryEloquent::class
+        );
     }
 }

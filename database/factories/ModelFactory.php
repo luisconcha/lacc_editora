@@ -11,7 +11,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define( LACC\User::class, function ( Faker\Generator $faker ) {
+$factory->define( \LACC\Models\User::class, function (Faker\Generator $faker ) {
 		static $password;
 		return [
 			'name'           => $faker->name,
@@ -25,14 +25,14 @@ $factory->define( LACC\User::class, function ( Faker\Generator $faker ) {
 		];
 } );
 //
-$factory->define( LACC\State::class, function ( Faker\Generator $faker ) {
+$factory->define( \LACC\Models\State::class, function (Faker\Generator $faker ) {
     return [
         'nom_state' => $faker->country,
         'sig_state' => $faker->citySuffix
     ];
 } );
 //
-$factory->define( LACC\City::class, function ( Faker\Generator $faker ) {
+$factory->define( \LACC\Models\City::class, function (Faker\Generator $faker ) {
     return [
         'state_id' => $faker->numberBetween( 1,10 ),
         'nom_city' => $faker->city
@@ -45,7 +45,7 @@ $factory->define( \LACC\Models\Category::class, function (Faker\Generator $faker
 		];
 } );
 //
-$factory->define( LACC\Book::class, function ( Faker\Generator $faker ) {
+$factory->define( \LACC\Models\Book::class, function (Faker\Generator $faker ) {
     return [
         'author_id'       => $faker->numberBetween( 1,10 ),
         'category_id'     => $faker->numberBetween( 1,10 ),
@@ -56,7 +56,7 @@ $factory->define( LACC\Book::class, function ( Faker\Generator $faker ) {
 } );
 
 //
-$factory->define( LACC\Address::class, function ( Faker\Generator $faker ) {
+$factory->define( \LACC\Models\Address::class, function (Faker\Generator $faker ) {
 
     return [
         'city_id'      => $faker->numberBetween( 1,10 ),

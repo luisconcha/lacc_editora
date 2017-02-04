@@ -10,7 +10,7 @@ class UsersTableSeeder extends Seeder
 		 */
 		public function run()
 		{
-				factory( 'LACC\User' )->create(
+				factory( 'LACC\Models\User' )->create(
 					[
 						'name'           => 'Luis Alberto Concha Curay',
 						'email'          => 'luvett11@gmail.com',
@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
 						'remember_token' => str_random( 10 ),
 					]
 				);
-				factory( 'LACC\User' )->create(
+				factory( 'LACC\Models\User' )->create(
 					[
 						'name'           => 'Admin',
 						'email'          => 'admin@editora.com',
@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
 						'remember_token' => str_random( 10 ),
 					]
 				);
-				factory( 'LACC\User' )->create(
+				factory( 'LACC\Models\User' )->create(
 					[
 						'name'           => 'User',
 						'email'          => 'user@editora.com',
@@ -34,6 +34,6 @@ class UsersTableSeeder extends Seeder
 						'remember_token' => str_random( 10 ),
 					]
 				);
-				factory( LACC\User::class, 10 )->create();
+				factory( \LACC\Models\User::class, 10 )->create();
 		}
 }

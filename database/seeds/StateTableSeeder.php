@@ -11,6 +11,6 @@ class StateTableSeeder extends Seeder
      */
     public function run()
     {
-        factory( LACC\State::class, 10 )->create();
+        factory( \LACC\Models\State::class, 10 )->create();
     }
 }

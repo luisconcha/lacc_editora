@@ -11,6 +11,6 @@ class AddressTableSeeder extends Seeder
      */
     public function run()
     {
-        factory( LACC\Address::class, 10 )->create();
+        factory( \LACC\Models\Address::class, 10 )->create();
     }
 }

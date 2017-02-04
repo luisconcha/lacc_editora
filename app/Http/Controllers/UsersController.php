@@ -3,11 +3,11 @@
 namespace LACC\Http\Controllers;
 
 use Illuminate\Http\Request;
-use LACC\Address;
-use LACC\City;
+use LACC\Models\Address;
+use LACC\Models\City;
 use LACC\Http\Requests\UserRequest;
-use LACC\State;
-use LACC\User;
+use LACC\Models\State;
+use LACC\Models\User;
 use Illuminate\Database\Connection;
 
 class UsersController extends Controller
@@ -16,7 +16,7 @@ class UsersController extends Controller
 
 
     /**
-     * @var State
+     * @var \LACC\Models\State
      */
     protected $state;
     /**

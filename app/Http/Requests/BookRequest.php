@@ -3,7 +3,7 @@
 namespace LACC\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use LACC\Book;
+use LACC\Models\Book;
 
 class BookRequest extends FormRequest
 {

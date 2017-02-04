@@ -1,9 +1,10 @@
 <?php
 
-namespace LACC;
+namespace LACC\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use LACC\Models\Category;
+use LACC\Models\User;
 
 class Book extends Model
 {
