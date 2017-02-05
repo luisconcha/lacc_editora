@@ -27,8 +27,17 @@
         if( Auth::check() ){
             $links = Navigation::links( [
                     [
-                            'link' => route( 'users.index' ),
-                            'title' => 'User'
+                            'User',
+                            [
+                                    [
+                                            'link' => route( 'users.index' ),
+                                            'title' => 'User'
+                                    ],
+                                    [
+                                            'link' => route( 'advanced.users.search' ),
+                                            'title' => 'Advanced Search'
+                                    ]
+                            ]
                     ],
                     [
                             'link' => route( 'categories.index' ),

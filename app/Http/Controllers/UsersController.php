@@ -3,6 +3,7 @@
 namespace LACC\Http\Controllers;
 
 use Illuminate\Http\Request;
+use LACC\Criteria\FormAvancedSearch;
 use LACC\Models\City;
 use LACC\Http\Requests\UserRequest;
 use LACC\Models\State;
@@ -203,5 +204,16 @@ class UsersController extends Controller
         $request->session()->flash('message', ['type' => 'success','msg'=> 'User deleted successfully!']);
 
         return redirect()->route( 'users.index' );
+    }
+
+    public function advancedSearch( Request $request )
+    {
+        $arrData = $request->all();
+
+        $this->userRepository->pushCriteria( new FormAvancedSearch( $arrData ) );
+
+        $users  = $this->userRepository->paginate( 10 );
+
+        return view( 'users.advanced-search', compact( 'users' ) );
     }
 }
