@@ -204,7 +204,7 @@ return [
         'Alert'          => Bootstrapper\Facades\Alert::class,
         'Badge'          => Bootstrapper\Facades\Badge::class,
         'Breadcrumb'     => Bootstrapper\Facades\Breadcrumb::class,
-        'Button'         => Bootstrapper\Facades\Button::class,
+        //'Button'         => Bootstrapper\Facades\Button::class,
         'ButtonGroup'    => Bootstrapper\Facades\ButtonGroup::class,
         'Carousel'       => Bootstrapper\Facades\Carousel::class,
         'ControlGroup'   => Bootstrapper\Facades\ControlGroup::class,

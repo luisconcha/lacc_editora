@@ -10,6 +10,17 @@
             <h3>List of books</h3>
             <a href="{{ route( 'books.create' )  }}" class="btn btn-primary">New book</a>
         </div>
+        <br>
+        <div class="row">
+            {!! Form::model(compact($search), ['class' => 'form', 'method' => 'GET']) !!}
+            <div class="input-group">
+                <span class="input-group-btn">
+                    {!! Form::submit('Search by:', ['class'=>'btn btn-primary']) !!}
+                </span>
+                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'title, author, category, price','class'=>'form-control']) !!}
+            </div>
+            {!! Form::close() !!}
+        </div>
 
         <div class="row">
             <table class="table table-striped">

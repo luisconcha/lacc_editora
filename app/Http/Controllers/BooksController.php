@@ -3,6 +3,8 @@
 namespace LACC\Http\Controllers;
 
 use Illuminate\Http\Request;
+use LACC\Criteria\FindByAuthorCriteria;
+use LACC\Criteria\FindByTitleCriteria;
 use LACC\Http\Requests\BookRequest;
 use LACC\Repositories\BookRepository;
 use LACC\Services\BookService;
@@ -40,19 +42,18 @@ class bookscontroller extends Controller
         $this->userService     = $userService;
         $this->categoryService = $categoryService;
         $this->bookService     = $bookService;
-        $this->bookRepository = $bookRepository;
+        $this->bookRepository  = $bookRepository;
     }
 
     /**
-     * display a listing of the resource.
-     *
-     * @return \illuminate\http\response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index( Request $request )
     {
-        $books = $this->bookRepository->with( $this->with )->paginate( 15 );
+        $search = $request->get('search');
+        $books  = $this->bookRepository->with( $this->with )->paginate( 15 );
 
-        return view( 'books.index', compact( 'books' ) );
+        return view( 'books.index', compact( 'books','search' ) );
     }
 
     /**
