@@ -8,7 +8,18 @@
     <div class="container">
         <div class="row">
             <h3>List of categories</h3>
-            <a href="{{ route( 'categories.create' )  }}" class="btn btn-primary">New category</a>
+
+            {!! Form::model(compact($search), ['class' => 'form-search', 'method' => 'GET']) !!}
+            <div class="input-group">
+                <span class="input-group-btn">
+                    {!! Form::submit('Search by:', ['class'=>'btn btn-warning']) !!}
+                </span>
+                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'id, or name','class'=>'form-control']) !!}
+                <span class="input-group-btn">
+                    <a href="{{ route( 'categories.create' )  }}" class="btn btn-primary">New category</a>
+            </span>
+            </div>
+            {!! Form::close() !!}
         </div>
 
         <div class="row">

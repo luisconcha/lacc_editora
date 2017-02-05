@@ -8,7 +8,18 @@
     <div class="container">
         <div class="row">
             <h3>List of users</h3>
-            <a href="{{ route( 'users.create' )  }}" class="btn btn-primary">New user</a>
+
+            {!! Form::model(compact($search), ['class' => 'form-search', 'method' => 'GET']) !!}
+            <div class="input-group">
+                <span class="input-group-btn">
+                    {!! Form::submit('Search by:', ['class'=>'btn btn-warning']) !!}
+                </span>
+                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'id, or name','class'=>'form-control']) !!}
+                <span class="input-group-btn">
+                    <a href="{{ route( 'users.create' )  }}" class="btn btn-primary">New user</a>
+            </span>
+            </div>
+            {!! Form::close() !!}
         </div>
 
         <div class="row">

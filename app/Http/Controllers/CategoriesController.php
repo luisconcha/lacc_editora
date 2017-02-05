@@ -33,11 +33,12 @@ class CategoriesController extends Controller
         /**
          * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
          */
-		public function index()
+		public function index(Request $request)
 		{
+            $search     = $request->get( 'search' );
             $categories = $this->categoryRepository->paginate( 15 );
 
-			return view( 'categories.index', compact( 'categories' ) );
+			return view( 'categories.index', compact( 'categories', 'search' ) );
 		}
 
         /**

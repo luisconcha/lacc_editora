@@ -72,10 +72,12 @@ class UsersController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->userRepository->paginate( 10 );
-        return view( 'users.index', compact( 'users' ) );
+        $search = $request->get( 'search' );
+        $users  = $this->userRepository->paginate( 10 );
+
+        return view( 'users.index', compact( 'users','search' ) );
     }
 
     /**

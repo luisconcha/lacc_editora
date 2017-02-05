@@ -8,19 +8,21 @@
     <div class="container">
         <div class="row">
             <h3>List of books</h3>
-            <a href="{{ route( 'books.create' )  }}" class="btn btn-primary">New book</a>
-        </div>
-        <br>
-        <div class="row">
-            {!! Form::model(compact($search), ['class' => 'form', 'method' => 'GET']) !!}
+
+            {!! Form::model(compact($search), ['class' => 'form-search', 'method' => 'GET']) !!}
             <div class="input-group">
                 <span class="input-group-btn">
-                    {!! Form::submit('Search by:', ['class'=>'btn btn-primary']) !!}
+                    {!! Form::submit('Search by:', ['class'=>'btn btn-warning']) !!}
                 </span>
                 {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'title, author, category, price','class'=>'form-control']) !!}
+                <span class="input-group-btn">
+                    <a href="{{ route( 'books.create' )  }}" class="btn btn-primary">New book</a>
+            </span>
             </div>
             {!! Form::close() !!}
+
         </div>
+
 
         <div class="row">
             <table class="table table-striped">
@@ -62,7 +64,12 @@
             </table>
 
             <div class="text-center">{{ $books->links() }}</div>
-
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+    </script>
 @endsection
