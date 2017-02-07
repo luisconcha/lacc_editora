@@ -74,7 +74,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @forelse($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
@@ -85,7 +85,13 @@
                         <td>{{ $user->address->address }}</td>
                         <td>{{ $user->address->cep }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            <span class="label label-warning">Not found</span>
+                        </td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
 

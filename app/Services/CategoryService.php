@@ -29,7 +29,7 @@ class CategoryService extends BaseService
 
     public function getListCategoriesInSelect()
     {
-        $users = [ '' => '--select an author--' ];
+        $users = [ '' => '--select an category--' ];
         $users += $this->categorymodel->orderby( 'name', 'asc' )->pluck( 'name','id' )->all();
 
         return $users;

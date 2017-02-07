@@ -7,13 +7,14 @@ use LACC\Criteria\FindByAuthorCriteria;
 use LACC\Criteria\FindByTitleCriteria;
 use LACC\Http\Requests\BookRequest;
 use LACC\Repositories\BookRepository;
+use LACC\Repositories\CategoryRepository;
 use LACC\Services\BookService;
 use LACC\Services\CategoryService;
 use LACC\Services\UserService;
 
 class bookscontroller extends Controller
 {
-    private $with = [ 'author', 'category' ];
+    private $with = [ 'author' ];
 
     /**
      * @var UserService
@@ -34,15 +35,20 @@ class bookscontroller extends Controller
      * @var BookRepository
      */
     protected $bookRepository;
+    /**
+     * @var CategoryRepository
+     */
+    protected $categoryRepository;
 
     protected $urlDefault = 'books.index';
 
-    public function __construct( UserService $userService, BookService $bookService, CategoryService $categoryService, BookRepository $bookRepository)
+    public function __construct( UserService $userService, BookService $bookService, CategoryService $categoryService, CategoryRepository $categoryRepository,BookRepository $bookRepository)
     {
         $this->userService     = $userService;
         $this->categoryService = $categoryService;
         $this->bookService     = $bookService;
         $this->bookRepository  = $bookRepository;
+        $this->categoryRepository  = $categoryRepository;
     }
 
     /**
@@ -63,8 +69,8 @@ class bookscontroller extends Controller
      */
     public function create()
     {
-        $users      = $this->userService->getListUsersInSelect();
-        $categories = $this->categoryService->getListCategoriesInSelect();
+        $users      = $this->userService->getListUsersInSelect(); //uma outra forma de chamar a lista sem utilizar trait
+        $categories = $this->categoryRepository->lists('name','id');  //call BaseRepositoryTrait
 
         return view( 'books.create', compact( 'users', 'categories' ) );
     }
@@ -76,6 +82,7 @@ class bookscontroller extends Controller
     public function store(BookRequest $request)
     {
         $data = $request->all();
+        //@seed call method in BooRepositoryEloquent - create
         $this->bookRepository->create( $data );
 
         $request->session()->flash('message', ['type' => 'success','msg'=> "Book '{$data['title']}' successfully registered!"]);
@@ -117,6 +124,7 @@ class bookscontroller extends Controller
         $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with);
         $data = $request->all();
 
+        //@seed call method in BooRepositoryEloquent - update
         $this->bookRepository->update( $data, $id );
 
         $urlTo = $this->bookService->checksTheCurrentUrl( $data['redirect_to'], $this->urlDefault );

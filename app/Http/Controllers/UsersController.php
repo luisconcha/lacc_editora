@@ -128,7 +128,7 @@ class UsersController extends Controller
      */
     public function detail($id)
     {
-        $user = $this->userService->verifyTheExistenceOfObject( $this->userRepository, $id );
+        $user = $this->userService->verifyTheExistenceOfObject( $this->userRepository, $id, $this->with );
 
         return view( 'users.detail',compact( 'user' ) );
     }
@@ -213,7 +213,6 @@ class UsersController extends Controller
         $this->userRepository->pushCriteria( new FormAvancedSearch( $arrData ) );
 
         $users  = $this->userRepository->paginate( 10 );
-
         return view( 'users.advanced-search', compact( 'users' ) );
     }
 }

@@ -14,7 +14,7 @@
                 <span class="input-group-btn">
                     {!! Form::submit('Search by:', ['class'=>'btn btn-warning']) !!}
                 </span>
-                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'title, author, category, price','class'=>'form-control']) !!}
+                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'title, author, price','class'=>'form-control']) !!}
                 <span class="input-group-btn">
                     <a href="{{ route( 'books.create' )  }}" class="btn btn-primary">New book</a>
             </span>
@@ -32,7 +32,6 @@
                     <th>Title</th>
                     <th>Price</th>
                     <th>Author</th>
-                    <th>Category</th>
                     <td>Actions</td>
                 </tr>
                 </thead>
@@ -43,7 +42,6 @@
                         <td>{{ $book->title }}</td>
                         <td>{{ $book->price }}</td>
                         <td>{{ $book->author->name }}</td>
-                        <td>{{ $book->category->name }}</td>
                         <td>
                             <a href="{{route('books.edit',['id'=>$book->id])}}"
                                class="btn btn-warning btn-outline btn-xs">

@@ -11,6 +11,6 @@ class TelephoneUserTableSeeder extends Seeder
      */
     public function run()
     {
-        factory( LACC\TelephoneUser::class, 10 )->create();
+        factory( LACC\Models\TelephoneUser::class, 10 )->create();
     }
 }

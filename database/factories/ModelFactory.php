@@ -51,12 +51,8 @@ $factory->define( \LACC\Models\Book::class, function (Faker\Generator $faker ) {
     $userRepo = app( \LACC\Repositories\UserRepository::class );
     $authorId = $userRepo->all()->random()->id;
 
-    $categoryRepo = app(\LACC\Repositories\CategoryRepository::class);
-    $categoryId  = $categoryRepo->all()->random()->id;
-
     return [
         'author_id'       => $authorId,
-        'category_id'     => $categoryId,
         'title'           => ucfirst( $faker->unique()->word ),
         'subtitle'        => $faker->text,
         'price'           => $faker->randomNumber( 4 )
@@ -75,7 +71,7 @@ $factory->define( \LACC\Models\Address::class, function (Faker\Generator $faker 
     ];
 } );
 //
-$factory->define( LACC\TelephoneUser::class, function ( Faker\Generator $faker ) {
+$factory->define( LACC\Models\TelephoneUser::class, function ( Faker\Generator $faker ) {
     $userRepo = app( \LACC\Repositories\UserRepository::class );
     $userId   = $userRepo->all()->random()->id;
     return [

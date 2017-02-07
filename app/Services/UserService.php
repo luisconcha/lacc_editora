@@ -30,7 +30,7 @@ class UserService extends BaseService
 
     public function getListUsersInSelect()
     {
-        $categories = [ '' => '--select an category--' ];
+        $categories = [ '' => '--select an user--' ];
         $categories += $this->usermodel->orderby( 'name', 'asc' )->pluck( 'name','id' )->all();
 
         return $categories;

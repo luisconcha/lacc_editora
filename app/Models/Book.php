@@ -2,12 +2,13 @@
 
 namespace LACC\Models;
 
+use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;
-use LACC\Models\Category;
-use LACC\Models\User;
 
 class Book extends Model
 {
+    use FormAccessible;
+
     protected $fillable = [
         'title', 'subtitle', 'price' ,'author_id','category_id'
     ];
@@ -17,8 +18,13 @@ class Book extends Model
         return $this->belongsTo( User::class );
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo( Category::class );
+        return $this->belongsToMany( Category::class );
+    }
+
+    public function formCategoriesAttribute()
+    {
+        return $this->categories->pluck( 'id' )->all();
     }
 }

@@ -18,9 +18,6 @@
             <span><b>Author</b></span>
             <p>{{ $book->author->name }}</p>
 
-            <span><b>Category</b></span>
-            <p>{{ $book->category->name }}</p>
-
             <span><b>Price:</b></span>
             <p> R$ {{ $book->price }}</p>
         </div>
