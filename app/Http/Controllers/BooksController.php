@@ -124,7 +124,7 @@ class bookscontroller extends Controller
         $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with);
         $data = $request->all();
 
-        //@seed call method in BooRepositoryEloquent - update
+        //@seed call method in BookRepositoryEloquent - update
         $this->bookRepository->update( $data, $id );
 
         $urlTo = $this->bookService->checksTheCurrentUrl( $data['redirect_to'], $this->urlDefault );
