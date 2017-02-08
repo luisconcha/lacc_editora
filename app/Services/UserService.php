@@ -27,15 +27,6 @@ class UserService extends BaseService
         $this->usermodel = $user;
     }
 
-
-    public function getListUsersInSelect()
-    {
-        $categories = [ '' => '--select an user--' ];
-        $categories += $this->usermodel->orderby( 'name', 'asc' )->pluck( 'name','id' )->all();
-
-        return $categories;
-    }
-
     public function getPrepareListCivilStatus()
     {
         $arrStatus = [

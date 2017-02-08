@@ -15,11 +15,17 @@ namespace LACC\Repositories\Traits;
 
 trait BaseRepositoryTrait
 {
-
+    /**
+     * @param $column
+     * @param null $key
+     * @return array
+     */
     public function lists($column, $key = null)
     {
         $this->applyCriteria();
 
-        return $this->model->pluck($column, $key);
+        $result = [ '' => '-- select --' ];
+        $result += $this->model->pluck($column, $key)->all();
+        return $result;
     }
 }

@@ -3,6 +3,7 @@
 namespace LACC\Repositories;
 
 use LACC\Models\User;
+use LACC\Repositories\Traits\BaseRepositoryTrait;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -12,6 +13,8 @@ use Prettus\Repository\Eloquent\BaseRepository;
  */
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
+    use BaseRepositoryTrait;
+
     protected $fieldSearchable = [
         'id',
         'name'  => 'like',

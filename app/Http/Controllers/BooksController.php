@@ -8,6 +8,7 @@ use LACC\Criteria\FindByTitleCriteria;
 use LACC\Http\Requests\BookRequest;
 use LACC\Repositories\BookRepository;
 use LACC\Repositories\CategoryRepository;
+use LACC\Repositories\UserRepository;
 use LACC\Services\BookService;
 use LACC\Services\CategoryService;
 use LACC\Services\UserService;
@@ -25,6 +26,10 @@ class bookscontroller extends Controller
      * @var CategoryService
      */
     protected $categoryService;
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
 
     /**
      * @var BookService
@@ -42,9 +47,17 @@ class bookscontroller extends Controller
 
     protected $urlDefault = 'books.index';
 
-    public function __construct( UserService $userService, BookService $bookService, CategoryService $categoryService, CategoryRepository $categoryRepository,BookRepository $bookRepository)
+    public function __construct(
+        UserService $userService,
+        UserRepository $userRepository,
+        BookService $bookService,
+        CategoryService $categoryService,
+        CategoryRepository $categoryRepository,
+        BookRepository $bookRepository
+    )
     {
         $this->userService     = $userService;
+        $this->userRepository  = $userRepository;
         $this->categoryService = $categoryService;
         $this->bookService     = $bookService;
         $this->bookRepository  = $bookRepository;
@@ -69,8 +82,9 @@ class bookscontroller extends Controller
      */
     public function create()
     {
-        $users      = $this->userService->getListUsersInSelect(); //uma outra forma de chamar a lista sem utilizar trait
-        $categories = $this->categoryRepository->lists('name','id');  //call BaseRepositoryTrait
+        //call BaseRepositoryTrait
+        $categories = $this->categoryRepository->lists('name','id');
+        $users      = $this->userRepository->lists( 'name', 'id' );
 
         return view( 'books.create', compact( 'users', 'categories' ) );
     }
