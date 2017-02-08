@@ -4,6 +4,7 @@ namespace LACC\Http\Controllers\Trashs;
 use Illuminate\Http\Request;
 use LACC\Http\Controllers\Controller;
 use LACC\Repositories\CategoryRepository;
+use LACC\Services\CategoryService;
 
 class CategoriesTrashController extends Controller
 {
@@ -12,11 +13,17 @@ class CategoriesTrashController extends Controller
      */
     protected $categoryRepository;
 
-    protected $urlDefault = 'categories.index';
+    /**
+     * @var CategoryService
+     */
+    protected $categoryService;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    protected $urlDefault = 'trashed.books.index';
+
+    public function __construct(CategoryRepository $categoryRepository, CategoryService $categoryService)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->categoryService    = $categoryService;
     }
 
     /**
@@ -27,8 +34,21 @@ class CategoriesTrashController extends Controller
     {
         $search     = $request->get( 'search' );
         $this->categoryRepository->onlyTrashed();
-        $categories = $this->categoryRepository->paginate( 10 );
+        $categories = $this->categoryRepository->paginate( 4 );
 
         return view( 'trashs.books.index', compact( 'categories', 'search' ) );
+    }
+
+    public function update( Request $request, $id )
+    {
+        $data = $request->all();
+        $this->categoryRepository->onlyTrashed();
+        $this->categoryRepository->restore( $id );
+
+        $urlTo = $this->categoryService->checksTheCurrentUrl( $data['redirect_to'], $this->urlDefault );
+
+        $request->session()->flash('message', ['type' => 'success','msg'=> "Category successfully restored!"]);
+
+        return redirect()->to( $urlTo );
     }
 }

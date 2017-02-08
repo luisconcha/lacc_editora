@@ -49,6 +49,14 @@ Return to the active categories</a>
                                class="btn btn-warning btn-outline btn-xs">
                                 <strong>Edit</strong>
                             </a>
+                            <a href="{{route('trashed.restore',['id'=>$category->id])}}"
+                               class="btn btn-danger btn-outline btn-xs"
+                               onclick="event.preventDefault();document.getElementById('restore').submit();">
+                                <strong>Restore</strong>
+                            </a>
+                            {!! Form::open(['route' => ['trashed.restore', 'book' =>$category->id],'method'=>'GET', 'id' => 'restore', 'style' => 'display:none']) !!}
+                            {!! Form::hidden('redirect_to', URL::previous()) !!}
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                 @endforeach

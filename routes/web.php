@@ -26,6 +26,8 @@ Route::group( [ 'middleware' => 'auth' ], function () {
         Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function (){
             Route::resource( 'books', 'Trashs\CategoriesTrashController',
                 [ 'except' => [ 'show','create', 'store','edit', 'update', 'destroy' ] ]  );
+
+            Route::get( 'books/{id}', [ 'as' => 'restore', 'uses' => 'Trashs\CategoriesTrashController@update' ] );
         });
 } );
 

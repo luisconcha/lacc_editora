@@ -28,13 +28,6 @@ class BaseService
         return $urlTo;
     }
 
-//    public function verifyTheExistenceOfObject( $repository, $id )
-//    {
-//        if( !( $object =  $repository->find( $id ) ) ){
-//            throw new modelnotfoundexception( 'Object not found' );
-//        }
-//        return $object = $repository->find( $id );
-//    }
     public function verifyTheExistenceOfObject( $repository, $id, $with = null )
     {
         if( !( $object =  $repository->find( $id ) ) ){
