@@ -2,6 +2,7 @@
 
 namespace LACC\Repositories;
 
+use LACC\Criteria\CriteriaOnlyTrashedTrait;
 use LACC\Models\Category;
 use LACC\Repositories\Traits\BaseRepositoryTrait;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -13,7 +14,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
  */
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
-    use BaseRepositoryTrait;
+    use BaseRepositoryTrait, CriteriaOnlyTrashedTrait;
 
     protected $fieldSearchable = [
         'id',

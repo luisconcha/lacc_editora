@@ -22,5 +22,10 @@ Route::group( [ 'middleware' => 'auth' ], function () {
         Route::get( 'users/{id}', [ 'as' => 'users.destroy', 'uses' => 'UsersController@destroy' ] );
         Route::get( 'user-advanced-search', [ 'as' => 'advanced.users.search', 'uses' => 'UsersController@advancedSearch' ] );
         Route::get( 'users-detail/{id}', [ 'as' => 'users.detail', 'uses' => 'UsersController@detail' ] );
+
+        Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function (){
+            Route::resource( 'books', 'Trashs\CategoriesTrashController',
+                [ 'except' => [ 'show','create', 'store','edit', 'update', 'destroy' ] ]  );
+        });
 } );
 

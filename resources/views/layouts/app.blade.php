@@ -40,8 +40,17 @@
                             ]
                     ],
                     [
-                            'link' => route( 'categories.index' ),
-                            'title' => 'Category'
+                            'Category',
+                            [
+                                    [
+                                            'link' => route( 'categories.index' ),
+                                            'title' => 'List of Categories'
+                                    ],
+                                    [
+                                            'link' => route( 'trashed.books.index' ),
+                                            'title' => 'Categories Trash'
+                                    ]
+                            ]
                     ],
                     [
                             'link' => route( 'books.index' ),

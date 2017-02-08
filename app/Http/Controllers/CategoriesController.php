@@ -1,9 +1,7 @@
 <?php
 namespace LACC\Http\Controllers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use LACC\Models\Category;
 use LACC\Http\Requests\CategoryRequest;
 use LACC\Repositories\CategoryRepository;
 use LACC\Services\CategoryService;
@@ -101,7 +99,7 @@ class CategoriesController extends Controller
                 $this->categoryService->verifyTheExistenceOfObject($this->categoryRepository, $id, $this->with);
 				$this->categoryRepository->delete( $id );
 
-                $request->session()->flash('message', ['type' => 'success','msg'=> 'Category deleted successfully!']);
+                $request->session()->flash('message', ['type' => 'success','msg'=> 'The category has been successfully trashed!']);
 
                 return redirect()->route( 'categories.index' );
 		}
