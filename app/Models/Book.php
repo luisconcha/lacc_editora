@@ -4,10 +4,11 @@ namespace LACC\Models;
 
 use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-    use FormAccessible;
+    use FormAccessible, SoftDeletes;
 
     protected $fillable = [
         'title', 'subtitle', 'price' ,'author_id','category_id'

@@ -36,7 +36,7 @@ class CategoriesTrashController extends Controller
         $this->categoryRepository->onlyTrashed();
         $categories = $this->categoryRepository->paginate( 4 );
 
-        return view( 'trashs.books.index', compact( 'categories', 'search' ) );
+        return view( 'trashs.categories.index', compact( 'categories', 'search' ) );
     }
 
     public function update( Request $request, $id )

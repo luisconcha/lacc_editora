@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-    Trash Books
+    Trash Categories
 @endsection
 
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>List of books in the trash</h3>
+            <h3>List of categories in the trash</h3>
 
             {!! Form::model(compact($search), ['class' => 'form-search', 'method' => 'GET']) !!}
             <div class="input-group">
@@ -16,8 +16,8 @@
                 </span>
                 {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'id, name','class'=>'form-control']) !!}
                 <span class="input-group-btn">
-                    <a href="{{ route( 'books.index' )  }}" class="btn btn-primary">
-Return to the active books</a>
+                    <a href="{{ route( 'categories.index' )  }}" class="btn btn-primary">
+Return to the active categories</a>
                 </span>
             </div>
             {!! Form::close() !!}
@@ -30,42 +30,36 @@ Return to the active books</a>
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Subtitle</th>
+                    <th>Name</th>
                     <th>Creation date</th>
                     <th>Update date</th>
                     <th>Date of removal</th>
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($books as $book)
+                @foreach($categories as $category)
                     <tr>
-                        <td>{{ $book->id }}</td>
-                        <td>{{ $book->title }}</td>
-                        <td>{{ $book->subtitle }}</td>
-                        <td>{{ $book->created_at }}</td>
-                        <td>{{ $book->updated_at }}</td>
-                        <td>{{ $book->deleted_at }}</td>
+                        <td>{{ $category->id }}</td>
+                        <td>{{ $category->name }}</td>
+                        <td>{{ $category->created_at }}</td>
+                        <td>{{ $category->updated_at }}</td>
+                        <td>{{ $category->deleted_at }}</td>
                         <td>
-                            <a href="{{route('trashed.categories.restore',['id'=>$book->id])}}"
+                            <a href="{{route('trashed.categories.restore',['id'=>$category->id])}}"
                                class="btn btn-danger btn-outline btn-xs"
                                onclick="event.preventDefault();document.getElementById('restore').submit();">
                                 <strong>Restore</strong>
                             </a>
-                            {!! Form::open(['route' => ['trashed.books.restore', 'book' =>$book->id],'method'=>'GET', 'id' => 'restore', 'style' => 'display:none']) !!}
+                            {!! Form::open(['route' => ['trashed.categories.restore', 'book' =>$category->id],'method'=>'GET', 'id' => 'restore', 'style' => 'display:none']) !!}
                             {!! Form::hidden('redirect_to', URL::previous()) !!}
                             {!! Form::close() !!}
                         </td>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" class="text-center"><span class="label label-warning">No records</span></td>
-                    </tr>
-                @endforelse
+                @endforeach
                 </tbody>
             </table>
 
-            <div class="text-center">{{ $books->links() }}</div>
+            <div class="text-center">{{ $categories->links() }}</div>
         </div>
     </div>
 @endsection

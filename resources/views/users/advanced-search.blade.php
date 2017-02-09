@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <h3>Advanced user search</h3>
-            {{dump($arrSearch)}}
+
             {!! Form::model(compact($arrSearch), ['class' => 'form-search', 'method' => 'GET']) !!}
             <div class="row">
                 <div class="col-md-3">

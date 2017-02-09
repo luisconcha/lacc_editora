@@ -47,13 +47,13 @@
                                class="btn btn-warning btn-outline btn-xs">
                                 <strong>Edit</strong>
                             </a>
+                            <a href="{{route('books.detail',['id'=>$book->id])}}"
+                               class="btn btn-info btn-outline btn-xs">
+                                <strong>Detail</strong>
+                            </a>
                             <a href="{{route('books.destroy',['id'=>$book->id])}}"
                                class="btn btn-danger btn-outline btn-xs">
-                                <strong>Delete</strong>
-                            </a>
-                            <a href="{{route('books.detail',['id'=>$book->id])}}"
-                               class="btn btn-warning btn-outline btn-xs">
-                                <strong>Detail</strong>
+                                <strong>Send to trash</strong>
                             </a>
                         </td>
                     </tr>

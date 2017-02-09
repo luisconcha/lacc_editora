@@ -24,10 +24,13 @@ Route::group( [ 'middleware' => 'auth' ], function () {
         Route::get( 'users-detail/{id}', [ 'as' => 'users.detail', 'uses' => 'UsersController@detail' ] );
 
         Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function (){
-            Route::resource( 'books', 'Trashs\CategoriesTrashController',
+            Route::resource( 'categories', 'Trashs\CategoriesTrashController',
                 [ 'except' => [ 'show','create', 'store','edit', 'update', 'destroy' ] ]  );
+            Route::get( 'categories/{id}', [ 'as' => 'categories.restore', 'uses' => 'Trashs\CategoriesTrashController@update' ] );
 
-            Route::get( 'books/{id}', [ 'as' => 'restore', 'uses' => 'Trashs\CategoriesTrashController@update' ] );
+            Route::resource( 'books', 'Trashs\BooksTrashController',
+                [ 'except' => [ 'show','create', 'store','edit', 'update', 'destroy' ] ]  );
+            Route::get( 'books/{id}', [ 'as' => 'books.restore', 'uses' => 'Trashs\BooksTrashController@update' ] );
         });
 } );
 

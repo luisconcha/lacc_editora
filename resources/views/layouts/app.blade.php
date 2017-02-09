@@ -47,14 +47,23 @@
                                             'title' => 'List of Categories'
                                     ],
                                     [
-                                            'link' => route( 'trashed.books.index' ),
+                                            'link' => route( 'trashed.categories.index' ),
                                             'title' => 'Categories Trash'
                                     ]
                             ]
                     ],
                     [
-                            'link' => route( 'books.index' ),
-                            'title' => 'Book'
+                            'Book',
+                            [
+                                    [
+                                            'link' => route( 'books.index' ),
+                                            'title' => 'List of books'
+                                    ],
+                                    [
+                                            'link' => route( 'trashed.books.index' ),
+                                            'title' => 'Categories Trash'
+                                    ]
+                            ]
                     ]
             ] );
             $logout = Navigation::links([
