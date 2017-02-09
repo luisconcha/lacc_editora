@@ -208,11 +208,12 @@ class UsersController extends Controller
 
     public function advancedSearch( Request $request )
     {
-        $arrData = $request->all();
+        $arrSearch = $request->all();
 
-        $this->userRepository->pushCriteria( new FormAvancedSearch( $arrData ) );
+        $this->userRepository->pushCriteria( new FormAvancedSearch( $arrSearch ) );
 
         $users  = $this->userRepository->paginate( 10 );
-        return view( 'users.advanced-search', compact( 'users' ) );
+
+        return view( 'users.advanced-search', compact( 'users', 'arrSearch' ) );
     }
 }

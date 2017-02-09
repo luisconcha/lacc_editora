@@ -35,14 +35,18 @@ class FormAvancedSearch implements CriteriaInterface
         ( isset( $this->data['num_rg'] ) ) ? $rg   = $this->data['num_rg'] :  $rg ='' ;
         ( isset( $this->data['email'] ) ) ? $email   = $this->data['email'] :  $email ='' ;
         ( isset( $this->data['district'] ) ) ? $district   = $this->data['district'] :  $district ='' ;
+        ( isset( $this->data['address'] ) ) ? $address   = $this->data['address'] :  $address ='' ;
 
         return $model
+            ->select('users.*')
+            ->join( 'address', 'users.id', '=', 'address.user_id' )
             ->where( 'name','LIKE', "%{$name}%" )
             ->where( 'num_cpf','LIKE', "%{$cpf}%" )
             ->where( 'num_rg','LIKE', "%{$rg}%" )
             ->where( 'email','LIKE', "%{$email}%" )
-            //->where( "address.district",'LIKE', "%{$district}%" )
-            //->where( 'district','LIKE', "%{$district}%" )
+            ->where( "address",'LIKE', "%{$address}%" )
+            ->where( 'district','LIKE', "%{$district}%" )
+            ->orderBy('id','ASC')
             ;
     }
 }

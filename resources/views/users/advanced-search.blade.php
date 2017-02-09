@@ -8,33 +8,33 @@
     <div class="container">
         <div class="row">
             <h3>Advanced user search</h3>
-
-            {!! Form::model(compact([]), ['class' => 'form-search', 'method' => 'GET']) !!}
+            {{dump($arrSearch)}}
+            {!! Form::model(compact($arrSearch), ['class' => 'form-search', 'method' => 'GET']) !!}
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
                         {!! Form::label('name','Name', ['class' => 'control-label']) !!}
-                        {!! Form::text('name', null, ['placeholder'=>'Enter user name','class'=>'form-control', 'id'=>'name']) !!}
+                        {!! Form::text('name', null, ['placeholder'=> (isset($arrSearch['name'] ))? $arrSearch['name'] : 'Enter user name','class'=>'form-control', 'id'=>'name']) !!}
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         {!! Form::label('CPF','CPF', ['class' => 'control-label']) !!}
-                        {!! Form::text('num_cpf', null, ['placeholder'=>'Enter cpf','class'=>'form-control', 'id'=>'num_cpf']) !!}
+                        {!! Form::text('num_cpf', null, ['placeholder'=> (isset($arrSearch['num_cpf'] )) ? $arrSearch['num_cpf'] : 'Enter cpf','class'=>'form-control', 'id'=>'num_cpf']) !!}
                     </div>
                 </div>
 
                 <div class="col-md-3">
                     <div class="form-group">
                         {!! Form::label('RG','RG', ['class' => 'control-label']) !!}
-                        {!! Form::text('num_rg', null, ['placeholder'=>'Enter rg','class'=>'form-control', 'id'=>'num_cpf']) !!}
+                        {!! Form::text('num_rg', null, ['placeholder'=> (isset($arrSearch['num_rg'] )) ? $arrSearch['num_rg'] : 'Enter rg','class'=>'form-control', 'id'=>'num_rg']) !!}
                     </div>
                 </div>
 
                 <div class="col-md-3">
                     <div class="form-group">
                         {!! Form::label('Email','Email', ['class' => 'control-label']) !!}
-                        {!! Form::text('email', null, ['placeholder'=>'Enter your email','class'=>'form-control', 'id'=>'email']) !!}
+                        {!! Form::text('email', null, ['placeholder'=> (isset($arrSearch['email'] )) ? $arrSearch['email'] : 'Enter your email','class'=>'form-control', 'id'=>'email']) !!}
                     </div>
                 </div>
             </div>
@@ -42,13 +42,19 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         {!! Form::label('District','District', ['class' => 'control-label']) !!}
-                        {!! Form::text('district', null, ['placeholder'=>'Enter district','class'=>'form-control', 'id'=>'district']) !!}
+                        {!! Form::text('district', null, ['placeholder'=> (isset($arrSearch['district'] )) ? $arrSearch['district'] :  'Enter district','class'=>'form-control', 'id'=>'district']) !!}
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         {!! Form::label('Address','Address', ['class' => 'control-label']) !!}
-                        {!! Form::text('address', null, ['placeholder'=>'Enter address','class'=>'form-control', 'id'=>'address']) !!}
+                        {!! Form::text('address', null, ['placeholder'=> (isset($arrSearch['address'] ))? $arrSearch['address'] :  'Enter address','class'=>'form-control', 'id'=>'address']) !!}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {!! Form::label('CEP','CEP', ['class' => 'control-label']) !!}
+                        {!! Form::text('cep', null, ['placeholder'=> (isset($arrSearch['cep'] )) ? $arrSearch['cep'] :  'Enter cep','class'=>'form-control', 'id'=>'cep']) !!}
                     </div>
                 </div>
             </div>
