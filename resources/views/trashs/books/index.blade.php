@@ -14,7 +14,7 @@
                 <span class="input-group-btn">
                     {!! Form::submit('Search by:', ['class'=>'btn btn-warning']) !!}
                 </span>
-                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'id, name','class'=>'form-control']) !!}
+                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'id, title or categories','class'=>'form-control']) !!}
                 <span class="input-group-btn">
                     <a href="{{ route( 'books.index' )  }}" class="btn btn-primary">
 Return to the active books</a>
@@ -31,7 +31,7 @@ Return to the active books</a>
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
-                    <th>Subtitle</th>
+                    <th>Categories</th>
                     <th>Creation date</th>
                     <th>Update date</th>
                     <th>Date of removal</th>
@@ -42,7 +42,7 @@ Return to the active books</a>
                     <tr>
                         <td>{{ $book->id }}</td>
                         <td>{{ $book->title }}</td>
-                        <td>{{ $book->subtitle }}</td>
+                        <td>{{ $book->categories->implode('name_trashed',',') }}</td>
                         <td>{{ $book->created_at }}</td>
                         <td>{{ $book->updated_at }}</td>
                         <td>{{ $book->deleted_at }}</td>

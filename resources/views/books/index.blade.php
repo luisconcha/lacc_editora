@@ -14,7 +14,7 @@
                 <span class="input-group-btn">
                     {!! Form::submit('Search by:', ['class'=>'btn btn-warning']) !!}
                 </span>
-                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'title, author, price','class'=>'form-control']) !!}
+                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'id, title, author, price or categories','class'=>'form-control']) !!}
                 <span class="input-group-btn">
                     <a href="{{ route( 'books.create' )  }}" class="btn btn-primary">New book</a>
             </span>
