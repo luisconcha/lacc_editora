@@ -20,6 +20,9 @@
 
             <span><b>Price:</b></span>
             <p> R$ {{ $book->price }}</p>
+
+            <span><b>Categories:</b></span>
+            <p>{{ $book->categories->implode('name_trashed',',') }}</p>
         </div>
         <div class="row">
             <a href="{{ route('books.index') }}" class="btn btn-primary">Return list of books</a>

@@ -32,6 +32,7 @@
                     <th>Title</th>
                     <th>Price</th>
                     <th>Author</th>
+                    <th>Categories</th>
                     <td>Actions</td>
                 </tr>
                 </thead>
@@ -42,6 +43,7 @@
                         <td>{{ $book->title }}</td>
                         <td>{{ $book->price }}</td>
                         <td>{{ $book->author->name }}</td>
+                        <td>{{ $book->categories->implode('name_trashed',',') }}</td>
                         <td>
                             <a href="{{route('books.edit',['id'=>$book->id])}}"
                                class="btn btn-warning btn-outline btn-xs">

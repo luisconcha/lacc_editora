@@ -2,7 +2,8 @@
 
 namespace LACC\Repositories;
 
-use LACC\Criteria\CriteriaOnlyTrashedTrait;
+use Illuminate\Database\Eloquent\Collection;
+use LACC\Criteria\CriteriaTrashedTrait;
 use LACC\Models\Category;
 use LACC\Repositories\Traits\BaseRepositoryTrait;
 use LACC\Repositories\Traits\RepositoryRestoreTrait;
@@ -16,8 +17,9 @@ use Prettus\Repository\Eloquent\BaseRepository;
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
     use BaseRepositoryTrait,
-        CriteriaOnlyTrashedTrait,
+        CriteriaTrashedTrait,
         RepositoryRestoreTrait;
+
 
     protected $fieldSearchable = [
         'id',
@@ -33,6 +35,18 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
         return Category::class;
     }
 
+
+    /**
+     * @param $column
+     * @param null $key
+     * @return \Illuminate\Support\Collection
+     */
+    public function listsWithMutators($column, $key = null)
+    {
+        /** @var  Collection $collection */
+        $collection = $this->all();
+        return $collection->pluck( $column, $key );
+    }
     
 
     /**

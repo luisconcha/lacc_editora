@@ -61,7 +61,7 @@
                                     ],
                                     [
                                             'link' => route( 'trashed.books.index' ),
-                                            'title' => 'Categories Trash'
+                                            'title' => 'Books Trash'
                                     ]
                             ]
                     ]

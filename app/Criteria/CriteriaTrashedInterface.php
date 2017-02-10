@@ -1,6 +1,6 @@
 <?php
 /**
- * File: CriteriaOnlyTrashedInterface.php
+ * File: CriteriaTrashedInterface.php
  * Created by: Luis Alberto Concha Curay.
  * Email: luisconchacuray@gmail.com
  * Language: PHP
@@ -13,7 +13,9 @@
 namespace LACC\Criteria;
 
 
-interface CriteriaOnlyTrashedInterface
+interface CriteriaTrashedInterface
 {
     public function onlyTrashed();
+
+    public function withTrashed();
 }

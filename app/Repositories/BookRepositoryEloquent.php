@@ -2,7 +2,7 @@
 
 namespace LACC\Repositories;
 
-use LACC\Criteria\CriteriaOnlyTrashedTrait;
+use LACC\Criteria\CriteriaTrashedTrait;
 use LACC\Models\Book;
 use LACC\Repositories\Traits\BaseRepositoryTrait;
 use LACC\Repositories\Traits\RepositoryRestoreTrait;
@@ -16,7 +16,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
     use BaseRepositoryTrait,
-        CriteriaOnlyTrashedTrait,
+        CriteriaTrashedTrait,
         RepositoryRestoreTrait;
 
     protected $fieldSearchable = [

@@ -4,7 +4,6 @@ namespace LACC\Http\Controllers;
 
 use Illuminate\Http\Request;
 use LACC\Criteria\FindByAuthorCriteria;
-use LACC\Criteria\FindByTitleCriteria;
 use LACC\Http\Requests\BookRequest;
 use LACC\Repositories\BookRepository;
 use LACC\Repositories\CategoryRepository;
@@ -122,8 +121,9 @@ class bookscontroller extends Controller
     public function edit($id)
     {
         $book       = $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
-        $users      = $this->userService->getListUsersInSelect();
-        $categories = $this->categoryService->getListCategoriesInSelect();
+        $users      = $this->userRepository->lists( 'name', 'id' );
+        $this->categoryRepository->withTrashed();
+        $categories = $this->categoryRepository->listsWithMutators('name_trashed','id');
 
         return view( 'books.edit',compact( 'book', 'users','categories' ) );
     }

@@ -2,7 +2,7 @@
 
 namespace LACC\Repositories;
 
-use LACC\Criteria\CriteriaOnlyTrashedInterface;
+use LACC\Criteria\CriteriaTrashedInterface;
 use LACC\Repositories\Traits\RepositoryRestoreInterface;
 use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
@@ -14,8 +14,9 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface CategoryRepository extends
     RepositoryInterface,
     RepositoryCriteriaInterface,
-    CriteriaOnlyTrashedInterface,
+    CriteriaTrashedInterface,
     RepositoryRestoreInterface
 {
-    //
+
+    public function listsWithMutators($column, $key = null);
 }
