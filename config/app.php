@@ -144,6 +144,7 @@ return [
 		Collective\Html\HtmlServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Bootstrapper\BootstrapperL5ServiceProvider::class,
+        Nwidart\Modules\LaravelModulesServiceProvider::class,
 			/*
 			 * Application Service Providers...
 			 */
@@ -199,6 +200,7 @@ return [
 		'View'         => Illuminate\Support\Facades\View::class,
 		'Form'         => Collective\Html\FormFacade::class,
 		'Html'         => Collective\Html\HtmlFacade::class,
+        'Module'       => Nwidart\Modules\Facades\Module::class,
 
         'Accordion'      => Bootstrapper\Facades\Accordion::class,
         'Alert'          => Bootstrapper\Facades\Alert::class,
