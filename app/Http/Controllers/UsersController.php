@@ -128,8 +128,8 @@ class UsersController extends Controller
      */
     public function detail($id)
     {
-        $user = $this->userService->verifyTheExistenceOfObject( $this->userRepository, $id, $this->with );
-
+        $user                 = $this->userService->verifyTheExistenceOfObject( $this->userRepository, $id, $this->with );
+        $user['civil_status'] = $this->userService->getTypeCivilStatus( $user['civil_status'] );
         return view( 'users.detail',compact( 'user' ) );
     }
 

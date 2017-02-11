@@ -40,6 +40,30 @@ class UserService extends BaseService
         return $arrStatus;
     }
 
+    public function getTypeCivilStatus($id)
+    {
+        $civilSatus = '';
+        switch ($id):
+            case '1':
+                $civilSatus = User::CASADO;
+                break;
+            case '2':
+                $civilSatus = User::VIUVO;
+                break;
+            case '3':
+                $civilSatus = User::DIVORCIADO;
+                break;
+            case '4':
+                $civilSatus = User::SOLTEIRO;
+                break;
+            case '5':
+                $civilSatus = User::UNKNOWN;
+                break;
+        endswitch;
+
+        return $civilSatus;
+    }
+
     public function getPrepareListTypeAddress()
     {
         $arrTypeAddres = [
@@ -55,13 +79,13 @@ class UserService extends BaseService
         return $arrTypeAddres;
     }
 
-    public function setEncryptPassword( $password )
+    public function setEncryptPassword($password)
     {
-        return bcrypt( trim( $password ) );
+        return bcrypt(trim($password));
     }
 
     public function generateRemenberToken()
     {
-        return str_random( 10 );
+        return str_random(10);
     }
 }

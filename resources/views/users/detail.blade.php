@@ -17,13 +17,13 @@
                     <p>{{ $user->created_at }}</p>
 
                     <span><b>CPF</b></span>
-                    <p>{{ $user->cpf }}</p>
+                    <p>{{ $user->num_cpf }}</p>
 
                     <span><b>RG:</b></span>
-                    <p> R$ {{ $user->rg }}</p>
+                    <p>{{ $user->num_rg }}</p>
 
                     <span><b>Civil Status:</b></span>
-                    <p> R$ {{ $user->civil_status }}</p>
+                    <p>{{ $user->civil_status }}</p>
                 </div>
                 <div class="col-md-6">
                     <span><b>Address:</b></span>
