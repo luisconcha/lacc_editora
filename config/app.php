@@ -145,6 +145,11 @@ return [
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Bootstrapper\BootstrapperL5ServiceProvider::class,
         Nwidart\Modules\LaravelModulesServiceProvider::class,
+
+        /**
+         * Providers de modulos
+         */
+        \LaccBook\Providers\LaccBookServiceProvider::class,
 			/*
 			 * Application Service Providers...
 			 */

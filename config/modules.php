@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'namespace' => 'Modules',
+    'namespace' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -26,20 +26,20 @@ return [
         'enabled' => false,
         'path' => base_path() . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
         'files' => [
-            'start' => 'start.php',
-            'routes' => 'Http/routes.php',
-            'json' => 'module.json',
-            'views/index' => 'Resources/views/index.blade.php',
-            'views/master' => 'Resources/views/layouts/master.blade.php',
+            'start'           => 'start.php',
+            'routes'          => 'Http/routes.php',
+            'json'            => 'module.json',
+            'views/index'     => 'resources/views/index.blade.php',
+            'views/master'    => 'resources/views/layouts/master.blade.php',
             'scaffold/config' => 'Config/config.php',
-            'composer' => 'composer.json',
+            'composer'        => 'composer.json',
         ],
         'replacements' => [
-            'start' => ['LOWER_NAME'],
-            'routes' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
-            'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
-            'views/index' => ['LOWER_NAME'],
-            'views/master' => ['STUDLY_NAME'],
+            'start'           => ['LOWER_NAME'],
+            'routes'          => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'json'            => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'views/index'     => ['LOWER_NAME'],
+            'views/master'    => ['STUDLY_NAME'],
             'scaffold/config' => ['STUDLY_NAME'],
             'composer' => [
                 'LOWER_NAME',
@@ -94,21 +94,21 @@ return [
         */
 
         'generator' => [
-            'assets' => 'Assets',
+            'assets' => 'assets',
             'config' => 'Config',
             'command' => 'Console',
             'event' => 'Events',
             'listener' => 'Events/Handlers',
-            'migration' => 'Database/Migrations',
-            'model' => 'Entities',
+            'migration' => 'database/Migrations',
+            'model' => 'Models',
             'repository' => 'Repositories',
-            'seeder' => 'Database/Seeders',
+            'seeder' => 'database/Seeders',
             'controller' => 'Http/Controllers',
             'filter' => 'Http/Middleware',
             'request' => 'Http/Requests',
             'provider' => 'Providers',
-            'lang' => 'Resources/lang',
-            'views' => 'Resources/views',
+            'lang' => 'resources/lang',
+            'views' => 'resources/views',
             'test' => 'Tests',
             'jobs' => 'Jobs',
             'emails' => 'Emails',
@@ -141,10 +141,10 @@ return [
     */
 
     'composer' => [
-        'vendor' => 'nwidart',
-        'author' => [
-            'name' => 'Luis Alberto',
-            'email' => 'lacc@gmail.com',
+        'vendor'   => 'luisconcha',
+        'author'   => [
+            'name' => 'Luis Alberto Concha Curay',
+            'email'=> 'luisconchacuray@gmail.com',
         ],
     ],
     /*
@@ -156,8 +156,8 @@ return [
     |
     */
     'cache' => [
-        'enabled' => false,
-        'key' => 'laravel-modules',
+        'enabled'  => false,
+        'key'      => 'laravel-modules',
         'lifetime' => 60,
     ],
     /*
