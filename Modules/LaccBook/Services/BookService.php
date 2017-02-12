@@ -10,15 +10,16 @@
  * Copyright: 2017
  */
 
-namespace LACC\Services;
+namespace LaccBook\Services;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use LACC\Repositories\BookRepository;
+use LACC\Services\BaseService;
+use LaccBook\Repositories\BookRepository;
 
 class BookService extends BaseService
 {
     /**
-     * @var BookRepository
+     * @var \LaccBook\Repositories\BookRepository
      */
     private $bookRepository;
 

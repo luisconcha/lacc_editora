@@ -47,7 +47,7 @@ $factory->define( \LaccBook\Models\Category::class, function (Faker\Generator $f
 		];
 } );
 //
-$factory->define( \LACC\Models\Book::class, function (Faker\Generator $faker ) {
+$factory->define( \LaccBook\Models\Book::class, function (Faker\Generator $faker ) {
     $userRepo = app( \LACC\Repositories\UserRepository::class );
     $authorId = $userRepo->all()->random()->id;
 

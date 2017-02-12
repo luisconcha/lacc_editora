@@ -32,10 +32,6 @@ class LACCServiceProvider extends ServiceProvider
             \LACC\Repositories\StateRepositoryEloquent::class
         );
         $this->app->bind(
-            \LACC\Repositories\BookRepository::class,
-            \LACC\Repositories\BookRepositoryEloquent::class
-        );
-        $this->app->bind(
             \LACC\Repositories\AddressRepository::class,
             \LACC\Repositories\AddressRepositoryEloquent::class
         );

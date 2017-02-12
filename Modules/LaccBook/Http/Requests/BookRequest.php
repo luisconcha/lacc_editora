@@ -1,10 +1,10 @@
 <?php
 
-namespace LACC\Http\Requests;
+namespace LaccBook\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use LACC\Models\Book;
-use LACC\Repositories\BookRepository;
+use LaccBook\Models\Book;
+use LaccBook\Repositories\BookRepository;
 use LACC\Repositories\UserRepository;
 
 class BookRequest extends FormRequest

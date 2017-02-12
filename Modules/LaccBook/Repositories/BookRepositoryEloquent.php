@@ -1,11 +1,12 @@
 <?php
 
-namespace LACC\Repositories;
+namespace LaccBook\Repositories;
 
 use LACC\Criteria\CriteriaTrashedTrait;
-use LACC\Models\Book;
+use LaccBook\Models\Book;
 use LACC\Repositories\Traits\BaseRepositoryTrait;
 use LACC\Repositories\Traits\RepositoryRestoreTrait;
+use LaccBook\Repositories\BookRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 

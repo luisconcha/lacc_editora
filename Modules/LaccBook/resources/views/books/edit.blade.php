@@ -12,7 +12,7 @@
 
         {!! Form::model($book,['route'=>['books.update','id'=>$book->id],'method'=>'put']) !!}
 
-        @include('books._form')
+        @include('laccbook::books._form')
 
         <div class="form-group text-center">
             {!! Form::submit('Edit', ['class'=>'btn btn-primary btn-sm']) !!}

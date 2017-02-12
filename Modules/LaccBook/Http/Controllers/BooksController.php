@@ -1,15 +1,15 @@
 <?php
 
-namespace LACC\Http\Controllers;
+namespace LaccBook\Http\Controllers;
 
 use Illuminate\Http\Request;
-use LACC\Criteria\FindByAuthorCriteria;
-use LACC\Http\Requests\BookRequest;
-use LACC\Repositories\BookRepository;
+use LACC\Http\Controllers\Controller;
+use LaccBook\Http\Requests\BookRequest;
+use LaccBook\Repositories\BookRepository;
 use LaccBook\Repositories\CategoryRepository;
 use LACC\Repositories\UserRepository;
-use LACC\Services\BookService;
-use LACC\Services\CategoryService;
+use LaccBook\Services\BookService;
+use LaccBook\Services\CategoryService;
 use LACC\Services\UserService;
 
 class bookscontroller extends Controller
@@ -22,7 +22,7 @@ class bookscontroller extends Controller
     protected $userService;
 
     /**
-     * @var CategoryService
+     * @var \LaccBook\Services\CategoryService
      */
     protected $categoryService;
     /**
@@ -31,7 +31,7 @@ class bookscontroller extends Controller
     protected $userRepository;
 
     /**
-     * @var BookService
+     * @var \LaccBook\Services\BookService
      */
     protected $bookService;
 
@@ -71,7 +71,7 @@ class bookscontroller extends Controller
         $search = $request->get('search');
         $books  = $this->bookRepository->with( $this->with )->paginate( 15 );
 
-        return view( 'books.index', compact( 'books','search' ) );
+        return view( 'laccbook::books.index', compact( 'books','search' ) );
     }
 
     /**
@@ -85,7 +85,7 @@ class bookscontroller extends Controller
         $categories = $this->categoryRepository->lists('name','id');
         $users      = $this->userRepository->lists( 'name', 'id' );
 
-        return view( 'books.create', compact( 'users', 'categories' ) );
+        return view( 'laccbook::books.create', compact( 'users', 'categories' ) );
     }
 
     /**
@@ -111,7 +111,7 @@ class bookscontroller extends Controller
     {
         $book = $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
 
-        return view( 'books.detail',compact( 'book' ) );
+        return view( 'laccbook::books.detail',compact( 'book' ) );
     }
 
     /**
@@ -125,11 +125,11 @@ class bookscontroller extends Controller
         $this->categoryRepository->withTrashed();
         $categories = $this->categoryRepository->listsWithMutators('name_trashed','id');
 
-        return view( 'books.edit',compact( 'book', 'users','categories' ) );
+        return view( 'laccbook::books.edit',compact( 'book', 'users','categories' ) );
     }
 
     /**
-     * @param BookRequest $request
+     * @param \LaccBook\Http\Requests\BookRequest $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */

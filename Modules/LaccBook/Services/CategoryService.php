@@ -10,8 +10,9 @@
  * Copyright: 2017
  */
 
-namespace LACC\Services;
+namespace LaccBook\Services;
 
+use LACC\Services\BaseService;
 use LaccBook\Models\Category;
 
 class CategoryService extends BaseService

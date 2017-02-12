@@ -5,7 +5,7 @@ namespace LACC\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LACC\Models\Address;
-use LACC\Models\Book;
+use LaccBook\Models\Book;
 
 class User extends Authenticatable
 {

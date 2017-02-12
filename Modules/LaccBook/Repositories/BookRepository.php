@@ -1,6 +1,6 @@
 <?php
 
-namespace LACC\Repositories;
+namespace LaccBook\Repositories;
 
 use LACC\Criteria\CriteriaTrashedInterface;
 use LACC\Repositories\Traits\RepositoryRestoreInterface;

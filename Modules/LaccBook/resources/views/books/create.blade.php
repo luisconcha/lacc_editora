@@ -9,7 +9,7 @@
 
             {!! Form::open(['route'=>'books.store']) !!}
 
-            @include('books._form')
+            @include('laccbook::books._form')
 
             <div class="form-group text-center">
                 {!! Form::submit('Save', ['class'=>'btn btn-primary btn-sm']) !!}

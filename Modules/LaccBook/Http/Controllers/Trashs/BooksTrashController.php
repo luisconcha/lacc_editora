@@ -1,11 +1,11 @@
 <?php
 
-namespace LACC\Http\Controllers\Trashs;
+namespace LaccBook\Http\Controllers\Trashs;
 
 use Illuminate\Http\Request;
 use LACC\Http\Controllers\Controller;
-use LACC\Repositories\BookRepository;
-use LACC\Services\BookService;
+use LaccBook\Repositories\BookRepository;
+use LaccBook\Services\BookService;
 
 class BooksTrashController extends Controller
 {
@@ -15,7 +15,7 @@ class BooksTrashController extends Controller
     protected $bookService;
 
     /**
-     * @var BookRepository
+     * @var \LaccBook\Repositories\BookRepository
      */
     protected $bookRepository;
 
@@ -37,7 +37,7 @@ class BooksTrashController extends Controller
         $this->bookRepository->onlyTrashed();
         $books  = $this->bookRepository->paginate( 15 );
 
-        return view( 'trashs.books.index', compact( 'books','search' ) );
+        return view( 'laccbook::trashs.books.index', compact( 'books','search' ) );
     }
 
 

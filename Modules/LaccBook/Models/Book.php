@@ -1,10 +1,11 @@
 <?php
 
-namespace LACC\Models;
+namespace LaccBook\Models;
 
 use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use LACC\Models\User;
 use LaccBook\Models\Category;
 
 class Book extends Model
