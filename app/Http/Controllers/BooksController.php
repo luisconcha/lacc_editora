@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use LACC\Criteria\FindByAuthorCriteria;
 use LACC\Http\Requests\BookRequest;
 use LACC\Repositories\BookRepository;
-use LACC\Repositories\CategoryRepository;
+use LaccBook\Repositories\CategoryRepository;
 use LACC\Repositories\UserRepository;
 use LACC\Services\BookService;
 use LACC\Services\CategoryService;
@@ -40,7 +40,7 @@ class bookscontroller extends Controller
      */
     protected $bookRepository;
     /**
-     * @var CategoryRepository
+     * @var \LaccBook\Repositories\CategoryRepository
      */
     protected $categoryRepository;
 

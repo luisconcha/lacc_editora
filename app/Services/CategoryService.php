@@ -12,7 +12,7 @@
 
 namespace LACC\Services;
 
-use LACC\Models\Category;
+use LaccBook\Models\Category;
 
 class CategoryService extends BaseService
 {
