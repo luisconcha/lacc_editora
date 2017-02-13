@@ -3,7 +3,7 @@
 namespace LACC\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use LACC\Models\User;
+use LaccUser\Models\User;
 
 class Address extends Model
 {
@@ -15,7 +15,7 @@ class Address extends Model
 
     public function user()
     {
-        return $this->hasOne( User::class );
+        return $this->hasOne( \LaccUser\Models\User::class );
     }
 
 }

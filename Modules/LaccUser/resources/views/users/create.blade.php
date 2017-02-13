@@ -13,7 +13,7 @@
 
             {!! Form::open(['route'=>'users.store']) !!}
 
-            @include('users._form')
+            @include('laccuser::users._form')
 
             <div class="form-group text-center">
                 {!! Form::submit('Save', ['class'=>'btn btn-primary btn-sm']) !!}

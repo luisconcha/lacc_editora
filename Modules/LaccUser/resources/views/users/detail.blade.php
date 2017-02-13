@@ -27,13 +27,13 @@
                 </div>
                 <div class="col-md-6">
                     <span><b>Address:</b></span>
-                    <p> R$ {{ $user->address->address }}</p>
+                    <p>{{ ($user->address) ? $user->address->address : '------------' }}</p>
 
                     <span><b>District:</b></span>
-                    <p> {{ $user->address->district }}</p>
+                    <p> {{ ($user->address) ? $user->address->district: '-----------' }}</p>
 
                     <span><b>CEP:</b></span>
-                    <p> {{ $user->address->cep }}</p>
+                    <p> {{ ($user->address) ? $user->address->cep : '-------------' }}</p>
                 </div>
             </div>
         </div>

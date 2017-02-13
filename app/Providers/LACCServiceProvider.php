@@ -24,8 +24,8 @@ class LACCServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            \LACC\Repositories\UserRepository::class,
-            \LACC\Repositories\UserRepositoryEloquent::class
+            \LaccUser\Repositories\UserRepository::class,
+            \LaccUser\Repositories\UserRepositoryEloquent::class
         );
         $this->app->bind(
             \LACC\Repositories\StateRepository::class,

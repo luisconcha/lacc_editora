@@ -1,18 +1,21 @@
 <?php
 
-namespace LACC\Http\Controllers;
+namespace LaccUser\Http\Controllers;
 
 use Illuminate\Http\Request;
-use LACC\Criteria\FormAvancedSearch;
-use LACC\Models\City;
-use LACC\Http\Requests\UserRequest;
-use LACC\Models\State;
 use Illuminate\Database\Connection;
+
 use LACC\Repositories\AddressRepository;
-use LACC\Repositories\UserRepository;
+use LACC\Criteria\FormAvancedSearch;
+use LACC\Http\Controllers\Controller;
+use LACC\Models\City;
+use LACC\Models\State;
 use LACC\Services\AddressService;
 use LACC\Services\CityService;
-use LACC\Services\UserService;
+
+use LaccUser\Repositories\UserRepository;
+use LaccUser\Http\Requests\UserRequest;
+use LaccUser\Services\UserService;
 
 class UsersController extends Controller
 {
@@ -30,7 +33,7 @@ class UsersController extends Controller
     private $with = [ 'address' ];
 
     /**
-     * @var UserService
+     * @var \LaccUser\Services\UserService
      */
     protected $userService;
 
@@ -56,17 +59,25 @@ class UsersController extends Controller
 
     protected $urlDefault = 'users.index';
 
-    public function __construct( State $state, City $city, Connection $connection,    UserService $userService, UserRepository $userRepository, CityService $cityService, AddressRepository $addressRepository, AddressService $addressService)
+    public function __construct(
+        State $state,
+        City $city,
+        Connection $connection,
+        UserService $userService,
+        UserRepository $userRepository,
+        CityService $cityService,
+        AddressRepository $addressRepository,
+        AddressService $addressService)
     {
          $this->state = $state;
          $this->city  = $city;
          $this->bd    = $connection;
 
-        $this->userService = $userService;
-        $this->userRepository = $userRepository;
-        $this->cityService = $cityService;
+        $this->userService       = $userService;
+        $this->userRepository    = $userRepository;
+        $this->cityService       = $cityService;
         $this->addressRepository = $addressRepository;
-        $this->addressService = $addressService;
+        $this->addressService    = $addressService;
 
     }
 
@@ -78,7 +89,7 @@ class UsersController extends Controller
         $search = $request->get( 'search' );
         $users  = $this->userRepository->paginate( 10 );
 
-        return view( 'users.index', compact( 'users','search' ) );
+        return view( 'laccuser::users.index', compact( 'users','search' ) );
     }
 
     /**
@@ -90,7 +101,7 @@ class UsersController extends Controller
         $civilStatus = $this->userService->getPrepareListCivilStatus();
         $typeAddress = $this->userService->getPrepareListTypeAddress();
 
-        return view( 'users.create', compact( 'cities','civilStatus','typeAddress' ));
+        return view( 'laccuser::users.create', compact( 'cities','civilStatus','typeAddress' ));
     }
 
     /**
@@ -130,7 +141,7 @@ class UsersController extends Controller
     {
         $user                 = $this->userService->verifyTheExistenceOfObject( $this->userRepository, $id, $this->with );
         $user['civil_status'] = $this->userService->getTypeCivilStatus( $user['civil_status'] );
-        return view( 'users.detail',compact( 'user' ) );
+        return view( 'laccuser::users.detail',compact( 'user' ) );
     }
 
     /**
@@ -154,11 +165,11 @@ class UsersController extends Controller
         $civilStatus = $this->userService->getPrepareListCivilStatus();
         $typeAddress = $this->userService->getPrepareListTypeAddress();
 
-        return view( 'users.edit',compact( 'user', 'states','cities','civilStatus','typeAddress' ) );
+        return view( 'laccuser::users.edit',compact( 'user', 'states','cities','civilStatus','typeAddress' ) );
     }
 
     /**
-     * @param UserRequest $request
+     * @param \LaccUser\Http\Requests\UserRequest $request
      * @param $idUser
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -214,6 +225,6 @@ class UsersController extends Controller
 
         $users  = $this->userRepository->paginate( 10 );
 
-        return view( 'users.advanced-search', compact( 'users', 'arrSearch' ) );
+        return view( 'laccuser::users.advanced-search', compact( 'users', 'arrSearch' ) );
     }
 }

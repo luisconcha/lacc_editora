@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => \LACC\Models\User::class,
+        'model' => \LaccUser\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

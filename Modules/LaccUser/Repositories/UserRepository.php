@@ -1,6 +1,6 @@
 <?php
 
-namespace LACC\Repositories;
+namespace LaccUser\Repositories;
 
 use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;

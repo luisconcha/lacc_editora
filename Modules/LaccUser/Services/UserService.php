@@ -10,10 +10,11 @@
  * Copyright: 2017
  */
 
-namespace LACC\Services;
+namespace LaccUser\Services;
 
 
-use LACC\Models\User;
+use LACC\Services\BaseService;
+use LaccUser\Models\User;
 
 class UserService extends BaseService
 {

@@ -33,12 +33,12 @@
   ],
   "autoload": {
     "classmap": [
-      "database",
-      "Modules/LaccBook/database"
+      "database"
     ],
     "psr-4": {
       "LACC\\": "app/",
-      "LaccBook\\": "Modules/LaccBook"
+      "LaccBook\\": "Modules/LaccBook",
+      "LaccUser\\": "Modules/LaccUser"
     }
   },
   "autoload-dev": {

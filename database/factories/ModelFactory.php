@@ -11,18 +11,18 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define( \LACC\Models\User::class, function (Faker\Generator $faker ) {
-		static $password;
-		return [
-			'name'           => $faker->name,
-			'email'          => $faker->unique()->safeEmail,
-            'num_cpf'        => $faker->cpf,
-            'num_rg'         => $faker->rg,
-            'avatar'         => 'image.jpg',
-            'civil_status'   => $faker->numberBetween( 1,5 ),
-            'password'       => $password ? : $password = bcrypt( '123456' ),
-            'remember_token' => str_random( 10 ),
-		];
+$factory->define(\LaccUser\Models\User::class, function (Faker\Generator $faker ) {
+    static $password;
+    return [
+        'name'           => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'num_cpf'        => $faker->cpf,
+        'num_rg'         => $faker->rg,
+        'avatar'         => 'image.jpg',
+        'civil_status'   => $faker->numberBetween( 1,5 ),
+        'password'       => $password ? : $password = bcrypt( '123456' ),
+        'remember_token' => str_random( 10 ),
+    ];
 } );
 //
 $factory->define( \LACC\Models\State::class, function (Faker\Generator $faker ) {
@@ -48,7 +48,7 @@ $factory->define( \LaccBook\Models\Category::class, function (Faker\Generator $f
 } );
 //
 $factory->define( \LaccBook\Models\Book::class, function (Faker\Generator $faker ) {
-    $userRepo = app( \LACC\Repositories\UserRepository::class );
+    $userRepo = app( \LaccUser\Repositories\UserRepository::class );
     $authorId = $userRepo->all()->random()->id;
 
     return [
@@ -72,7 +72,7 @@ $factory->define( \LACC\Models\Address::class, function (Faker\Generator $faker 
 } );
 //
 $factory->define( LACC\Models\TelephoneUser::class, function ( Faker\Generator $faker ) {
-    $userRepo = app( \LACC\Repositories\UserRepository::class );
+    $userRepo = app( \LaccUser\Repositories\UserRepository::class );
     $userId   = $userRepo->all()->random()->id;
     return [
         'num_telephone'  => $faker->phoneNumber,

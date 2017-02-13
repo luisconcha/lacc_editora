@@ -1,8 +1,8 @@
 <?php
 
-namespace LACC\Repositories;
+namespace LaccUser\Repositories;
 
-use LACC\Models\User;
+use LaccUser\Models\User;
 use LACC\Repositories\Traits\BaseRepositoryTrait;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;

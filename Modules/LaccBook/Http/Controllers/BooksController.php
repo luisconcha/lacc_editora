@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use LaccBook\Http\Requests\BookRequest;
 use LaccBook\Repositories\BookRepository;
 use LaccBook\Repositories\CategoryRepository;
-use LACC\Repositories\UserRepository;
+use LaccUser\Repositories\UserRepository;
 use LaccBook\Services\BookService;
 use LaccBook\Services\CategoryService;
-use LACC\Services\UserService;
+use LaccUser\Services\UserService;
 
 class Bookscontroller extends Controller
 {

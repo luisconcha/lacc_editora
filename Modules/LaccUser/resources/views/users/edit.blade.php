@@ -12,7 +12,7 @@
 
         {!! Form::model($user,['route'=>['users.update','id'=>$user->id],'method'=>'put']) !!}
 
-        @include('users._form')
+        @include('laccuser::users._form')
 
         <div class="form-group text-center">
             {!! Form::submit('Edit', ['class'=>'btn btn-primary btn-sm']) !!}

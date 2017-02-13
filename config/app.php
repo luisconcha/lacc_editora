@@ -150,6 +150,7 @@ return [
          * Providers de modulos
          */
         \LaccBook\Providers\LaccBookServiceProvider::class,
+        \LaccUser\Providers\LaccUserServiceProvider::class,
 			/*
 			 * Application Service Providers...
 			 */
