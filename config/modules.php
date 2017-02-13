@@ -114,6 +114,7 @@ return [
             'emails'        => 'Emails',
             'notifications' => 'Notifications',
             'services'      => 'Services',
+            'criteria'      => 'Criteria',
         ],
     ],
     /*
