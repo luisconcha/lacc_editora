@@ -30,11 +30,11 @@
                             'User',
                             [
                                     [
-                                            'link' => route( 'users.index' ),
+                                            'link' => route( 'laccuser.users.index' ),
                                             'title' => 'User'
                                     ],
                                     [
-                                            'link' => route( 'advanced.users.search' ),
+                                            'link' => route( 'laccuser.advanced.users.search' ),
                                             'title' => 'Advanced Search'
                                     ]
                             ]
@@ -78,7 +78,7 @@
                                             ]
                                     ],
                                     [
-                                        'link' => route('users.edit', ['id'=>Auth::user()->id]),
+                                        'link' => route('laccuser.users.edit', ['id'=>Auth::user()->id]),
                                         'title' => 'Edit profile'
                                     ]
                             ],
