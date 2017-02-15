@@ -22,6 +22,7 @@ $factory->define(\LaccUser\Models\User::class, function (Faker\Generator $faker 
         'civil_status'   => $faker->numberBetween( 1,5 ),
         'password'       => $password ? : $password = bcrypt( '123456' ),
         'remember_token' => str_random( 10 ),
+        'verified'     => true
     ];
 } );
 //
