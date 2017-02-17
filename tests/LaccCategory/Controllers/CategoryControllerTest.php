@@ -13,7 +13,8 @@
 
 namespace LACC\LaccCategory\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use Request;
 use LaccBook\Http\Controllers\CategoriesController;
 
 use LaccBook\Http\Controllers\Controller;
@@ -42,16 +43,17 @@ class CategoryControllerTest extends \TestCase
         $html               = m::mock();
         $request            = m::mock(Request::class);
 
-        $controller = new CategoriesController($categoryRepository, $categoryService);
+        $ccategoryController = new CategoriesController($categoryRepository, $categoryService);
 
         $categoryResult = ['cat01', 'cat02'];
-        $category->shouldReceive('all')->andReturn($categoryResult);
+        $category->shouldReceive('index')->andReturn($categoryResult);
 
-
-        \View::shouldReceive('view')
+        \View::shouldReceive('views')
             ->with('laccbook::categories.index', ['categories' => $categoryResult, 'search' => '' ] )
             ->andReturn($html);
 
-        $this->assertEquals($controller->index($request), $html);
+//        $this->assertEquals($ccategoryController->index($request->get('search')), $html);
+
+        $this->assertEquals($ccategoryController->index($request)->offsetGet('get'), $html);
     }
 }

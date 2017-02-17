@@ -115,10 +115,10 @@ class UsersController extends Controller
             $data[ 'password' ] = $this->userService->setEncryptPassword('123456');
             $user = $this->userRepository->create( $data );
 
-            \UserVerification::generate($user);
-            $subject = config('laccuser.email.user_created.subject');//@seed /path/Modules/LaccUser/Config/config.php
-            \UserVerification::emailView('laccuser::emails.user-created');
-            \UserVerification::send($user, $subject);
+//            \UserVerification::generate($user);
+//            $subject = config('laccuser.email.user_created.subject');//@seed /path/Modules/LaccUser/Config/config.php
+//            \UserVerification::emailView('laccuser::emails.user-created');
+//            \UserVerification::send($user, $subject);
 
             if( $user ){
                 $data['user_id'] = $user->id;
