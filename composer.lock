@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "edf77db87209a6a22d19fb62d3335463",
-    "content-hash": "fc42b2704fb5ef51c9ebe6e8d0e64c77",
+    "hash": "ff92e9f500403fcdd1fca563a8411242",
+    "content-hash": "bb454fb0f5d02e932bc306aeb9bac65a",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -3125,6 +3125,123 @@
                 "object graph"
             ],
             "time": "2017-01-26 22:05:40"
+        },
+        {
+            "name": "orchestra/database",
+            "version": "v3.3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/database.git",
+                "reference": "f6b84efe22415e77af5b98701bd9d27b6ad10aec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/database/zipball/f6b84efe22415e77af5b98701bd9d27b6ad10aec",
+                "reference": "f6b84efe22415e77af5b98701bd9d27b6ad10aec",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "~5.3.0",
+                "illuminate/database": "~5.3.0",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Database\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                },
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell"
+                }
+            ],
+            "description": "Database Component for Orchestra Platform",
+            "keywords": [
+                "database",
+                "orchestra-platform",
+                "orchestral"
+            ],
+            "time": "2017-02-08 02:33:45"
+        },
+        {
+            "name": "orchestra/testbench",
+            "version": "v3.3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/testbench.git",
+                "reference": "ac1c3656c5efc737961bac28405ebfd79cbb2227"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/ac1c3656c5efc737961bac28405ebfd79cbb2227",
+                "reference": "ac1c3656c5efc737961bac28405ebfd79cbb2227",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "~1.4",
+                "laravel/framework": "~5.3.29",
+                "orchestra/database": "~3.3.6",
+                "php": ">=5.6.0",
+                "symfony/css-selector": "3.1.*",
+                "symfony/dom-crawler": "3.1.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "~4.8 || ~5.0"
+            },
+            "suggest": {
+                "phpunit/phpunit": "Allow to use PHPUnit for testing your Laravel Application/Package (~4.0|~5.0)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Testbench\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Laravel Testing Helper for Packages Development",
+            "homepage": "http://orchestraplatform.com/docs/latest/components/testbench/",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "laravel",
+                "orchestra-platform",
+                "orchestral",
+                "testing"
+            ],
+            "time": "2017-02-12 14:04:28"
         },
         {
             "name": "phpdocumentor/reflection-common",

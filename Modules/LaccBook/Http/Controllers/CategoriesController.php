@@ -33,7 +33,8 @@ class CategoriesController extends Controller
          */
 		public function index(Request $request)
 		{
-            $search     = $request->get( 'search' );
+            //$search     = $request->get( 'search' );
+            $search     = '';
             $categories = $this->categoryRepository->paginate( 15 );
 
 			return view( 'laccbook::categories.index', compact( 'categories', 'search' ) );
