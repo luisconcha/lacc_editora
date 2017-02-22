@@ -35,25 +35,46 @@ class CategoryControllerTest extends \TestCase
         $this->assertInstanceOf(Controller::class, $controller);
     }
 
+//    public function test_controller_should_run_index_method()
+//    {
+//        $category           = m::mock(Category::class);
+//        $categoryRepository = m::mock(CategoryRepository::class);
+//        $categoryService    = m::mock(CategoryService::class);
+//        $html               = m::mock();
+//        $request            = m::mock(Request::class);
+//
+//        $ccategoryController = new CategoriesController($categoryRepository, $categoryService);
+//
+//        $categoryResult = ['cat01', 'cat02'];
+//        $category->shouldReceive('index')->andReturn($categoryResult);
+//
+//        \View::shouldReceive('views')
+//            ->with('laccbook::categories.index', ['categories' => $categoryResult, 'search' => '' ] )
+//            ->andReturn($html);
+//
+//        $this->assertEquals($ccategoryController->index($request->get('search')), $html);
+//
+////        $this->assertEquals($ccategoryController->index($request)->offsetGet('get'), $html);
+//    }
     public function test_controller_should_run_index_method()
     {
         $category           = m::mock(Category::class);
         $categoryRepository = m::mock(CategoryRepository::class);
         $categoryService    = m::mock(CategoryService::class);
-        $html               = m::mock();
-        $request            = m::mock(Request::class);
+        $html               = 'cat1';
+//        $request            = m::mock(Request::class);
 
-        $ccategoryController = new CategoriesController($categoryRepository, $categoryService);
+        $categoryController = new CategoriesController($categoryRepository, $categoryService);
 
         $categoryResult = ['cat01', 'cat02'];
-        $category->shouldReceive('index')->andReturn($categoryResult);
+        $categoryController->shouldReceive('paginate')->with(15)->andReturn(['cat1', 'cat2']);
 
         \View::shouldReceive('views')
-            ->with('laccbook::categories.index', ['categories' => $categoryResult, 'search' => '' ] )
+            ->with('laccbook::categories.index', ['categories' => $categoryResult, 'search' => 'cat1' ] )
             ->andReturn($html);
 
-//        $this->assertEquals($ccategoryController->index($request->get('search')), $html);
+//        $this->assertEquals($categoryController->index(Request::class));
 
-        $this->assertEquals($ccategoryController->index($request)->offsetGet('get'), $html);
+        $this->assertEquals($categoryController->index(Request::class)->offsetGet('get'), $html);
     }
 }

@@ -15,6 +15,7 @@ namespace LACC\LaccCategory\Models;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use LaccBook\Models\Category;
+use LaccUser\Models\User;
 use Mockery as m;
 
 class CategoryTest extends \TestCase
@@ -27,29 +28,24 @@ class CategoryTest extends \TestCase
         $this->assertEquals('Category 02', $category->name);
     }
 
+    public function test_check_if_a_category_can_be_persisted_and_view_data()
+    {
+        //Set the currently logged in user for the application.
+        $this->actingAs($this->getUser())
+            ->visit('/categories/create')
+            ->type('New Category Test', 'name')
+            ->press('Save')
+            ->seePageIs('/categories')
+            ->see('New Category Test');
+    }
 
-
-//    public function test_check_if_a_category_can_be_persisted_and_view_data()
-//    {
-//        $this->mockUser();
-//
-//        $this->visit('/categories/create')
-//            ->type('New Category Test', 'name')
-//            ->press('Save')
-//            ->seePageIs('/categories')
-//            ->see('New Category Test');
-//    }
-//
-//    protected function mockUser()
-//    {
-//        $user = new User(
-//            [
-//                'name'  => 'Admin',
-//                'email' => 'admin@editora.com',
-//            ]
-//        );
-//
-//        $this->be($user);
-//    }
+    /**
+     * Cria em memoria um objeto de usuario
+     * @return mixed
+     */
+    protected function getUser()
+    {
+        return factory(User::class)->create();
+    }
 
 }
