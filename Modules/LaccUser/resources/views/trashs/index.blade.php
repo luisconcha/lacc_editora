@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-    Trash Categories
+    Trash Users
 @endsection
 
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>List of categories in the trash</h3>
+            <h3>List of users in the trash</h3>
 
             {!! Form::model(compact($search), ['class' => 'form-search', 'method' => 'GET']) !!}
             <div class="input-group">
@@ -16,15 +16,14 @@
                 </span>
                 {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'id, name','class'=>'form-control']) !!}
                 <span class="input-group-btn">
-                    <a href="{{ route( 'categories.index' )  }}" class="btn btn-primary">
-Return to the active categories</a>
+                    <a href="{{ route( 'laccuser.users.index' )  }}" class="btn btn-primary">
+Return to the active users</a>
                 </span>
             </div>
             {!! Form::close() !!}
 
         </div>
-
-
+        
         <div class="row">
             <table class="table table-striped">
                 <thead>
@@ -37,21 +36,22 @@ Return to the active categories</a>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($categories as $category)
+                @foreach($users as $user)
                     <tr>
-                        <td>{{ $category->id }}</td>
-                        <td>{{ $category->name }}</td>
-                        <td>{{ $category->created_at }}</td>
-                        <td>{{ $category->updated_at }}</td>
-                        <td>{{ $category->deleted_at }}</td>
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->created_at }}</td>
+                        <td>{{ $user->updated_at }}</td>
+                        <td>{{ $user->deleted_at }}</td>
                         <td>
-                            <a href="{{route('trashed.categories.restore',['id'=>$category->id])}}"
+                            <a href="#"
                                class="btn btn-danger btn-outline btn-xs"
-                               onclick="event.preventDefault();document.getElementById('restore').submit();">
+                               onclick="event.preventDefault();document.getElementById('restore-user').submit();">
                                 <strong>Restore</strong>
                             </a>
-                            {!! Form::open(['route' => ['trashed.categories.restore', 'book' =>$category->id],'method'=>'GET', 'id' => 'restore', 'style' => 'display:none']) !!}
+                            {!! Form::open(['route' => ['laccuser.trashed.users.restore', 'id' =>$user->id] ,'method'=>'GET', 'id' => 'restore-user', 'style' => 'display:none']) !!}
                             {!! Form::hidden('redirect_to', URL::previous()) !!}
+                            {!! Form::hidden('_token', csrf_token()) !!}
                             {!! Form::close() !!}
                         </td>
                     </tr>
@@ -59,7 +59,7 @@ Return to the active categories</a>
                 </tbody>
             </table>
 
-            <div class="text-center">{{ $categories->links() }}</div>
+            <div class="text-center">{{ $users->links() }}</div>
         </div>
     </div>
 @endsection

@@ -9,6 +9,7 @@ use LACC\Models\City;
 use LACC\Models\State;
 use LACC\Services\AddressService;
 use LACC\Services\CityService;
+use LaccUser\Http\Requests\UserDeleteRequest;
 use LaccUser\Repositories\UserRepository;
 use LaccUser\Http\Requests\UserRequest;
 use LaccUser\Services\UserService;
@@ -197,12 +198,13 @@ class UsersController extends Controller
 		}
 
 		/**
-		 * @param         $id
-		 * @param Request $request
+		 * @param                   $id
+		 * @param Request           $request
+		 * @param UserDeleteRequest $userDeleteRequest
 		 *
 		 * @return \Illuminate\Http\RedirectResponse
 		 */
-		public function destroy( $id, Request $request )
+		public function destroy( $id, Request $request, UserDeleteRequest $userDeleteRequest )
 		{
 				$this->userService->verifyTheExistenceOfObject( $this->userRepository, $id, $this->with );
 				$this->userRepository->delete( $id );
