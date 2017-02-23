@@ -69,7 +69,6 @@ class Bookscontroller extends Controller
     {
         $search = $request->get('search');
         $books  = $this->bookRepository->with( $this->with )->paginate( 15 );
-
         return view( 'laccbook::books.index', compact( 'books','search' ) );
     }
 

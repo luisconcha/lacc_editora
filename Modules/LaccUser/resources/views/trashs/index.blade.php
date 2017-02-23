@@ -36,7 +36,7 @@ Return to the active users</a>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @forelse($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
@@ -44,7 +44,7 @@ Return to the active users</a>
                         <td>{{ $user->updated_at }}</td>
                         <td>{{ $user->deleted_at }}</td>
                         <td>
-                            <a href="#"
+                            <a href="{{route('laccuser.trashed.users.restore',['id'=>$user->id])}}"
                                class="btn btn-danger btn-outline btn-xs"
                                onclick="event.preventDefault();document.getElementById('restore-user').submit();">
                                 <strong>Restore</strong>
@@ -55,7 +55,11 @@ Return to the active users</a>
                             {!! Form::close() !!}
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center"><span class="label label-warning">No records</span></td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
 

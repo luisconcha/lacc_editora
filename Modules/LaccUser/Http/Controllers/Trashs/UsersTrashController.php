@@ -48,8 +48,6 @@ class UsersTrashController extends Controller
 		 */
 		public function update( Request $request, $id )
 		{
-				echo '<pre>'.__FILE__.': '.__LINE__.'<hr>';print_r($id);echo'<hr></pre>';
-				echo '<pre>'.__FILE__.': '.__LINE__.'<hr>';print_r($request->all());echo'<hr></pre>';exit;
 				$data = $request->all();
 				
 				$this->userRepository->onlyTrashed();
