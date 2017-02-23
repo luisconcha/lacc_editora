@@ -14,7 +14,7 @@
 namespace LACC\LaccCategory\Controllers;
 
 //use Illuminate\Http\Request;
-use Request;
+//use Request;
 use LaccBook\Http\Controllers\CategoriesController;
 
 use LaccBook\Http\Controllers\Controller;
@@ -34,47 +34,27 @@ class CategoryControllerTest extends \TestCase
 
         $this->assertInstanceOf(Controller::class, $controller);
     }
+		
 
-//    public function test_controller_should_run_index_method()
-//    {
-//        $category           = m::mock(Category::class);
-//        $categoryRepository = m::mock(CategoryRepository::class);
-//        $categoryService    = m::mock(CategoryService::class);
-//        $html               = m::mock();
-//        $request            = m::mock(Request::class);
-//
-//        $ccategoryController = new CategoriesController($categoryRepository, $categoryService);
-//
-//        $categoryResult = ['cat01', 'cat02'];
-//        $category->shouldReceive('index')->andReturn($categoryResult);
-//
-//        \View::shouldReceive('views')
-//            ->with('laccbook::categories.index', ['categories' => $categoryResult, 'search' => '' ] )
-//            ->andReturn($html);
-//
-//        $this->assertEquals($ccategoryController->index($request->get('search')), $html);
-//
-////        $this->assertEquals($ccategoryController->index($request)->offsetGet('get'), $html);
-//    }
     public function test_controller_should_run_index_method()
     {
         $category           = m::mock(Category::class);
         $categoryRepository = m::mock(CategoryRepository::class);
         $categoryService    = m::mock(CategoryService::class);
-        $html               = 'cat1';
-//        $request            = m::mock(Request::class);
+        $request            = m::mock(\Illuminate\Http\Request::class);
 
         $categoryController = new CategoriesController($categoryRepository, $categoryService);
 
         $categoryResult = ['cat01', 'cat02'];
-        $categoryController->shouldReceive('paginate')->with(15)->andReturn(['cat1', 'cat2']);
+		    $categoryRepository->shouldReceive('paginate')->with(15)->andReturn(['cat1', 'cat2']);
 
         \View::shouldReceive('views')
             ->with('laccbook::categories.index', ['categories' => $categoryResult, 'search' => 'cat1' ] )
-            ->andReturn($html);
+            ->andReturn($categoryResult);
 
-//        $this->assertEquals($categoryController->index(Request::class));
+        //$this->assertEquals($categoryController->index($request));
 
-        $this->assertEquals($categoryController->index(Request::class)->offsetGet('get'), $html);
+        //$this->assertEquals($categoryController->index(Request::class)->offsetGet('get'), $categoryResult);
     }
+
 }
