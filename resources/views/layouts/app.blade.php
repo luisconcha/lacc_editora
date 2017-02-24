@@ -36,10 +36,6 @@
 							[
 								'link'  => route( 'laccuser.advanced.users.search' ),
 								'title' => 'Advanced Search'
-							],
-							[
-								'link'  => route( 'laccuser.trashed.users.index' ),
-								'title' => 'Users Trash'
 							]
 						]
 					],
