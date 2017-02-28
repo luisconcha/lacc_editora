@@ -1,5 +1,4 @@
 <?php
-
 namespace LACC\Providers;
 
 use Illuminate\Support\Facades\Gate;
@@ -13,7 +12,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'LACC\Model' => 'LACC\Policies\ModelPolicy',
+      'LACC\Model' => 'LACC\Policies\ModelPolicy',
     ];
 
     /**
@@ -24,7 +23,13 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
         //
+        \Gate::define( 'update-book', function ( $user, $book ) {
+            return $user->id == $book->author_id;
+        } );
+        //
+        \Gate::define( 'user-admin', function ( $user ) {
+            return $user->isAdmin();
+        } );
     }
 }

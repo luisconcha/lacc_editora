@@ -16,7 +16,6 @@ class UsersTableSeeder extends Seeder
 						'email'          => 'luvett11@gmail.com',
 						'password'       => bcrypt( '123456' ),
 						'remember_token' => str_random( 10 ),
-						'verified'       => true,
 					]
 				);
 				factory( 'LaccUser\Models\User' )->create(
@@ -25,7 +24,6 @@ class UsersTableSeeder extends Seeder
 						'email'          => 'admin@editora.com',
 						'password'       => bcrypt( '123456' ),
 						'remember_token' => str_random( 10 ),
-						'verified'       => true,
 					]
 				);
 				factory( 'LaccUser\Models\User' )->create(
@@ -34,7 +32,6 @@ class UsersTableSeeder extends Seeder
 						'email'          => 'user@editora.com',
 						'password'       => bcrypt( '123456' ),
 						'remember_token' => str_random( 10 ),
-						'verified'       => true,
 					]
 				);
 				factory( \LaccUser\Models\User::class, 10 )->create();
