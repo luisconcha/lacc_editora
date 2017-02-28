@@ -106,6 +106,14 @@
             <p><strong>{{Session::get("message.msg")}}</strong></p>
         </div>
     @endif
+        
+    @if( Session::has('error') )
+        <h1>ssssss</h1>
+        <div class="alert alert-{{ Session::get("error.type") }}">
+            <p>The publisher reports:</p>
+            <p><strong>{{Session::get("error.msg")}}</strong></p>
+        </div>
+    @endif
 
     @yield('content')
 </div>
