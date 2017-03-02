@@ -25,45 +25,9 @@
     <?php
     $navbar = Navbar::withBrand( config( 'app.name' ), url( '/home' ) )->inverse();
     if ( Auth::check() ) {
-        $arrayLinks = [
-          [
-            'Category',
-            [
-              [
-                'link'  => route( 'categories.index' ),
-                'title' => 'List of Categories'
-              ],
-              [
-                'link'  => route( 'trashed.categories.index' ),
-                'title' => 'Categories Trash'
-              ]
-            ]
-          ],
-          [
-            'Book',
-            [
-              [
-                'link'  => route( 'books.index' ),
-                'title' => 'List of books'
-              ],
-              [
-                'link'  => route( 'trashed.books.index' ),
-                'title' => 'Books Trash'
-              ]
-            ]
-          ]
-        ];
-        //'users-admin/list','roles-admin/list-roles'
-        if ( Auth::user()->can( 'roles-admin/list-roles' || 'users-admin/list' ) ) {
-            $arrayLinks[] = [
-              'Roles',
-              [
-                [
-                  'link'  => route( 'laccuser.role.roles.index' ),
-                  'title' => 'List of roles'
-                ]
-              ]
-            ];
+        $arrayLinks = array();
+        //'users-admin/list','roles-admin/list-roles', 'books-admin/list-books'
+        if ( Auth::user()->can( 'users-admin/list' ) ) {
             $arrayLinks[] = [
               'User',
               [
@@ -81,7 +45,47 @@
                 ]
               ]
             ];
-            
+        }
+        if ( Auth::user()->can( 'roles-admin/list-roles' ) ) {
+            $arrayLinks[] = [
+              'Roles',
+              [
+                [
+                  'link'  => route( 'laccuser.role.roles.index' ),
+                  'title' => 'List of roles'
+                ]
+              ]
+            ];
+        }
+        if ( Auth::user()->can( 'books-admin/list-books' ) ) {
+            $arrayLinks[] = [
+              'Book',
+              [
+                [
+                  'link'  => route( 'books.index' ),
+                  'title' => 'List of books'
+                ],
+                [
+                  'link'  => route( 'trashed.books.index' ),
+                  'title' => 'Books Trash'
+                ]
+              ]
+            ];
+        }
+        if ( Auth::user()->can( 'categories-admin/list-categories' ) ) {
+            $arrayLinks[] = [
+              'Category',
+              [
+                [
+                  'link'  => route( 'categories.index' ),
+                  'title' => 'List of Categories'
+                ],
+                [
+                  'link'  => route( 'trashed.categories.index' ),
+                  'title' => 'Categories Trash'
+                ]
+              ]
+            ];
         }
         $links  = Navigation::links( $arrayLinks );
         $logout = Navigation::links( [
