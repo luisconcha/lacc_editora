@@ -36,6 +36,10 @@
               [
                 'link'  => route( 'laccuser.advanced.users.search' ),
                 'title' => 'Advanced Search'
+              ],
+              [
+                'link'  => route( 'laccuser.trashed.users.index' ),
+                'title' => 'Users Trash'
               ]
             ]
           ],
@@ -101,15 +105,16 @@
     {!! Form::close() !!}
 
     @if( Session::has('message') )
-        <div class="alert alert-{{ Session::get("message.type") }}">
+        <div class="alert alert-{{ Session::get("message.type") }} alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
             <p>The publisher reports:</p>
             <p><strong>{{Session::get("message.msg")}}</strong></p>
         </div>
     @endif
         
     @if( Session::has('error') )
-        <h1>ssssss</h1>
-        <div class="alert alert-{{ Session::get("error.type") }}">
+        <div class="alert alert-{{ Session::get("error.type") }} alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
             <p>The publisher reports:</p>
             <p><strong>{{Session::get("error.msg")}}</strong></p>
         </div>
