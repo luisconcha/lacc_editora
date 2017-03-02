@@ -25,24 +25,7 @@
     <?php
     $navbar = Navbar::withBrand( config( 'app.name' ), url( '/home' ) )->inverse();
     if ( Auth::check() ) {
-        $links  = Navigation::links( [
-          [
-            'User',
-            [
-              [
-                'link'  => route( 'laccuser.users.index' ),
-                'title' => 'User'
-              ],
-              [
-                'link'  => route( 'laccuser.advanced.users.search' ),
-                'title' => 'Advanced Search'
-              ],
-              [
-                'link'  => route( 'laccuser.trashed.users.index' ),
-                'title' => 'Users Trash'
-              ]
-            ]
-          ],
+        $arrayLinks = [
           [
             'Category',
             [
@@ -68,17 +51,39 @@
                 'title' => 'Books Trash'
               ]
             ]
-          ],
-          [
-            'Roles',
-            [
-              [
-                'link'  => route( 'laccuser.role.roles.index' ),
-                'title' => 'List of roles'
-              ]
-            ]
           ]
-        ] );
+        ];
+        //'users-admin/list','roles-admin/list-roles'
+        if ( Auth::user()->can( 'roles-admin/list-roles' || 'users-admin/list' ) ) {
+            $arrayLinks[] = [
+              'Roles',
+              [
+                [
+                  'link'  => route( 'laccuser.role.roles.index' ),
+                  'title' => 'List of roles'
+                ]
+              ]
+            ];
+            $arrayLinks[] = [
+              'User',
+              [
+                [
+                  'link'  => route( 'laccuser.users.index' ),
+                  'title' => 'User'
+                ],
+                [
+                  'link'  => route( 'laccuser.advanced.users.search' ),
+                  'title' => 'Advanced Search'
+                ],
+                [
+                  'link'  => route( 'laccuser.trashed.users.index' ),
+                  'title' => 'Users Trash'
+                ]
+              ]
+            ];
+            
+        }
+        $links  = Navigation::links( $arrayLinks );
         $logout = Navigation::links( [
           [
             Auth::user()->name,
@@ -106,15 +111,17 @@
 
     @if( Session::has('message') )
         <div class="alert alert-{{ Session::get("message.type") }} alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
             <p>The publisher reports:</p>
             <p><strong>{{Session::get("message.msg")}}</strong></p>
         </div>
     @endif
-        
+
     @if( Session::has('error') )
         <div class="alert alert-{{ Session::get("error.type") }} alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
             <p>The publisher reports:</p>
             <p><strong>{{Session::get("error.msg")}}</strong></p>
         </div>
