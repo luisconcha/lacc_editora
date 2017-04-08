@@ -133,6 +133,7 @@ class Bookscontroller extends Controller
      */
     public function edit( $id )
     {
+        $this->bookRepository->pushCriteria( new FindByAuthorCriteria() );
         $book  = $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
         $users = $this->userRepository->lists( 'name', 'id' );
         $this->categoryRepository->withTrashed();
