@@ -25,7 +25,9 @@
     <?php
     $navbar = Navbar::withBrand( config( 'app.name' ), url( '/home' ) )->inverse();
     if ( Auth::check() ) {
+
         $arrayLinks = array();
+        //@see {$p->name}/{$p->resource_name} in Modules/LaccUser/Providers/AuthServiceProvider.php
         //'users-admin/list','roles-admin/list-roles', 'books-admin/list-books'
         if ( Auth::user()->can( 'users-admin/list' ) ) {
             $arrayLinks[] = [

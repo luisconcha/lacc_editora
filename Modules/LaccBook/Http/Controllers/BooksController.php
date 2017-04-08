@@ -2,6 +2,7 @@
 namespace LaccBook\Http\Controllers;
 
 use Illuminate\Http\Request;
+use LaccBook\Criteria\FindByAuthorCriteria;
 use LaccBook\Http\Requests\BookRequest;
 use LaccBook\Repositories\BookRepository;
 use LaccBook\Repositories\CategoryRepository;
@@ -76,8 +77,8 @@ class Bookscontroller extends Controller
     public function index( Request $request )
     {
         $search = $request->get( 'search' );
+        $this->bookRepository->pushCriteria( new FindByAuthorCriteria() );
         $books  = $this->bookRepository->with( $this->with )->paginate( 15 );
-
         return view( 'laccbook::books.index', compact( 'books', 'search' ) );
     }
 

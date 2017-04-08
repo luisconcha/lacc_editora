@@ -1,5 +1,4 @@
 <?php
-
 namespace LaccBook\Repositories;
 
 use LACC\Criteria\CriteriaTrashedTrait;
@@ -17,15 +16,15 @@ use Prettus\Repository\Eloquent\BaseRepository;
 class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
     use BaseRepositoryTrait,
-        CriteriaTrashedTrait,
-        RepositoryRestoreTrait;
+      CriteriaTrashedTrait,
+      RepositoryRestoreTrait;
 
     protected $fieldSearchable = [
-        'id',
-        'title'           => 'like',
-        'price',
-        'categories.name' => 'like',
-        'author.name'     => 'like',
+      'id',
+      'title'           => 'like',
+      'price',
+      'categories.name' => 'like',
+      'author.name'     => 'like',
     ];
 
     /**
@@ -41,32 +40,33 @@ class BookRepositoryEloquent extends BaseRepository implements BookRepository
     /**
      * Função que sobreescreve o method CREATE do repository para poder fazer o sync e salvar
      * na tbl pivot
+     *
      * @param array $attributes
+     *
      * @return mixed
      */
-    public function create(array $attributes)
+    public function create( array $attributes )
     {
-        $model = parent::create($attributes);
-        $model->categories()->sync( $attributes['categories'] );
+        $model = parent::create( $attributes );
+        $model->categories()->sync( $attributes[ 'categories' ] );
 
         return $model;
     }
 
-    public function update(array $attributes, $id)
+    public function update( array $attributes, $id )
     {
-        $model = parent::update($attributes, $id);
-        $model->categories()->sync( $attributes['categories'] );
+        $model = parent::update( $attributes, $id );
+        $model->categories()->sync( $attributes[ 'categories' ] );
 
         return $model;
     }
-
 
     /**
      * Boot up the repository, pushing criteria
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria( app( RequestCriteria::class ) );
     }
 }
 /**

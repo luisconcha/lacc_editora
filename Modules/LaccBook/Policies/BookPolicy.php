@@ -9,6 +9,13 @@ class BookPolicy
 {
     use HandlesAuthorization;
 
+    public function before( $user, $ability )
+    {
+        if ( $user->can( config( 'laccbook.acl.permissions.book_manage_all' ) ) ) {
+            return true;
+        }
+    }
+
     /**
      * @param User $user
      * @param Book $book
