@@ -10,7 +10,7 @@ use LaccBook\Models\Book;
 
 class User extends Authenticatable
 {
-    use FormAccessible,Notifiable, SoftDeletes;
+    use FormAccessible, Notifiable, SoftDeletes;
 
     protected $dates = [ 'deleted_at' ];
 
@@ -84,6 +84,11 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->hasRole( config( 'laccuser.acl.role_admin' ) );
+    }
+
+    public function formRolesAttribute()
+    {
+        return $this->roles->pluck( 'id' )->all();
     }
 
 }
