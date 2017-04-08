@@ -13,13 +13,11 @@ class CreateAclAuthorData extends Migration
      */
     public function up()
     {
-        $roleAuthor = Role::create( [
+        Role::create( [
           'name'        => config( 'laccbook.acl.role_author' ),
           'cor'         => '#155b2a',
           'description' => 'Papel do usuário author do sistema',
         ] );
-        $user       = User::where( 'email', config( 'laccuser.user_default.email' ) )->first();
-        $user->roles()->save( $roleAuthor );
     }
 
     /**
@@ -30,7 +28,8 @@ class CreateAclAuthorData extends Migration
     public function down()
     {
         $roleAuthor = Role::where( 'name', config( 'laccbook.acl.role_author' ) )->first();
-        $user       = User::where( 'email', config( 'laccuser.user_default.email' ) )->first();
-        $user->roles()->detach( $roleAuthor->id );
+        $roleAuthor->permissions()->detach();
+        $roleAuthor->users()->detach();
+        $roleAuthor->delete();
     }
 }

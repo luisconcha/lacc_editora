@@ -1,5 +1,8 @@
 <?php
-
 return [
-    'name' => 'LaccBook'
+  'name' => 'LaccBook',
+  'acl'  => [
+    'role_author'             => env( 'ROLE_AUTHOR', 'Author' ),
+    'controllers_annotations' => [],
+  ],
 ];

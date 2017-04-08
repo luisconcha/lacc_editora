@@ -17,6 +17,7 @@ class CreateAclData extends Migration
           'cor'         => '#900',
           'description' => 'Papel do usuário administrador do sistema',
         ] );
+        
         $user      = User::where( 'email', config( 'laccuser.user_default.email' ) )->first();
         $user->roles()->save( $roleAdmin );
     }

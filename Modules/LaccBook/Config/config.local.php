@@ -11,10 +11,7 @@
  */
 return [
   'acl' => [
-    'controllers_annotations' => [
-      __DIR__ . '/../Http/Controllers',
-      __DIR__ . '/../../LaccBook/Http/Controllers',
-    ],
+    'controllers_annotations' => [],
   ],
 ];
  

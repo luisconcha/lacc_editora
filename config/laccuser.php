@@ -16,4 +16,9 @@ return [
     'num_cpf'  => env( 'USER_CPF', '85216478549' ),
     'num_rg'   => env( 'USER_RG', 'RG-12555' ),
   ],
+  'acl'          => [
+    'role_admin'              => env( 'ROLE_ADMIN', 'Admin' ),
+    'role_author'             => env( 'ROLE_AUTHOR', 'Author' ),
+    'controllers_annotations' => [],
+  ],
 ];

@@ -34,6 +34,13 @@ class UsersTableSeeder extends Seeder
 						'remember_token' => str_random( 10 ),
 					]
 				);
+        /*
+         * Cria usuário author baseado no state do model factory
+         */
+        $author     = factory( \LaccUser\Models\User::class, 1 )->states( 'author' )->create();
+        $roleAuthor = \LaccUser\Models\Role::where( 'name', config( 'laccbook.acl.role_author' ) )->first();
+        $author->roles()->attach( $roleAuthor->id );
+        
 				factory( \LaccUser\Models\User::class, 10 )->create();
 		}
 }
