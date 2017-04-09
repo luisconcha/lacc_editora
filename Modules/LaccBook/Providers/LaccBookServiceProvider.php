@@ -23,6 +23,7 @@ class LaccBookServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->publishMigrationsAndSeeders();
+        $this->publishAssets();
     }
 
     /**
@@ -59,7 +60,7 @@ class LaccBookServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = base_path( 'resources/views/modules/laccbook' );
+        $viewPath   = base_path( 'resources/views/modules/laccbook' );
         $sourcePath = __DIR__ . '/../resources/views';
         $this->publishes( [
           $sourcePath => $viewPath,
@@ -67,6 +68,15 @@ class LaccBookServiceProvider extends ServiceProvider
         $this->loadViewsFrom( array_merge( array_map( function ( $path ) {
             return $path . '/modules/laccbook';
         }, \Config::get( 'view.paths' ) ), [ $sourcePath ] ), 'laccbook' );
+    }
+
+    public function publishAssets()
+    {
+        $sourcePath = __DIR__ . '/../resources/assets/js';
+        $viewPath   = public_path( 'js' );
+        $this->publishes( [
+          $sourcePath => $viewPath,
+        ], 'assets' );
     }
 
     /**

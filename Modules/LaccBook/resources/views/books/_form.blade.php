@@ -52,3 +52,5 @@
     {!! Form::label('published','Published?', ['class' => 'control-label']) !!}
     {!! Form::checkbox('published',null, (isset($book->published) && $book->published == '1')?true:false) !!}
 </div>
+
+@include('laccbook::books._ckeditor')

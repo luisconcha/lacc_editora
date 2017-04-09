@@ -18,3 +18,7 @@
     {!! Form::label('content','Subtitle', ['class' => 'control-label']) !!}
     {!! Form::textarea('content', null, ['placeholder'=>'Enter the content','class'=>'form-control', 'id'=>'content']) !!}
 </div>
+
+@include('laccbook::chapters._ckeditor')
+
+
