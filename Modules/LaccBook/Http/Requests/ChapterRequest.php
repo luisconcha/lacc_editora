@@ -23,8 +23,10 @@ class ChapterRequest extends FormRequest
      */
     public function rules()
     {
+        $idChapter = ( $this->route( 'chapter' ) ) ? $this->route( 'chapter' ) : null;
+
         return [
-          'name'    => 'required|max:255',
+          'name'    => "required|max:255|unique:chapters,name, $idChapter",
           'content' => 'required',
           'order'   => 'required|integer',
         ];

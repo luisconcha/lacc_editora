@@ -10,6 +10,8 @@ use LaccBook\Http\Requests\ChapterRequest;
 use LaccBook\Models\Book;
 use LaccBook\Repositories\BookRepository;
 use LaccBook\Repositories\ChapterRepository;
+use LaccBook\Services\BookService;
+use LaccBook\Services\ChaptersService;
 use LaccUser\Annotations\Mapping as Permission;
 
 /**
@@ -22,14 +24,28 @@ class ChaptersController extends Controller
     /** @var ChapterRepository */
     protected $chapterRepository;
 
+    /** @var ChaptersService */
+    protected $chapterService;
+
     /** @var  BookRepository */
     protected $bookRepository;
 
-    public function __construct( ChapterRepository $chapterRepository, BookRepository $bookRepository )
-    {
+    /** @var BookService */
+    protected $bookService;
+
+    private $with = [];
+
+    public function __construct(
+      ChapterRepository $chapterRepository,
+      ChaptersService $chaptersService,
+      BookRepository $bookRepository,
+      BookService $bookService
+    ) {
         $this->chapterRepository = $chapterRepository;
+        $this->chapterService    = $chaptersService;
         $this->bookRepository    = $bookRepository;
         $this->bookRepository->pushCriteria( new FindByAuthorCriteria() );
+        $this->bookService = $bookService;
     }
 
     /**
@@ -91,13 +107,13 @@ class ChaptersController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Book    $book
-     * @param         $chapterId
+     * @param ChapterRequest $request
+     * @param Book           $book
+     * @param                $chapterId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update( Request $request, Book $book, $chapterId )
+    public function update( ChapterRequest $request, Book $book, $chapterId )
     {
         $this->chapterRepository->pushCriteria( new FindByBookCriteria( $book->id ) );
         $data = $request->except( [ 'book_id' ] );
@@ -108,11 +124,25 @@ class ChaptersController extends Controller
         return redirect()->route( 'chapters.index', [ 'book' => $book->id ] );
     }
 
+    public function detail( Book $book, $id )
+    {
+        $chapters = $this->chapterRepository->findWhere( [ 'id' => $id ] );
+        $book     = $this->bookService->verifyTheExistenceOfObject(
+          $this->bookRepository, $book->id, $this->with );
+
+        return view( 'laccbook::chapters.detail', compact( 'chapters', 'book' ) );
+    }
+
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy( Book $book, $id, Request $request )
     {
+        $this->chapterService->verifyTheExistenceOfObject( $this->chapterRepository, $id, $this->with );
+        $this->chapterRepository->delete( $id );
+        $request->session()->flash( 'message', [ 'type' => 'success', 'msg' => 'Chapter deleted successfully!' ] );
+
+        return redirect()->route( 'chapters.index', [ 'book' => $book->id ] );
     }
 }

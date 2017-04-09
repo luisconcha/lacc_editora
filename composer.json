@@ -41,7 +41,10 @@
       "LACC\\": "app/",
       "LaccBook\\": "Modules/LaccBook",
       "LaccUser\\": "Modules/LaccUser"
-    }
+    },
+    "files": [
+      "app/Helpers/customHelper.php"
+    ]
   },
   "autoload-dev": {
     "classmap": [

@@ -45,7 +45,6 @@
                         <td>{{ $chapter->content }}</td>
                         <td>{{ $chapter->order }}</td>
                         <td>
-                            {{--admin/books/{book}/chapters/{chapter}/edit | chapters.edit--}}
                             <a href="{{route('chapters.edit',['books' => $book->id,'chapter'=>$chapter->id])}}"
                                class="btn btn-warning btn-outline btn-xs">
                                 <strong>Edit</strong>
