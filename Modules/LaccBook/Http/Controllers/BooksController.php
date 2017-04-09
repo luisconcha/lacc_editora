@@ -10,7 +10,6 @@ use LaccUser\Repositories\UserRepository;
 use LaccBook\Services\BookService;
 use LaccBook\Services\CategoryService;
 use LaccUser\Services\UserService;
-
 use LaccUser\Annotations\Mapping as Permission;
 
 /**
@@ -78,7 +77,8 @@ class Bookscontroller extends Controller
     {
         $search = $request->get( 'search' );
         $this->bookRepository->pushCriteria( new FindByAuthorCriteria() );
-        $books  = $this->bookRepository->with( $this->with )->paginate( 15 );
+        $books = $this->bookRepository->with( $this->with )->paginate( 15 );
+
         return view( 'laccbook::books.index', compact( 'books', 'search' ) );
     }
 
@@ -103,7 +103,8 @@ class Bookscontroller extends Controller
      */
     public function store( BookRequest $request )
     {
-        $data = $request->all();
+        $data                = $request->all();
+        $data[ 'published' ] = isset( $data[ 'published' ] ) ? '1' : '0';
         //@seed call method in BooRepositoryEloquent - create
         $this->bookRepository->create( $data );
         $request->session()->flash( 'message',
@@ -152,7 +153,9 @@ class Bookscontroller extends Controller
     public function update( Bookrequest $request, $id )
     {
         $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
-        $data = $request->all();
+        $data                = $request->all();
+        $data[ 'published' ] = isset( $data[ 'published' ] ) ? '1' : '0';
+        
         //@seed call method in BookRepositoryEloquent - update
         $this->bookRepository->update( $data, $id );
         $urlTo = $this->bookService->checksTheCurrentUrl( $data[ 'redirect_to' ], $this->urlDefault );

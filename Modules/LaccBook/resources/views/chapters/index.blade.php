@@ -42,7 +42,7 @@
                     <tr>
                         <td>{{ $chapter->id }}</td>
                         <td>{{ $chapter->name }}</td>
-                        <td>{{ $chapter->content }}</td>
+                        <td>{{ customEcho($chapter->content,200)  }}</td>
                         <td>{{ $chapter->order }}</td>
                         <td>
                             <a href="{{route('chapters.edit',['books' => $book->id,'chapter'=>$chapter->id])}}"

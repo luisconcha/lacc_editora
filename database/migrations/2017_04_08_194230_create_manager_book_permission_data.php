@@ -12,6 +12,7 @@ class CreateManagerBookPermissionData extends Migration
     public function up()
     {
         list( $name, $resourceName ) = explode( '/', config( 'laccbook.acl.permissions.book_manage_all' ) );
+
         Permission::create( [
           'name'                 => $name,
           'description'          => 'Book administration',

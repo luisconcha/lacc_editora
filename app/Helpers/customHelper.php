@@ -38,4 +38,16 @@ if ( !function_exists( 'priceBR' ) ) {
         return $price;
     }
 }
+if ( !function_exists( 'customEcho' ) ) {
+    function customEcho( $string, $qtdCharacter )
+    {
+        if ( strlen( $string ) <= $qtdCharacter ) {
+            return $string;
+        } else {
+            $y = substr( $string, 0, $qtdCharacter ) . ' ...';
+
+            return $y;
+        }
+    }
+}
 

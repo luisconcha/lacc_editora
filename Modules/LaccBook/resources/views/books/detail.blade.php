@@ -15,11 +15,26 @@
             <span><b>Subtitle</b></span>
             <p>{{ $book->subtitle }}</p>
 
+            <span><b>Dedication</b></span>
+            <p>{{ $book->dedication }}</p>
+
+            <span><b>Description</b></span>
+            <p>{{ $book->description }}</p>
+
+            <span><b>Website</b></span>
+            <p>{{ $book->website }}</p>
+
             <span><b>Author</b></span>
             <p>{{ $book->author->name }}</p>
 
             <span><b>Price:</b></span>
             <p> R$ {{ $book->price }}</p>
+            
+            <span><b>Percent complete</b></span>
+            <p>{{ $book->percent_complete }}</p>
+
+            <span><b>Is it published?</b></span>
+            <p>{{ ($book->published == 0) ? "Yes, it's posted": "No, it's published." }}</p>
 
             <span><b>Categories:</b></span>
             <p>{{ $book->categories->implode('name_trashed',',') }}</p>

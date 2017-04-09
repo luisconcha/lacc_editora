@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use LaccBook\Criteria\FindByAuthorCriteria;
 use LaccBook\Criteria\FindByBookCriteria;
+use LaccBook\Criteria\OrderByOrderCriteria;
 use LaccBook\Http\Requests\ChapterRequest;
 use LaccBook\Models\Book;
 use LaccBook\Repositories\BookRepository;
@@ -57,7 +58,8 @@ class ChaptersController extends Controller
         $book   = $this->bookRepository->find( $id );
         $search = $request->get( 'search' );
         $this->chapterRepository->pushCriteria( new FindByBookCriteria( $book->id ) );
-        $chapters = $this->chapterRepository->paginate( 5 );
+        $this->chapterRepository->pushCriteria( new OrderByOrderCriteria() );
+        $chapters = $this->chapterRepository->paginate( 15 );
 
         return view( 'laccbook::chapters.index', compact( 'chapters', 'search', 'book' ) );
     }

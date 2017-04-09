@@ -1,5 +1,4 @@
 <?php
-
 namespace LaccBook\Models;
 
 use Collective\Html\Eloquent\FormAccessible;
@@ -11,7 +10,16 @@ class Book extends Model
     use FormAccessible, SoftDeletes;
 
     protected $fillable = [
-        'title', 'subtitle', 'price' ,'author_id','category_id'
+      'title',
+      'subtitle',
+      'price',
+      'author_id',
+      'category_id',
+      'dedication',
+      'description',
+      'website',
+      'percent_complete',
+      'published',
     ];
 
     public function author()

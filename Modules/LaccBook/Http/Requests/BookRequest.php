@@ -48,12 +48,16 @@ class BookRequest extends FormRequest
         $idBook = ( $this->route( 'book' ) ) ? $this->route( 'book' ) : null;
 
         return [
-          'title'        => "required|max:200|unique:books,title,$idBook",
-          'subtitle'     => 'required|max:250',
-          'author_id'    => 'required',
-          'price'        => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
-          'categories.*' => 'exists:categories,id',
-          'categories'   => 'required|array',
+          'title'            => "required|max:200|unique:books,title,$idBook",
+          'subtitle'         => 'required|max:250',
+          'dedication'       => 'required',
+          'description'      => 'required',
+          'website'          => 'required|max:255|url',
+          'percent_complete' => 'required|integer|min:0',
+          'author_id'        => 'required',
+          'price'            => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
+          'categories.*'     => 'exists:categories,id',
+          'categories'       => 'required|array',
         ];
     }
 

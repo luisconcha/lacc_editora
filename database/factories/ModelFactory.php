@@ -57,14 +57,21 @@ $factory->define( \LaccBook\Models\Category::class, function ( Faker\Generator $
 } );
 //
 $factory->define( \LaccBook\Models\Book::class, function ( Faker\Generator $faker ) {
-    $userRepo = app( \LaccUser\Repositories\UserRepository::class );
-    $authorId = $userRepo->all()->random()->id;
+    $userRepo           = app( \LaccUser\Repositories\UserRepository::class );
+    $authorId           = $userRepo->all()->random()->id;
+    $arrPercentComplete = array( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 );
+    $published          = array( 0, 1 );
 
     return [
-      'author_id' => $authorId,
-      'title'     => ucfirst( $faker->unique()->word ),
-      'subtitle'  => $faker->text,
-      'price'     => $faker->randomNumber( 4 ),
+      'author_id'        => $authorId,
+      'title'            => ucfirst( $faker->unique()->word ),
+      'subtitle'         => $faker->text,
+      'price'            => $faker->randomNumber( 4 ),
+      'dedication'       => $faker->paragraphs( 5, true ),
+      'description'      => $faker->paragraphs( 10, true ),
+      'website'          => $faker->url,
+      'percent_complete' => $faker->randomKey( $arrPercentComplete ),
+      'published'        => $faker->randomKey( $published ),
     ];
 } );
 //
@@ -91,9 +98,12 @@ $factory->define( LACC\Models\TelephoneUser::class, function ( Faker\Generator $
 } );
 //
 $factory->define( \LaccBook\Models\Chapter::class, function ( Faker\Generator $faker ) {
+    $arrOrder = array( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 );
+
     return [
       'name'    => $faker->name,
       'content' => $faker->paragraphs( 10, true ),
+      'order'   => $faker->randomKey( $arrOrder ),
     ];
 } );
 
