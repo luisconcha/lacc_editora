@@ -7,6 +7,13 @@ Route::group( [ 'middleware' => ['auth', config('laccuser.middleware.isVerified'
         Route::resource( '/categories', 'CategoriesController', [ 'except' => [ 'show' ] ] );
         Route::get( 'categories/{id}', [ 'as' => 'categories.destroy', 'uses' => 'CategoriesController@destroy' ] );
 
+        //Chaters (add antes da rotas de resource books)
+        Route::group(['prefix'=> '/books/{book}'], function (){
+            Route::resource('chapters', 'ChaptersController',['except'=>'show']);
+            Route::get( 'chapters/{id}', [ 'as' => 'chapters.destroy', 'uses' => 'ChaptersController@destroy' ] );
+            Route::get( 'chapters-detail/{id}', [ 'as' => 'chapters.detail', 'uses' => 'ChaptersController@detail' ] );
+        });
+
         //Books
         Route::resource( '/books', 'BooksController', [ 'except' => [ 'show' ] ]  );
         Route::get( 'books/{id}', [ 'as' => 'books.destroy', 'uses' => 'BooksController@destroy' ] );

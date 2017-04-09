@@ -89,4 +89,11 @@ $factory->define( LACC\Models\TelephoneUser::class, function ( Faker\Generator $
       'user_id'        => $userId,
     ];
 } );
+//
+$factory->define( \LaccBook\Models\Chapter::class, function ( Faker\Generator $faker ) {
+    return [
+      'name'    => $faker->name,
+      'content' => $faker->paragraphs( 10, true ),
+    ];
+} );
 

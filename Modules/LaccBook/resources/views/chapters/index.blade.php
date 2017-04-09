@@ -1,22 +1,24 @@
 @extends('layouts.app')
 
 @section('title')
-    List of Books
+    List of Chapters
 @endsection
 
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>List of books</h3>
+            <h2> List of chapters in the book <span class="label label-primary">{{$book->title}}</span></h2>
 
             {!! Form::model(compact($search), ['class' => 'form-search', 'method' => 'GET']) !!}
             <div class="input-group">
                 <span class="input-group-btn">
                     {!! Form::submit('Search by:', ['class'=>'btn btn-warning']) !!}
                 </span>
-                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'id, title, author, price or categories','class'=>'form-control']) !!}
+                {!! Form::text('search', null, ['placeholder'=> ($search) ? $search : 'id, name or content',
+                'class'=>'form-control']) !!}
                 <span class="input-group-btn">
-                    <a href="{{ route( 'books.create' )  }}" class="btn btn-primary">New book</a>
+                    <a href="{{ route( 'chapters.create', ['book'=> $book->id] )  }}" class="btn btn-primary">New
+                        charter</a>
             </span>
             </div>
             {!! Form::close() !!}
@@ -29,35 +31,30 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Author</th>
-                    <th>Categories</th>
-                    <td style="width: 15%">Actions</td>
+                    <th>Name</th>
+                    <th>Content</th>
+                    <th>Order</th>
+                    <td style="width: 10%;">Actions</td>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($books as $book)
+                @foreach($chapters as $chapter)
                     <tr>
-                        <td>{{ $book->id }}</td>
-                        <td>{{ $book->title }}</td>
-                        <td>{{ $book->price }}</td>
-                        <td>{!!  isset($book->author->name) ? $book->author->name : "<span class='label label-danger'>The author has been deleted.</span>" !!}</td>
-                        <td>{{ $book->categories->implode('name',' | ') }}</td>
+                        <td>{{ $chapter->id }}</td>
+                        <td>{{ $chapter->name }}</td>
+                        <td>{{ $chapter->content }}</td>
+                        <td>{{ $chapter->order }}</td>
                         <td>
-                            <a href="{{route('books.edit',['id'=>$book->id])}}"
+                            {{--admin/books/{book}/chapters/{chapter}/edit | chapters.edit--}}
+                            <a href="{{route('chapters.edit',['books' => $book->id,'chapter'=>$chapter->id])}}"
                                class="btn btn-warning btn-outline btn-xs">
                                 <strong>Edit</strong>
                             </a>
-                            <a href="{{route('books.detail',['id'=>$book->id])}}"
+                            <a href="{{route('chapters.detail',['book' => $book->id,'id'=>$chapter->id])}}"
                                class="btn btn-info btn-outline btn-xs">
                                 <strong>Detail</strong>
                             </a>
-                            <a href="{{route('chapters.index',['id'=>$book->id])}}"
-                               class="btn btn-primary btn-outline btn-xs">
-                                <strong>View chapters</strong>
-                            </a>
-                            <a href="{{route('books.destroy',['id'=>$book->id])}}"
+                            <a href="{{route('chapters.destroy',['book' => $book->id,'id'=>$chapter->id])}}"
                                class="btn btn-danger btn-outline btn-xs">
                                 <strong>Send to trash</strong>
                             </a>
@@ -67,7 +64,7 @@
                 </tbody>
             </table>
 
-            <div class="text-center">{{ $books->links() }}</div>
+            <div class="text-center">{{ $chapters->links() }}</div>
         </div>
     </div>
 @endsection

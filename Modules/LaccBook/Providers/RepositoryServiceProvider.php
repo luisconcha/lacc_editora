@@ -1,5 +1,4 @@
 <?php
-
 namespace LaccBook\Providers;
 
 use Illuminate\Support\ServiceProvider;
@@ -21,12 +20,16 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            \LaccBook\Repositories\CategoryRepository::class,
-            \LaccBook\Repositories\CategoryRepositoryEloquent::class
+          \LaccBook\Repositories\CategoryRepository::class,
+          \LaccBook\Repositories\CategoryRepositoryEloquent::class
         );
         $this->app->bind(
-            \LaccBook\Repositories\BookRepository::class,
-            \LaccBook\Repositories\BookRepositoryEloquent::class
+          \LaccBook\Repositories\BookRepository::class,
+          \LaccBook\Repositories\BookRepositoryEloquent::class
+        );
+        $this->app->bind(
+          \LaccBook\Repositories\ChapterRepository::class,
+          \LaccBook\Repositories\ChapterRepositoryEloquent::class
         );
     }
 
