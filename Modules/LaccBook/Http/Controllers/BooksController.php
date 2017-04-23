@@ -3,7 +3,10 @@ namespace LaccBook\Http\Controllers;
 
 use Illuminate\Http\Request;
 use LaccBook\Criteria\FindByAuthorCriteria;
+use LaccBook\Http\Requests\BookCoverRequest;
 use LaccBook\Http\Requests\BookRequest;
+use LaccBook\Models\Book;
+use LaccBook\Pub\BookCoverUpload;
 use LaccBook\Repositories\BookRepository;
 use LaccBook\Repositories\CategoryRepository;
 use LaccUser\Repositories\UserRepository;
@@ -52,18 +55,19 @@ class Bookscontroller extends Controller
     protected $urlDefault = 'books.index';
 
     public function __construct(
-      UserService $userService,
-      UserRepository $userRepository,
-      BookService $bookService,
-      CategoryService $categoryService,
-      CategoryRepository $categoryRepository,
-      BookRepository $bookRepository
-    ) {
-        $this->userService        = $userService;
-        $this->userRepository     = $userRepository;
-        $this->categoryService    = $categoryService;
-        $this->bookService        = $bookService;
-        $this->bookRepository     = $bookRepository;
+        UserService $userService,
+        UserRepository $userRepository,
+        BookService $bookService,
+        CategoryService $categoryService,
+        CategoryRepository $categoryRepository,
+        BookRepository $bookRepository
+    )
+    {
+        $this->userService = $userService;
+        $this->userRepository = $userRepository;
+        $this->categoryService = $categoryService;
+        $this->bookService = $bookService;
+        $this->bookRepository = $bookRepository;
         $this->categoryRepository = $categoryRepository;
     }
 
@@ -90,7 +94,7 @@ class Bookscontroller extends Controller
     {
         //call BaseRepositoryTrait
         $categories = $this->categoryRepository->lists( 'name', 'id' );
-        $users      = $this->userRepository->lists( 'name', 'id' );
+        $users = $this->userRepository->lists( 'name', 'id' );
 
         return view( 'laccbook::books.create', compact( 'users', 'categories' ) );
     }
@@ -103,12 +107,12 @@ class Bookscontroller extends Controller
      */
     public function store( BookRequest $request )
     {
-        $data                = $request->all();
+        $data = $request->all();
         $data[ 'published' ] = isset( $data[ 'published' ] ) ? '1' : '0';
         //@seed call method in BooRepositoryEloquent - create
         $this->bookRepository->create( $data );
         $request->session()->flash( 'message',
-          [ 'type' => 'success', 'msg' => "Book '{$data['title']}' successfully registered!" ] );
+            [ 'type' => 'success', 'msg' => "Book '{$data['title']}' successfully registered!" ] );
 
         return redirect()->route( 'books.index' );
     }
@@ -135,7 +139,7 @@ class Bookscontroller extends Controller
     public function edit( $id )
     {
         $this->bookRepository->pushCriteria( new FindByAuthorCriteria() );
-        $book  = $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
+        $book = $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
         $users = $this->userRepository->lists( 'name', 'id' );
         $this->categoryRepository->withTrashed();
         $categories = $this->categoryRepository->listsWithMutators( 'name', 'id' );
@@ -153,14 +157,14 @@ class Bookscontroller extends Controller
     public function update( Bookrequest $request, $id )
     {
         $this->bookService->verifyTheExistenceOfObject( $this->bookRepository, $id, $this->with );
-        $data                = $request->all();
+        $data = $request->all();
         $data[ 'published' ] = isset( $data[ 'published' ] ) ? '1' : '0';
-        
+
         //@seed call method in BookRepositoryEloquent - update
         $this->bookRepository->update( $data, $id );
         $urlTo = $this->bookService->checksTheCurrentUrl( $data[ 'redirect_to' ], $this->urlDefault );
         $request->session()->flash( 'message',
-          [ 'type' => 'success', 'msg' => "Book '{$data['title']}' successfully update!" ] );
+            [ 'type' => 'success', 'msg' => "Book '{$data['title']}' successfully update!" ] );
 
         return redirect()->to( $urlTo );
     }
@@ -179,5 +183,37 @@ class Bookscontroller extends Controller
         $request->session()->flash( 'message', [ 'type' => 'success', 'msg' => 'Book deleted successfully!' ] );
 
         return redirect()->route( 'books.index' );
+    }
+
+    /************************************************************************
+     *                                  COVER METHODS
+     ************************************************************************/
+
+    /**
+     * @param Book $book
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @Permission\Action(name="cover-book", description="Book cover")
+     */
+    public function coverForm( Book $book )
+    {
+        return view( 'laccbook::books.cover', compact( 'book' ) );
+    }
+
+    /**
+     * @param BookCoverRequest $request
+     * @param Book $book
+     * @param BookCoverUpload $upload
+     * @return \Illuminate\Http\RedirectResponse
+     * @Permission\Action(name="cover-book", description="Book cover")
+     */
+    public function coverStore( BookCoverRequest $request, Book $book, BookCoverUpload $upload )
+    {
+        $data = $request->all();
+        $upload->upload( $book, $request->file( 'file' ) );
+        $urlTo = $this->bookService->checksTheCurrentUrl( $data[ 'redirect_to' ], $this->urlDefault );
+        $request->session()->flash( 'message',
+            [ 'type' => 'success', 'msg' => "Book cover added successfully!" ] );
+
+        return redirect()->to( $urlTo );
     }
 }

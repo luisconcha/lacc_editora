@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container col-md-10 col-lg-offset-1">
         <div class="row">
             <h2> List of chapters in the book <span class="label label-primary">{{$book->title}}</span></h2>
 
@@ -26,7 +26,7 @@
         </div>
 
 
-        <div class="row">
+        <div class="row table-responsive">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -34,7 +34,7 @@
                     <th>Name</th>
                     <th>Content</th>
                     <th>Order</th>
-                    <td style="width: 10%;">Actions</td>
+                    <td style="width: 15%;">Actions</td>
                 </tr>
                 </thead>
                 <tbody>

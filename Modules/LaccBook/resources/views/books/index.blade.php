@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container col-md-10 col-lg-offset-1">
         <div class="row">
             <h3>List of books</h3>
 
@@ -24,7 +24,7 @@
         </div>
 
 
-        <div class="row">
+        <div class="row table-responsive">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -33,7 +33,7 @@
                     <th>Price</th>
                     <th>Author</th>
                     <th>Categories</th>
-                    <td style="width: 15%">Actions</td>
+                    <td style="width: 20%">Actions</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,6 +56,10 @@
                             <a href="{{route('chapters.index',['id'=>$book->id])}}"
                                class="btn btn-primary btn-outline btn-xs">
                                 <strong>View chapters</strong>
+                            </a>
+                            <a href="{{route('books.cover.create',$book)}}"
+                               class="btn btn-warning btn-outline btn-xs">
+                                <strong>Cover</strong>
                             </a>
                             <a href="{{route('books.destroy',['id'=>$book->id])}}"
                                class="btn btn-danger btn-outline btn-xs">
