@@ -8,5 +8,6 @@ return [
         ],
         'controllers_annotations' => [],
     ],
-    'book_storage' => env( 'BOOK_STORAGE_DISK', 'book_local' )
+    'book_storage' => env( 'BOOK_STORAGE_DISK', 'book_local' ),
+    'book_thumbs'  => 'storage/books/thumbs'
 ];

@@ -1,6 +1,7 @@
 <?php
 namespace LaccBook\Providers;
 
+use Folklore\Image\ImageServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class LaccBookServiceProvider extends ServiceProvider
@@ -36,6 +37,7 @@ class LaccBookServiceProvider extends ServiceProvider
         $this->app->register( RouteServiceProvider::class );
         $this->app->register( RepositoryServiceProvider::class );
         $this->app->register( AuthServiceProvider::class );
+        $this->app->register( ImageServiceProvider::class );
     }
 
     /**

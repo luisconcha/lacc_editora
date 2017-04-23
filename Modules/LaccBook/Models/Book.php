@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-    use FormAccessible, SoftDeletes, BookStorageTrait;
+    use FormAccessible, SoftDeletes, BookStorageTrait, BookThumbnailTrait;
 
     protected $fillable = [
       'title',
