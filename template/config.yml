@@ -1,0 +1,50 @@
+easybook:
+    parameters:
+        parser.options:
+            code_block_type: fenced
+
+book:
+    title:            %TITLE%
+    author:           %AUTHOR%
+    language:         en
+    publication_date: ~
+    generator: { name: LACCPub, version: 1 }
+
+    contents:
+        - { element: cover   }
+        - { element: dedication, content: dedication.md }
+        - { element: toc     }
+
+    editions:
+        common:
+            labels:       ["chapter"]
+            toc:
+                deep:     1
+                elements: ["chapter"]
+
+        ebook:
+            extends:          common
+            format:           epub
+            include_styles:   true
+            highlight_cache:  true
+            highlight_code:   true
+            labels:           ["chapter","figure"]
+            theme:            clean
+
+        kindle:
+            extends:      common
+            format:       mobi
+
+        print:
+            extends:      common
+            format:       pdf
+            page_size:    royal-octavo
+            two_sided:    true
+
+        web:
+            extends:      common
+            format:       html
+
+        website:
+            extends:      common
+            format:       html_chunked
