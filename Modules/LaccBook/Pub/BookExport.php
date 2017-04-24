@@ -14,6 +14,7 @@
 namespace LaccBook\Pub;
 
 
+use LaccBook\Util\ExtendedZip;
 use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\Yaml\Parser;
 use LaccBook\Criteria\FindByBookCriteria;
@@ -86,5 +87,10 @@ class BookExport
         foreach( $chapters as $chapter ):
             file_put_contents( "{$book->contents_storage}/{$chapter->order}.md", $chapter->content );
         endforeach;
+    }
+
+    public function compress( Book $book )
+    {
+        ExtendedZip::zipTree( $book->output_storage, $book->zip_file, ExtendedZip::CREATE );
     }
 }

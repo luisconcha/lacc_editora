@@ -40,7 +40,14 @@
                 @foreach($books as $book)
                     <tr>
                         <td>{{ $book->id }}</td>
-                        <td>{{ $book->title }}</td>
+                        <td>
+                            <?php $routeBookDownload = route( 'books.download', [ 'id' => $book->id ] ) ?>
+                            {!!
+                                (file_exists($book->zip_file)) ?
+                                "<a href={$routeBookDownload} target='_blank' title='Download the book {$book->title}'>{$book->title}</a>"
+                                :
+                                $book->title !!}
+                        </td>
                         <td>{{ $book->price }}</td>
                         <td>{!!  isset($book->author->name) ? $book->author->name : "<span class='label label-danger'>The author has been deleted.</span>" !!}</td>
                         <td>{{ $book->categories->implode('name',' | ') }}</td>
@@ -61,6 +68,7 @@
                                class="btn btn-warning btn-outline btn-xs">
                                 <strong>Cover</strong>
                             </a>
+
                             <a href="{{route('books.export',$book)}}"
                                class="btn btn-primary btn-outline btn-xs"
                                onclick="event.preventDefault();document.getElementById('export-form-{{ $book->id }}').submit();">

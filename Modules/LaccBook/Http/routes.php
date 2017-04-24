@@ -14,6 +14,7 @@ Route::group( [ 'middleware' => [ 'auth', config( 'laccuser.middleware.isVerifie
             Route::post( 'cover', [ 'as' => 'books.cover.store', 'uses' => 'BooksController@coverStore' ] );
             //Exports
             Route::post( 'export', [ 'as' => 'books.export', 'uses' => 'BooksController@export' ] );
+            Route::get( 'download', [ 'as' => 'books.download', 'uses' => 'BooksController@download' ] );
             //Chapters
             Route::get( 'chapters/{id}', [ 'as' => 'chapters.destroy', 'uses' => 'ChaptersController@destroy' ] );
             Route::get( 'chapters-detail/{id}', [ 'as' => 'chapters.detail', 'uses' => 'ChaptersController@detail' ] );
