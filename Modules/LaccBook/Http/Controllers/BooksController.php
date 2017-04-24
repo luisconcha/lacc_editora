@@ -7,6 +7,7 @@ use LaccBook\Http\Requests\BookCoverRequest;
 use LaccBook\Http\Requests\BookRequest;
 use LaccBook\Models\Book;
 use LaccBook\Pub\BookCoverUpload;
+use LaccBook\Pub\BookExport;
 use LaccBook\Repositories\BookRepository;
 use LaccBook\Repositories\CategoryRepository;
 use LaccUser\Repositories\UserRepository;
@@ -215,5 +216,13 @@ class Bookscontroller extends Controller
             [ 'type' => 'success', 'msg' => "Book cover added successfully!" ] );
 
         return redirect()->to( $urlTo );
+    }
+
+    public function export( Book $book )
+    {
+        $bookExport = app( BookExport::class );
+        $bookExport->export( $book );
+
+        return redirect()->route( 'books.index' );
     }
 }

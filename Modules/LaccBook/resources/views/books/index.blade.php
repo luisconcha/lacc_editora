@@ -33,7 +33,7 @@
                     <th>Price</th>
                     <th>Author</th>
                     <th>Categories</th>
-                    <td style="width: 20%">Actions</td>
+                    <td style="width: 25%">Actions</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,6 +61,14 @@
                                class="btn btn-warning btn-outline btn-xs">
                                 <strong>Cover</strong>
                             </a>
+                            <a href="{{route('books.export',$book)}}"
+                               class="btn btn-primary btn-outline btn-xs"
+                               onclick="event.preventDefault();document.getElementById('export-form-{{ $book->id }}').submit();">
+                                <strong>Export</strong>
+                            </a>
+                            {!! Form::open(['route' => ['books.export', 'book' =>$book->id],'method'=>'POST', 'id' => "export-form-{$book->id}", 'style' => 'display:none']) !!}
+                            {!! Form::close() !!}
+
                             <a href="{{route('books.destroy',['id'=>$book->id])}}"
                                class="btn btn-danger btn-outline btn-xs">
                                 <strong>Send to trash</strong>
@@ -74,6 +82,7 @@
             <div class="text-center">{{ $books->links() }}</div>
         </div>
     </div>
+
 @endsection
 
 @section('scripts')

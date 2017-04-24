@@ -12,6 +12,8 @@ Route::group( [ 'middleware' => [ 'auth', config( 'laccuser.middleware.isVerifie
             //Cover
             Route::get( 'cover', [ 'as' => 'books.cover.create', 'uses' => 'BooksController@coverForm' ] );
             Route::post( 'cover', [ 'as' => 'books.cover.store', 'uses' => 'BooksController@coverStore' ] );
+            //Exports
+            Route::post( 'export', [ 'as' => 'books.export', 'uses' => 'BooksController@export' ] );
             //Chapters
             Route::get( 'chapters/{id}', [ 'as' => 'chapters.destroy', 'uses' => 'ChaptersController@destroy' ] );
             Route::get( 'chapters-detail/{id}', [ 'as' => 'chapters.detail', 'uses' => 'ChaptersController@detail' ] );

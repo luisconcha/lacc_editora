@@ -22,6 +22,11 @@ trait BookStorageTrait
         return config( "filesystems.disks.{$bookStorageDriver}.root" );
     }
 
+    public function getBookStorageAttribute()
+    {
+        return "{$this->disk}/{$this->id}";
+    }
+
     public function getCoverEbookNameAttribute()
     {
         return 'cover.jpg';
@@ -56,4 +61,20 @@ trait BookStorageTrait
     {
         return "{$this->pdf_template_storage}/{$this->cover_pdf_name}";
     }
+
+    public function getContentsStorageAttribute()
+    {
+        return "{$this->book_storage}/Contents";
+    }
+
+    public function getTemplateConfigFileAttribute()
+    {
+        return "{$this->disk}/template/config.yml";
+    }
+
+    public function getConfigFileAttribute()
+    {
+        return "{$this->book_storage}/config.yml";
+    }
+
 }
