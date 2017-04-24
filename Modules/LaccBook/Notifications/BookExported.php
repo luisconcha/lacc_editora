@@ -3,6 +3,7 @@
 namespace LaccBook\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\NexmoMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -41,7 +42,8 @@ class BookExported extends Notification
      */
     public function via( $notifiable )
     {
-        return [ 'mail' ];
+//        return [ 'mail', 'nexmo' ];
+        return [ 'nexmo' ];
     }
 
     /**
@@ -58,6 +60,13 @@ class BookExported extends Notification
             ->line( "Book {$this->book->title} has already been exported" )
             ->action( 'Download', route( 'books.download', [ 'id' => $this->book->id ] ) )
             ->line( 'Thank you for using our application!' );
+    }
+
+    public function toNexmo( $notifiable )
+    {
+        return ( new NexmoMessage() )
+            ->content( "Book {$this->book->title} has already been exported. Download"
+                . route( 'books.download', [ 'id' => $this->book->id ] ) );
     }
 
     /**

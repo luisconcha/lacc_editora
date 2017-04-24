@@ -91,4 +91,8 @@ class User extends Authenticatable
         return $this->roles->pluck( 'id' )->all();
     }
 
+    public function routeNotificationForNexmo()
+    {
+        return "5561992714398";
+    }
 }
