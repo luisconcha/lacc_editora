@@ -16,7 +16,8 @@
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode( [
-          'csrfToken' => csrf_token(),
+            'csrfToken' => csrf_token(),
+            'userId'    => Auth::check() ? Auth::user()->id : null
         ] ); ?>
     </script>
 </head>
@@ -24,88 +25,88 @@
 <div id="app">
     <?php
     $navbar = Navbar::withBrand( config( 'app.name' ), url( '/home' ) )->inverse();
-    if ( Auth::check() ) {
+    if( Auth::check() ) {
         $arrayLinks = array();
         //@see {$p->name}/{$p->resource_name} in Modules/LaccUser/Providers/AuthServiceProvider.php
         //'users-admin/list','roles-admin/list-roles', 'books-admin/list-books'
-        if ( Auth::user()->can( 'users-admin/list' ) ) {
+        if( Auth::user()->can( 'users-admin/list' ) ) {
             $arrayLinks[] = [
-              'User',
-              [
+                'User',
                 [
-                  'link'  => route( 'laccuser.users.index' ),
-                  'title' => 'User'
-                ],
-                [
-                  'link'  => route( 'laccuser.advanced.users.search' ),
-                  'title' => 'Advanced Search'
-                ],
-                [
-                  'link'  => route( 'laccuser.trashed.users.index' ),
-                  'title' => 'Users Trash'
+                    [
+                        'link'  => route( 'laccuser.users.index' ),
+                        'title' => 'User'
+                    ],
+                    [
+                        'link'  => route( 'laccuser.advanced.users.search' ),
+                        'title' => 'Advanced Search'
+                    ],
+                    [
+                        'link'  => route( 'laccuser.trashed.users.index' ),
+                        'title' => 'Users Trash'
+                    ]
                 ]
-              ]
             ];
         }
-        if ( Auth::user()->can( 'roles-admin/list-roles' ) ) {
+        if( Auth::user()->can( 'roles-admin/list-roles' ) ) {
             $arrayLinks[] = [
-              'Roles',
-              [
+                'Roles',
                 [
-                  'link'  => route( 'laccuser.role.roles.index' ),
-                  'title' => 'List of roles'
+                    [
+                        'link'  => route( 'laccuser.role.roles.index' ),
+                        'title' => 'List of roles'
+                    ]
                 ]
-              ]
             ];
         }
-        if ( Auth::user()->can( 'books-admin/list-books' ) ) {
+        if( Auth::user()->can( 'books-admin/list-books' ) ) {
             $arrayLinks[] = [
-              'Book',
-              [
+                'Book',
                 [
-                  'link'  => route( 'books.index' ),
-                  'title' => 'List of books'
-                ],
-                [
-                  'link'  => route( 'trashed.books.index' ),
-                  'title' => 'Books Trash'
+                    [
+                        'link'  => route( 'books.index' ),
+                        'title' => 'List of books'
+                    ],
+                    [
+                        'link'  => route( 'trashed.books.index' ),
+                        'title' => 'Books Trash'
+                    ]
                 ]
-              ]
             ];
         }
-        if ( Auth::user()->can( 'categories-admin/list-categories' ) ) {
+        if( Auth::user()->can( 'categories-admin/list-categories' ) ) {
             $arrayLinks[] = [
-              'Category',
-              [
+                'Category',
                 [
-                  'link'  => route( 'categories.index' ),
-                  'title' => 'List of Categories'
-                ],
-                [
-                  'link'  => route( 'trashed.categories.index' ),
-                  'title' => 'Categories Trash'
+                    [
+                        'link'  => route( 'categories.index' ),
+                        'title' => 'List of Categories'
+                    ],
+                    [
+                        'link'  => route( 'trashed.categories.index' ),
+                        'title' => 'Categories Trash'
+                    ]
                 ]
-              ]
             ];
         }
-        $links  = Navigation::links( $arrayLinks );
+        $links = Navigation::links( $arrayLinks );
         $logout = Navigation::links( [
-          [
-            Auth::user()->name,
             [
-              [
-                'link'           => url( '/logout' ),
-                'title'          => 'Logout',
-                'linkAttributes' => [
-                  'onClick' => "event.preventDefault();document.getElementById(\"logout-form\").submit();"
-                ]
-              ],
-              [
-                'link'  => route( 'laccuser.users.edit', [ 'id' => Auth::user()->id ] ),
-                'title' => 'Edit profile'
-              ]
-            ],
-          ]
+                Auth::user()->name,
+                [
+                    [
+                        'link'           => url( '/logout' ),
+                        'title'          => 'Logout',
+                        'linkAttributes' => [
+                            'onClick' => "event.preventDefault();document.getElementById(\"logout-form\").submit();"
+                        ]
+                    ],
+                    [
+                        'link'  => route( 'laccuser.users.edit', [ 'id' => Auth::user()->id ] ),
+                        'title' => 'Edit profile'
+                    ]
+                ],
+            ]
         ] )->right();
         $navbar->withContent( $links )->withContent( $logout );
     }

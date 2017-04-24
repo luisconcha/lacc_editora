@@ -69,13 +69,20 @@
                                 <strong>Cover</strong>
                             </a>
 
+                            {{--<a href="{{route('books.export',$book)}}"--}}
+                               {{--class="btn btn-primary btn-outline btn-xs"--}}
+                               {{--onclick="event.preventDefault();document.getElementById('export-form-{{ $book->id }}').submit();">--}}
+                                {{--<strong>Export</strong>--}}
+                            {{--</a>--}}
+                            {{--{!! Form::open(['route' => ['books.export', 'book' =>$book->id],'method'=>'POST', 'id' => "export-form-{$book->id}", 'style' => 'display:none']) !!}--}}
+                            {{--{!! Form::close() !!}--}}
+
+                            <?php $routeLinkExport = route( 'books.export', [ 'book' => $book->id ] ) ?>
                             <a href="{{route('books.export',$book)}}"
                                class="btn btn-primary btn-outline btn-xs"
-                               onclick="event.preventDefault();document.getElementById('export-form-{{ $book->id }}').submit();">
+                               onclick="event.preventDefault();exportBook('{!! $routeLinkExport !!}')">
                                 <strong>Export</strong>
                             </a>
-                            {!! Form::open(['route' => ['books.export', 'book' =>$book->id],'method'=>'POST', 'id' => "export-form-{$book->id}", 'style' => 'display:none']) !!}
-                            {!! Form::close() !!}
 
                             <a href="{{route('books.destroy',['id'=>$book->id])}}"
                                class="btn btn-danger btn-outline btn-xs">
@@ -93,8 +100,12 @@
 
 @endsection
 
-@section('scripts')
-    <script type="text/javascript">
-
-    </script>
-@endsection
+@push('scripts')
+<script type="text/javascript">
+    function exportBook( route ) {
+        window.$.post(route, function ( data ) {
+            alert('Processo de exportação de livro iniciado....')
+        });
+    }
+</script>
+@endpush

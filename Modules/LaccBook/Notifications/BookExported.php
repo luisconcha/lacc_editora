@@ -42,8 +42,9 @@ class BookExported extends Notification
      */
     public function via( $notifiable )
     {
-//        return [ 'mail', 'nexmo' ];
-        return [ 'nexmo' ];
+//        return [ 'mail', 'nexmo','broadcast' ];
+//        return [ 'nexmo' ];
+        return [ 'broadcast' ];
     }
 
     /**
@@ -78,7 +79,7 @@ class BookExported extends Notification
     public function toArray( $notifiable )
     {
         return [
-            //
+            'book' => $this->book->toArray()
         ];
     }
 }
