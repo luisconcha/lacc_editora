@@ -6,6 +6,7 @@ use LaccBook\Criteria\FindByAuthorCriteria;
 use LaccBook\Http\Requests\BookCoverRequest;
 use LaccBook\Http\Requests\BookRequest;
 use LaccBook\Models\Book;
+use LaccBook\Notifications\BookExported;
 use LaccBook\Pub\BookCoverUpload;
 use LaccBook\Pub\BookExport;
 use LaccBook\Repositories\BookRepository;
@@ -223,6 +224,8 @@ class Bookscontroller extends Controller
         $bookExport = app( BookExport::class );
         $bookExport->export( $book );
         $bookExport->compress( $book );
+
+        \Auth::user()->notify( new BookExported( \Auth::user(), $book ) );
 
         return redirect()->route( 'books.index' );
     }

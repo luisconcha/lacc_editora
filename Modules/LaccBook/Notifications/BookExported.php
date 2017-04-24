@@ -56,7 +56,7 @@ class BookExported extends Notification
             ->subject( 'Your book has been exported.' )
             ->greeting( "Hello, {$this->user->name}!" )
             ->line( "Book {$this->book->title} has already been exported" )
-            ->action( 'Download', route( 'books.download' ) )
+            ->action( 'Download', route( 'books.download', [ 'id' => $this->book->id ] ) )
             ->line( 'Thank you for using our application!' );
     }
 
