@@ -23,7 +23,6 @@
 
         </div>
 
-
         <div class="row table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -70,9 +69,9 @@
                             </a>
 
                             {{--<a href="{{route('books.export',$book)}}"--}}
-                               {{--class="btn btn-primary btn-outline btn-xs"--}}
-                               {{--onclick="event.preventDefault();document.getElementById('export-form-{{ $book->id }}').submit();">--}}
-                                {{--<strong>Export</strong>--}}
+                            {{--class="btn btn-primary btn-outline btn-xs"--}}
+                            {{--onclick="event.preventDefault();document.getElementById('export-form-{{ $book->id }}').submit();">--}}
+                            {{--<strong>Export</strong>--}}
                             {{--</a>--}}
                             {{--{!! Form::open(['route' => ['books.export', 'book' =>$book->id],'method'=>'POST', 'id' => "export-form-{$book->id}", 'style' => 'display:none']) !!}--}}
                             {{--{!! Form::close() !!}--}}
@@ -103,8 +102,15 @@
 @push('scripts')
 <script type="text/javascript">
     function exportBook( route ) {
-        window.$.post(route, function ( data ) {
-            alert('Processo de exportação de livro iniciado....')
+        window.$.ajax({
+            url    : route,
+            method : 'POST',
+            data   : {
+                _token: window.Laravel.csrfToken
+            },
+            success: function ( data ) {
+                window.$.notify({ message: "The book export process has started." }, { type: 'info' })
+            }
         });
     }
 </script>

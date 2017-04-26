@@ -8,6 +8,7 @@ window._ = require('lodash');
 
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
+require('bootstrap-notify');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -37,6 +38,8 @@ require('bootstrap-sass');
  */
 
 import Echo from "laravel-echo"
+
+window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
