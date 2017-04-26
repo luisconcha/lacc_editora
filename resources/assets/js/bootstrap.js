@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -37,9 +36,9 @@ require('bootstrap-sass');
  * allows your team to easily build robust real-time web applications.
  */
 
- import Echo from "laravel-echo"
+import Echo from "laravel-echo"
 
- window.Echo = new Echo({
-     broadcaster: 'pusher',
-     key: '8ff91c86436734021a99'
- });
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key        : '8ff91c86436734021a99'
+});

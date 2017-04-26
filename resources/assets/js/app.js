@@ -6,8 +6,8 @@
 
 require('./bootstrap');
 
-var bookNotiifcation = require('../js/vendor/book-notification')
-bookNotiifcation.init()
+var bookNotiifcation = require('../js/vendor/book-notification');
+bookNotiifcation.init();
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
