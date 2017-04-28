@@ -91,6 +91,10 @@ class BookExport
 
     public function compress( Book $book )
     {
+        if( !is_dir( $book->output_storage ) ) {
+            mkdir( $book->output_storage, 0775, true );
+        }
+        
         ExtendedZip::zipTree( $book->output_storage, $book->zip_file, ExtendedZip::CREATE );
     }
 }
