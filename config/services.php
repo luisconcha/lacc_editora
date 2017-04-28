@@ -35,7 +35,6 @@ return [
         'secret' => env( 'STRIPE_SECRET' ),
     ],
     'nexmo'  => [
-        'from'     => 'LACC',
         'key'      => env( 'NEXMO_KEY' ),
         'secret'   => env( 'NEXMO_SECRET' ),
         'sms_from' => config( 'app.name' ),

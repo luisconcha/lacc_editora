@@ -42,9 +42,7 @@ class BookExported extends Notification
      */
     public function via( $notifiable )
     {
-//        return [ 'mail', 'nexmo','broadcast' ];
-//        return [ 'nexmo' ];
-        return [ 'broadcast' ];
+        return [ 'mail', 'broadcast','nexmo' ];
     }
 
     /**
