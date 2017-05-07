@@ -23,14 +23,14 @@ class ExtendedZip extends ZipArchive
 
         while( $filename = readdir( $dir ) ) {
             // Discard . and ..
-            echo '<pre>'.__FILE__.': '.__LINE__.'<hr>';print_r($filename);echo'<hr></pre>';
+//            echo '<pre>'.__FILE__.': '.__LINE__.'<hr>';print_r($filename);echo'<hr></pre>';
             if( $filename == '.' || $filename == '..' ) {
                 continue;
             }
 
             // Proceed according to type
             $path = $dirname . '/' . $filename;
-            echo '<pre>'.__FILE__.': '.__LINE__.'<hr>';print_r($path);echo'<hr></pre>';exit;
+//            echo '<pre>'.__FILE__.': '.__LINE__.'<hr>';print_r($path);echo'<hr></pre>';exit;
             
             $localpath = $localname ? ( $localname . '/' . $filename ) : $filename;
 

@@ -63,7 +63,9 @@ class BookExported extends Notification
 
     public function toNexmo( $notifiable )
     {
-        return ( new NexmoMessage() )
+        $nexmoMessage = new NexmoMessage();
+        $nexmoMessage->from = config('app.name');
+        return ( $nexmoMessage )
             ->content( "Book {$this->book->title} has already been exported. Download"
                 . route( 'books.download', [ 'id' => $this->book->id ] ) );
     }
